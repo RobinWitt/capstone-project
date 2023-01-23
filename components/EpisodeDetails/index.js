@@ -11,6 +11,12 @@ const StyledArticle = styled.article`
   border-radius: 10px;
 `;
 
+const StyledImage = styled(Image)`
+  width: 90%;
+  height: auto;
+  align-self: center;
+`;
+
 export default function EpisodeDetails({ episode }) {
   // destructure episode
   const {
@@ -29,11 +35,11 @@ export default function EpisodeDetails({ episode }) {
   return (
     <StyledArticle>
       <h2>Folge {nummer}</h2>
-      <Image
+      <StyledImage
         src={links.cover}
         alt={`Folge ${nummer}, Die Drei Fragezeichen ${titel}`}
-        width={400}
-        height={400}
+        width={500}
+        height={500}
       />
       <p>Autor: {autor}</p>
       <p>Hörspielskript-Autor: {hörspielskriptautor}</p>
