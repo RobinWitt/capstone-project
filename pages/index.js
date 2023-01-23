@@ -15,18 +15,20 @@ export default function HomePage() {
     const { serie } = data;
     return (
       <>
-        <EpisodeList>
-          {serie.map(({ nummer, titel }) => {
-            return (
-              <EpisodeListItem
-                key={nummer}
-                nummer={nummer}
-                titel={titel}
-                href={`/episodes/${nummer}`}
-              />
-            );
-          })}
-        </EpisodeList>
+        <main>
+          <EpisodeList>
+            {serie.map(({ nummer, titel }) => {
+              return (
+                <EpisodeListItem
+                  key={nummer}
+                  nummer={nummer}
+                  titel={titel}
+                  href={`/episodes/${nummer}`}
+                />
+              );
+            })}
+          </EpisodeList>
+        </main>
       </>
     );
   }

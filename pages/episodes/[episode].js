@@ -24,6 +24,10 @@ export default function EpisodeDetailsPage() {
       .slice()
       .filter((folge) => folge.nummer === parseInt(episode));
 
-    return <EpisodeDetails episode={filteredEpisode} />;
+    return (
+      <main>
+        <EpisodeDetails episode={filteredEpisode} />
+      </main>
+    );
   }
 }

@@ -12,4 +12,9 @@ export default createGlobalStyle`
   body {
     font-family: system-ui;
   }
+
+  main {
+    margin-bottom: 5rem;
+  }
+
 `;
