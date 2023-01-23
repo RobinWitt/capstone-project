@@ -15,10 +15,11 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-      // {
-      //   protocol: "https",
-      //   hostname: "images.unsplash.com",
-      // },
+      {
+        protocol: "http",
+        hostname: "dreimetadaten.de",
+        pathname: "/data/Serie/**",
+      },
     ],
   },
 };
