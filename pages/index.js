@@ -1,5 +1,6 @@
-import EpisodeList from "@/components/Episode List";
-import EpisodeListItem from "@/components/Episode List Item";
+import EpisodeList from "@/components/EpisodeList";
+import EpisodeListItem from "@/components/EpisodeListItem";
+import Link from "next/link";
 import useSWR from "swr";
 
 const URL = "/serie.json";
@@ -17,6 +18,7 @@ export default function HomePage() {
         <header>
           <h1>Projekt Justus.Peter.Bob.</h1>
         </header>
+        <Link href="/episodes">Test Link</Link>
         <EpisodeList>
           {serie.map(({ nummer, titel }) => {
             return (
