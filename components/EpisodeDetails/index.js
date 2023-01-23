@@ -21,7 +21,7 @@ export default function EpisodeDetails({ episode }) {
     links,
   } = episode;
 
-  //refactor release date
+  //refactor release date string
   const splitDate = veröffentlichungsdatum.split("-");
   const newDate = splitDate[2] + "." + splitDate[1] + "." + splitDate[0];
 
