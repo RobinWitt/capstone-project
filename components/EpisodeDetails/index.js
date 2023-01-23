@@ -1,5 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import styled from "styled-components";
+import { ReturnIcon } from "../Icons/ReturnIcon";
 
 const StyledArticle = styled.article`
   display: flex;
@@ -18,6 +21,7 @@ const StyledImage = styled(Image)`
 `;
 
 export default function EpisodeDetails({ episode }) {
+  const router = useRouter();
   // destructure episode
   const {
     nummer,
@@ -34,6 +38,9 @@ export default function EpisodeDetails({ episode }) {
 
   return (
     <StyledArticle>
+      <button type="button" onClick={() => router.back()}>
+        <ReturnIcon />
+      </button>
       <h2>Folge {nummer}</h2>
       <StyledImage
         src={links.cover}

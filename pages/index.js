@@ -1,6 +1,5 @@
 import EpisodeList from "@/components/EpisodeList";
 import EpisodeListItem from "@/components/EpisodeListItem";
-import Link from "next/link";
 import useSWR from "swr";
 
 // this will change when using remote API

@@ -1,3 +1,4 @@
+import Navigation from "@/components/Navigation";
 import GlobalStyle from "@/styles";
 import Head from "next/head";
 import { SWRConfig } from "swr";
@@ -27,6 +28,7 @@ export default function App({ Component, pageProps }) {
       </Head>
       <SWRConfig value={{ fetcher }}>
         <Component {...pageProps} />
+        <Navigation />
       </SWRConfig>
     </>
   );
