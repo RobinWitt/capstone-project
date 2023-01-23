@@ -22,9 +22,12 @@ export default function HomePage() {
         <EpisodeList>
           {serie.map(({ nummer, titel }) => {
             return (
-              <Link key={nummer} href={`/episodes/${nummer}`}>
-                <EpisodeListItem>{`#${nummer} ...${titel}`}</EpisodeListItem>
-              </Link>
+              <EpisodeListItem
+                key={nummer}
+                nummer={nummer}
+                titel={titel}
+                href={`/episodes/${nummer}`}
+              />
             );
           })}
         </EpisodeList>
