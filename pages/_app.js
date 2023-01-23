@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "@/styles";
 import Head from "next/head";
@@ -24,9 +25,10 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <Head>
-        <title>Capstone Project</title>
+        <title>Projekt Justus.Peter.Bob.</title>
       </Head>
       <SWRConfig value={{ fetcher }}>
+        <Header />
         <Component {...pageProps} />
         <Navigation />
       </SWRConfig>

@@ -22,7 +22,6 @@ const StyledImage = styled(Image)`
 
 export default function EpisodeDetails({ episode }) {
   const router = useRouter();
-  // destructure episode
   const {
     nummer,
     titel,
@@ -32,7 +31,6 @@ export default function EpisodeDetails({ episode }) {
     links,
   } = episode;
 
-  //refactor release date string
   const splitDate = veröffentlichungsdatum.split("-");
   const newDate = splitDate[2] + "." + splitDate[1] + "." + splitDate[0];
 

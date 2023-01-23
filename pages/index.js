@@ -15,9 +15,6 @@ export default function HomePage() {
     const { serie } = data;
     return (
       <>
-        <header>
-          <h1>Projekt Justus.Peter.Bob.</h1>
-        </header>
         <EpisodeList>
           {serie.map(({ nummer, titel }) => {
             return (
