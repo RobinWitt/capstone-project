@@ -5,7 +5,7 @@ import useSWR from "swr";
 // this will change when using remote API
 const URL = "/serie.json";
 
-export default function EpisodeDetailPage() {
+export default function EpisodeDetailsPage() {
   // fetch data
   // this logic will change when using remote API
   const { data, error, isLoading } = useSWR(URL);
