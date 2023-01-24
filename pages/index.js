@@ -1,6 +1,5 @@
 import EpisodeList from "@/components/EpisodeList";
 import EpisodeListItem from "@/components/EpisodeListItem";
-import Link from "next/link";
 import useSWR from "swr";
 
 // this will change when using remote API
@@ -16,21 +15,20 @@ export default function HomePage() {
     const { serie } = data;
     return (
       <>
-        <header>
-          <h1>Projekt Justus.Peter.Bob.</h1>
-        </header>
-        <EpisodeList>
-          {serie.map(({ nummer, titel }) => {
-            return (
-              <EpisodeListItem
-                key={nummer}
-                nummer={nummer}
-                titel={titel}
-                href={`/episodes/${nummer}`}
-              />
-            );
-          })}
-        </EpisodeList>
+        <main>
+          <EpisodeList>
+            {serie.map(({ nummer, titel }) => {
+              return (
+                <EpisodeListItem
+                  key={nummer}
+                  nummer={nummer}
+                  titel={titel}
+                  href={`/episodes/${nummer}`}
+                />
+              );
+            })}
+          </EpisodeList>
+        </main>
       </>
     );
   }

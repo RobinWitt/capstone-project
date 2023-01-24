@@ -1,5 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import styled from "styled-components";
+import { ReturnIcon } from "../Icons/ReturnIcon";
 
 const StyledArticle = styled.article`
   display: flex;
@@ -18,7 +21,7 @@ const StyledImage = styled(Image)`
 `;
 
 export default function EpisodeDetails({ episode }) {
-  // destructure episode
+  const router = useRouter();
   const {
     nummer,
     titel,
@@ -28,12 +31,14 @@ export default function EpisodeDetails({ episode }) {
     links,
   } = episode;
 
-  //refactor release date string
   const splitDate = veröffentlichungsdatum.split("-");
   const newDate = splitDate[2] + "." + splitDate[1] + "." + splitDate[0];
 
   return (
     <StyledArticle>
+      <button type="button" onClick={() => router.back()}>
+        <ReturnIcon />
+      </button>
       <h2>Folge {nummer}</h2>
       <StyledImage
         src={links.cover}
