@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import styled from "styled-components";
 import { ReturnIcon } from "../Icons/ReturnIcon";
+import ChaptersBlock from "./ChaptersBlock";
+import DescriptionBlock from "./DescriptionBlock";
 
 const StyledArticle = styled.article`
   position: relative;
@@ -37,20 +38,12 @@ const StyledImage = styled(Image)`
   margin: 1rem;
 `;
 
-const StyledFoldButton = styled.button`
-  font-size: 1.2rem;
-  margin-top: 0.8rem;
-`;
-
 const StyledNoContentMessage = styled.p`
   margin-top: 0.8rem;
   color: lightgrey;
 `;
 
 export default function EpisodeDetails({ episode }) {
-  const [showDescription, setShowDescription] = useState(false);
-  const [showTracklist, setShowTracklist] = useState(false);
-
   const router = useRouter();
   const {
     nummer: number,
@@ -83,56 +76,14 @@ export default function EpisodeDetails({ episode }) {
       <p>Hörspielskript-Autor: {scriptauthor}</p>
       <p>Veröffentlichungsdatum: {formattedReleaseDate}</p>
       {description ? (
-        showDescription === true ? (
-          <>
-            <StyledFoldButton
-              type="button"
-              onClick={() => setShowDescription(!showDescription)}
-            >
-              Beschreibung schließen
-            </StyledFoldButton>
-            <p>{description}</p>
-          </>
-        ) : (
-          <StyledFoldButton
-            type="button"
-            onClick={() => setShowDescription(!showDescription)}
-          >
-            Beschreibung öffnen
-          </StyledFoldButton>
-        )
+        DescriptionBlock({ description })
       ) : (
         <StyledNoContentMessage>
           keine Beschreibung vorhanden
         </StyledNoContentMessage>
       )}
       {chapters ? (
-        showTracklist === true ? (
-          <>
-            <StyledFoldButton
-              type="button"
-              onClick={() => setShowTracklist(!showTracklist)}
-            >
-              Kapitelliste schließen
-            </StyledFoldButton>
-            <p>
-              {chapters?.map(({ titel: title }, index) => {
-                return (
-                  <p key={title}>
-                    {index + 1} - {title}
-                  </p>
-                );
-              })}
-            </p>
-          </>
-        ) : (
-          <StyledFoldButton
-            type="button"
-            onClick={() => setShowTracklist(!showTracklist)}
-          >
-            Kapitelliste öffnen
-          </StyledFoldButton>
-        )
+        ChaptersBlock({ chapters })
       ) : (
         <StyledNoContentMessage>
           keine Kapitelliste vorhanden
