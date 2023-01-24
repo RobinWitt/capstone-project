@@ -71,6 +71,13 @@ export default function EpisodeDetails({ episode }) {
           Beschreibung öffnen
         </button>
       )}
+      {kapitel?.map(({ titel }, index) => {
+        return (
+          <p key={titel}>
+            {index + 1} - {titel}
+          </p>
+        );
+      })}
     </StyledArticle>
   );
 }
