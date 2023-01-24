@@ -6,6 +6,10 @@ const StyledFoldButton = styled.button`
   margin-top: 0.8rem;
 `;
 
+const StyledDescriptionText = styled.p`
+  margin: 0.5rem;
+`;
+
 export default function DescriptionBlock({ description }) {
   const [showDescription, setShowDescription] = useState(false);
 
@@ -17,7 +21,7 @@ export default function DescriptionBlock({ description }) {
       >
         Beschreibung schließen
       </StyledFoldButton>
-      <p>{description}</p>
+      <StyledDescriptionText>{description}</StyledDescriptionText>
     </>
   ) : (
     <StyledFoldButton

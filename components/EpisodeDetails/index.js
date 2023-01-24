@@ -71,6 +71,7 @@ export default function EpisodeDetails({ episode }) {
         alt={`Folge ${number}, Die Drei Fragezeichen ${title}`}
         width={500}
         height={500}
+        priority
       />
       <p>Autor: {author}</p>
       <p>Hörspielskript-Autor: {scriptauthor}</p>

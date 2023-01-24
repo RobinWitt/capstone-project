@@ -6,6 +6,12 @@ const StyledFoldButton = styled.button`
   margin-top: 0.8rem;
 `;
 
+const StyledChaptersList = styled.ol`
+  list-style: decimal;
+  margin: 0.5rem;
+  margin-left: 1.5rem;
+`;
+
 export default function ChaptersBlock({ chapters }) {
   const [showTracklist, setShowTracklist] = useState(false);
 
@@ -17,15 +23,11 @@ export default function ChaptersBlock({ chapters }) {
       >
         Kapitelliste schließen
       </StyledFoldButton>
-      <p>
-        {chapters?.map(({ titel: title }, index) => {
-          return (
-            <p key={title}>
-              {index + 1} - {title}
-            </p>
-          );
+      <StyledChaptersList>
+        {chapters?.map(({ titel: title }) => {
+          return <li key={title}>{title}</li>;
         })}
-      </p>
+      </StyledChaptersList>
     </>
   ) : (
     <StyledFoldButton
