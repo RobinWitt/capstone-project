@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import styled from "styled-components";
 import { ReturnIcon } from "../Icons/ReturnIcon";
 
@@ -21,13 +22,16 @@ const StyledImage = styled(Image)`
 `;
 
 export default function EpisodeDetails({ episode }) {
+  const [showDescription, setShowDescription] = useState(false);
   const router = useRouter();
   const {
     nummer,
     titel,
     autor,
     hörspielskriptautor,
+    beschreibung,
     veröffentlichungsdatum,
+    kapitel,
     links,
   } = episode;
 
@@ -49,6 +53,24 @@ export default function EpisodeDetails({ episode }) {
       <p>Autor: {autor}</p>
       <p>Hörspielskript-Autor: {hörspielskriptautor}</p>
       <p>Veröffentlichungsdatum: {newDate}</p>
+      {showDescription === true ? (
+        <>
+          <button
+            type="button"
+            onClick={() => setShowDescription(!showDescription)}
+          >
+            Beschreibung schließen
+          </button>
+          <p>{beschreibung}</p>
+        </>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setShowDescription(!showDescription)}
+        >
+          Beschreibung öffnen
+        </button>
+      )}
     </StyledArticle>
   );
 }
