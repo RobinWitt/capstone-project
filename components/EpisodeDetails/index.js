@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import { ReturnIcon } from "../Icons/ReturnIcon";
 
 const StyledArticle = styled.article`
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: whitesmoke;
@@ -15,14 +15,41 @@ const StyledArticle = styled.article`
   border-radius: 10px;
 `;
 
+const StyledDetailsTitle = styled.h2`
+  text-align: right;
+  font-size: 2rem;
+`;
+
+const StyledReturnButton = styled.button`
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  border: none;
+  background: none;
+  width: fit-content;
+  height: fit-content;
+`;
+
 const StyledImage = styled(Image)`
-  width: 90%;
+  width: 100%;
   height: auto;
   align-self: center;
+  margin: 1rem;
+`;
+
+const StyledFoldButton = styled.button`
+  font-size: 1.2rem;
+  margin-top: 0.8rem;
+`;
+
+const StyledNoContentMessage = styled.p`
+  color: lightgrey;
 `;
 
 export default function EpisodeDetails({ episode }) {
   const [showDescription, setShowDescription] = useState(false);
+  const [showTracklist, setShowTracklist] = useState(false);
+
   const router = useRouter();
   const {
     nummer,
@@ -40,10 +67,10 @@ export default function EpisodeDetails({ episode }) {
 
   return (
     <StyledArticle>
-      <button type="button" onClick={() => router.back()}>
+      <StyledReturnButton type="button" onClick={() => router.back()}>
         <ReturnIcon />
-      </button>
-      <h2>Folge {nummer}</h2>
+      </StyledReturnButton>
+      <StyledDetailsTitle>Folge {nummer}</StyledDetailsTitle>
       <StyledImage
         src={links.cover}
         alt={`Folge ${nummer}, Die Drei Fragezeichen ${titel}`}
@@ -53,31 +80,62 @@ export default function EpisodeDetails({ episode }) {
       <p>Autor: {autor}</p>
       <p>Hörspielskript-Autor: {hörspielskriptautor}</p>
       <p>Veröffentlichungsdatum: {newDate}</p>
-      {showDescription === true ? (
-        <>
-          <button
+      {beschreibung ? (
+        showDescription === true ? (
+          <>
+            <StyledFoldButton
+              type="button"
+              onClick={() => setShowDescription(!showDescription)}
+            >
+              Beschreibung schließen
+            </StyledFoldButton>
+            <p>{beschreibung}</p>
+          </>
+        ) : (
+          <StyledFoldButton
             type="button"
             onClick={() => setShowDescription(!showDescription)}
           >
-            Beschreibung schließen
-          </button>
-          <p>{beschreibung}</p>
-        </>
+            Beschreibung öffnen
+          </StyledFoldButton>
+        )
       ) : (
-        <button
-          type="button"
-          onClick={() => setShowDescription(!showDescription)}
-        >
-          Beschreibung öffnen
-        </button>
+        <StyledNoContentMessage>
+          keine Beschreibung vorhanden
+        </StyledNoContentMessage>
       )}
-      {kapitel?.map(({ titel }, index) => {
-        return (
-          <p key={titel}>
-            {index + 1} - {titel}
-          </p>
-        );
-      })}
+      {kapitel ? (
+        showTracklist === true ? (
+          <>
+            <StyledFoldButton
+              type="button"
+              onClick={() => setShowTracklist(!showTracklist)}
+            >
+              Kapitelliste schließen
+            </StyledFoldButton>
+            <p>
+              {kapitel?.map(({ titel }, index) => {
+                return (
+                  <p key={titel}>
+                    {index + 1} - {titel}
+                  </p>
+                );
+              })}
+            </p>
+          </>
+        ) : (
+          <StyledFoldButton
+            type="button"
+            onClick={() => setShowTracklist(!showTracklist)}
+          >
+            Kapitelliste öffnen
+          </StyledFoldButton>
+        )
+      ) : (
+        <StyledNoContentMessage>
+          keine Kapitelliste vorhanden
+        </StyledNoContentMessage>
+      )}
     </StyledArticle>
   );
 }
