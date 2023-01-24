@@ -62,7 +62,7 @@ export default function EpisodeDetails({ episode }) {
 
   return (
     <StyledArticle>
-      <StyledReturnButton type="button" onClick={() => router.back()}>
+      <StyledReturnButton type="button" onClick={router.back}>
         <ReturnIcon />
       </StyledReturnButton>
       <StyledDetailsTitle>Folge {number}</StyledDetailsTitle>
