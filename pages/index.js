@@ -17,13 +17,13 @@ export default function HomePage() {
       <>
         <main>
           <EpisodeList>
-            {serie.map(({ nummer, titel }) => {
+            {serie.map(({ nummer: number, titel: title }) => {
               return (
                 <EpisodeListItem
-                  key={nummer}
-                  nummer={nummer}
-                  titel={titel}
-                  href={`/episodes/${nummer}`}
+                  key={number}
+                  nummer={number}
+                  titel={title}
+                  href={`/episodes/${number}`}
                 />
               );
             })}

@@ -53,35 +53,36 @@ export default function EpisodeDetails({ episode }) {
 
   const router = useRouter();
   const {
-    nummer,
-    titel,
-    autor,
-    hörspielskriptautor,
-    beschreibung,
-    veröffentlichungsdatum,
-    kapitel,
+    nummer: number,
+    titel: title,
+    autor: author,
+    hörspielskriptautor: scriptauthor,
+    beschreibung: description,
+    veröffentlichungsdatum: releasedate,
+    kapitel: chapters,
     links,
   } = episode;
 
-  const splitDate = veröffentlichungsdatum.split("-");
-  const newDate = splitDate[2] + "." + splitDate[1] + "." + splitDate[0];
+  const splitDate = releasedate.split("-");
+  const formattedReleaseDate =
+    splitDate[2] + "." + splitDate[1] + "." + splitDate[0];
 
   return (
     <StyledArticle>
       <StyledReturnButton type="button" onClick={() => router.back()}>
         <ReturnIcon />
       </StyledReturnButton>
-      <StyledDetailsTitle>Folge {nummer}</StyledDetailsTitle>
+      <StyledDetailsTitle>Folge {number}</StyledDetailsTitle>
       <StyledImage
         src={links.cover}
-        alt={`Folge ${nummer}, Die Drei Fragezeichen ${titel}`}
+        alt={`Folge ${number}, Die Drei Fragezeichen ${title}`}
         width={500}
         height={500}
       />
-      <p>Autor: {autor}</p>
-      <p>Hörspielskript-Autor: {hörspielskriptautor}</p>
-      <p>Veröffentlichungsdatum: {newDate}</p>
-      {beschreibung ? (
+      <p>Autor: {author}</p>
+      <p>Hörspielskript-Autor: {scriptauthor}</p>
+      <p>Veröffentlichungsdatum: {formattedReleaseDate}</p>
+      {description ? (
         showDescription === true ? (
           <>
             <StyledFoldButton
@@ -90,7 +91,7 @@ export default function EpisodeDetails({ episode }) {
             >
               Beschreibung schließen
             </StyledFoldButton>
-            <p>{beschreibung}</p>
+            <p>{description}</p>
           </>
         ) : (
           <StyledFoldButton
@@ -105,7 +106,7 @@ export default function EpisodeDetails({ episode }) {
           keine Beschreibung vorhanden
         </StyledNoContentMessage>
       )}
-      {kapitel ? (
+      {chapters ? (
         showTracklist === true ? (
           <>
             <StyledFoldButton
@@ -115,10 +116,10 @@ export default function EpisodeDetails({ episode }) {
               Kapitelliste schließen
             </StyledFoldButton>
             <p>
-              {kapitel?.map(({ titel }, index) => {
+              {chapters?.map(({ titel: title }, index) => {
                 return (
-                  <p key={titel}>
-                    {index + 1} - {titel}
+                  <p key={title}>
+                    {index + 1} - {title}
                   </p>
                 );
               })}

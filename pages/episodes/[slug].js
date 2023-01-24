@@ -11,7 +11,7 @@ export default function EpisodeDetailsPage() {
   const { data, error, isLoading } = useSWR(URL);
   // get episode slug
   const router = useRouter();
-  const { episode } = router.query;
+  const { slug } = router.query;
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
@@ -22,7 +22,7 @@ export default function EpisodeDetailsPage() {
     // this logic will change when using remote API
     const [filteredEpisode] = serie
       .slice()
-      .filter((folge) => folge.nummer === parseInt(episode));
+      .filter((episode) => episode.nummer === parseInt(slug));
 
     return (
       <main>
