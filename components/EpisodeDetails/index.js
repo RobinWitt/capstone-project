@@ -43,6 +43,7 @@ const StyledFoldButton = styled.button`
 `;
 
 const StyledNoContentMessage = styled.p`
+  margin-top: 0.8rem;
   color: lightgrey;
 `;
 
