@@ -29,6 +29,7 @@ const StyledReturnButton = styled.button`
   background: none;
   width: fit-content;
   height: fit-content;
+  color: darkgreen;
 `;
 
 const StyledImage = styled(Image)`

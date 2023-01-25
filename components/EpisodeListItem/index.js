@@ -6,21 +6,24 @@ const StyledListItem = styled.li`
   margin: 0.5rem;
 `;
 
-const StyledLink = styled(Link)`
+const StyledEpisodeLink = styled(Link)`
   display: flex;
   padding: 0.5rem;
   width: 100%;
-  border: 1px solid;
+  border: 2px solid;
   border-radius: 5px;
+  text-decoration: none;
+  color: darkgreen;
 `;
 
 export default function EpisodeListItem({ nummer, titel, href }) {
   return (
     <StyledListItem>
-      <StyledLink href={href}>
-        <p>#{nummer}</p>
-        <p>...{titel}</p>
-      </StyledLink>
+      <StyledEpisodeLink href={href}>
+        <p>
+          #{nummer} ...{titel}
+        </p>
+      </StyledEpisodeLink>
     </StyledListItem>
   );
 }

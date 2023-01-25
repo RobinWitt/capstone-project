@@ -14,9 +14,9 @@ export default function EpisodeDetailsPage() {
   const { slug } = router.query;
 
   if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
+  if (!slug || isLoading) return <div>loading...</div>;
 
-  if (router.isReady && data) {
+  if (data) {
     const { serie } = data;
 
     // this logic will change when using remote API
@@ -27,7 +27,7 @@ export default function EpisodeDetailsPage() {
     if (!filteredEpisode) {
       return (
         <main>
-          <p>Hoppla, diese Folge scheint es nicht zu geben.</p>
+          <h2>Hoppla, diese Folge scheint es nicht zu geben.</h2>
         </main>
       );
     }
