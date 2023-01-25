@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { ReturnIcon } from "../Icons/ReturnIcon";
+import SVGIcon from "../Icons";
 import ChaptersBlock from "./ChaptersBlock";
 import DescriptionBlock from "./DescriptionBlock";
 
-const StyledArticle = styled.article`
+const StyledDetailsArticle = styled.article`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -27,9 +27,6 @@ const StyledReturnButton = styled.button`
   left: 0.5rem;
   border: none;
   background: none;
-  width: fit-content;
-  height: fit-content;
-  color: darkgreen;
 `;
 
 const StyledImage = styled(Image)`
@@ -62,9 +59,9 @@ export default function EpisodeDetails({ episode }) {
     splitDate[2] + "." + splitDate[1] + "." + splitDate[0];
 
   return (
-    <StyledArticle>
+    <StyledDetailsArticle>
       <StyledReturnButton type="button" onClick={router.back}>
-        <ReturnIcon />
+        <SVGIcon variant="returnIcon" width="50px" color="darkgreen" />
       </StyledReturnButton>
       <StyledDetailsTitle>Folge {number}</StyledDetailsTitle>
       <StyledImage
@@ -91,6 +88,6 @@ export default function EpisodeDetails({ episode }) {
           keine Kapitelliste vorhanden
         </StyledNoContentMessage>
       )}
-    </StyledArticle>
+    </StyledDetailsArticle>
   );
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { HomeIconEmpty } from "../Icons/HomeIcon";
+import SVGIcon from "../Icons";
 
 const StyledNav = styled.nav`
   position: fixed;
@@ -18,7 +18,7 @@ export default function Navigation() {
   return (
     <StyledNav>
       <Link href="/">
-        <HomeIconEmpty />
+        <SVGIcon variant="homeEmpty" width="50px" color="darkgreen" />
       </Link>
     </StyledNav>
   );
