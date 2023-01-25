@@ -1,3 +1,0 @@
-export default function handleFavorites(favorites, number) {
-  return favorites.includes(number);
-}

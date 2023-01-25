@@ -1,48 +1,14 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import styled from "styled-components";
-import SVGIcon from "../Icons";
+import EpisodeDetailsHeader from "./EpisodeDetailsHeader";
 import ChaptersBlock from "./ChaptersBlock";
 import DescriptionBlock from "./DescriptionBlock";
-
-const StyledDetailsArticle = styled.article`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background-color: whitesmoke;
-  margin: 1rem;
-  padding: 1rem;
-  border: 2px solid;
-  border-radius: 10px;
-`;
-
-const StyledDetailsTitle = styled.h2`
-  text-align: right;
-  font-size: 2rem;
-`;
-
-const StyledReturnButton = styled.button`
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  border: none;
-  background: none;
-`;
-
-const StyledImage = styled(Image)`
-  width: 100%;
-  height: auto;
-  align-self: center;
-  margin: 1rem;
-`;
-
-const StyledNoContentMessage = styled.p`
-  margin-top: 0.8rem;
-  color: lightgrey;
-`;
+import {
+  EpisodeDetailsArticle,
+  EpisodeImage,
+  EpisodeFacts,
+  NoContentMessage,
+} from "./EpisodeDetails.styled";
 
 export default function EpisodeDetails({ episode }) {
-  const router = useRouter();
   const {
     nummer: number,
     titel: title,
@@ -59,35 +25,30 @@ export default function EpisodeDetails({ episode }) {
     splitDate[2] + "." + splitDate[1] + "." + splitDate[0];
 
   return (
-    <StyledDetailsArticle>
-      <StyledReturnButton type="button" onClick={router.back}>
-        <SVGIcon variant="returnIcon" width="50px" color="darkgreen" />
-      </StyledReturnButton>
-      <StyledDetailsTitle>Folge {number}</StyledDetailsTitle>
-      <StyledImage
-        src={links.cover}
+    <EpisodeDetailsArticle>
+      <EpisodeDetailsHeader episodeNumber={number} />
+      <EpisodeImage
+        src={links.cover_kosmos}
         alt={`Folge ${number}, Die Drei Fragezeichen ${title}`}
         width={500}
         height={500}
         priority
       />
-      <p>Autor: {author}</p>
-      <p>Hörspielskript-Autor: {scriptauthor}</p>
-      <p>Veröffentlichungsdatum: {formattedReleaseDate}</p>
+      <EpisodeFacts>Autor: {author}</EpisodeFacts>
+      <EpisodeFacts>Hörspielskript-Autor: {scriptauthor}</EpisodeFacts>
+      <EpisodeFacts>
+        Veröffentlichungsdatum: {formattedReleaseDate}
+      </EpisodeFacts>
       {description ? (
         DescriptionBlock({ description })
       ) : (
-        <StyledNoContentMessage>
-          keine Beschreibung vorhanden
-        </StyledNoContentMessage>
+        <NoContentMessage>keine Beschreibung vorhanden</NoContentMessage>
       )}
       {chapters ? (
         ChaptersBlock({ chapters })
       ) : (
-        <StyledNoContentMessage>
-          keine Kapitelliste vorhanden
-        </StyledNoContentMessage>
+        <NoContentMessage>keine Kapitelliste vorhanden</NoContentMessage>
       )}
-    </StyledDetailsArticle>
+    </EpisodeDetailsArticle>
   );
 }
