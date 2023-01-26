@@ -20,6 +20,11 @@ const nextConfig = {
         hostname: "dreimetadaten.de",
         pathname: "/data/Serie/**",
       },
+      {
+        protocol: "https",
+        hostname: "s3.eu-central-1.amazonaws.com",
+        pathname: "/kosmos.de/media/image/**",
+      },
     ],
   },
 };

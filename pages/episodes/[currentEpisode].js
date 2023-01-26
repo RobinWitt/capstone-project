@@ -9,25 +9,25 @@ export default function EpisodeDetailsPage() {
   // fetch data
   // this logic will change when using remote API
   const { data, error, isLoading } = useSWR(URL);
-  // get episode slug
+
   const router = useRouter();
-  const { slug } = router.query;
+  const { currentEpisode } = router.query;
 
   if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
+  if (!currentEpisode || isLoading) return <div>loading...</div>;
 
-  if (router.isReady && data) {
+  if (data) {
     const { serie } = data;
 
     // this logic will change when using remote API
     const [filteredEpisode] = serie.filter(
-      (episode) => episode.nummer === parseInt(slug)
+      (episode) => episode.nummer === parseInt(currentEpisode)
     );
 
     if (!filteredEpisode) {
       return (
         <main>
-          <p>Hoppla, diese Folge scheint es nicht zu geben.</p>
+          <h2>Hoppla, diese Folge scheint es nicht zu geben.</h2>
         </main>
       );
     }

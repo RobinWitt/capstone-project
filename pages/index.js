@@ -21,8 +21,8 @@ export default function HomePage() {
               return (
                 <EpisodeListItem
                   key={number}
-                  nummer={number}
-                  titel={title}
+                  episodeNumber={number}
+                  title={title}
                   href={`/episodes/${number}`}
                 />
               );

@@ -4,6 +4,7 @@ import styled from "styled-components";
 const StyledFoldButton = styled.button`
   font-size: 1.2rem;
   margin-top: 0.8rem;
+  color: darkgreen;
 `;
 
 const StyledDescriptionText = styled.p`
