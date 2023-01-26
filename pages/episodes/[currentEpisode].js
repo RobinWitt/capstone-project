@@ -3,12 +3,9 @@ import PartDetails from "@/components/EpisodeDetails/PartDetails";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-// this will change when using remote API
 const URL = "/serie.json";
 
 export default function EpisodeDetailsPage() {
-  // fetch data
-  // this logic will change when using remote API
   const { data, error, isLoading } = useSWR(URL);
 
   const router = useRouter();
@@ -20,7 +17,6 @@ export default function EpisodeDetailsPage() {
   if (data) {
     const { serie } = data;
 
-    // this logic will change when using remote API
     const [filteredEpisode] = serie.filter(
       (episode) => episode.nummer === parseInt(currentEpisode)
     );

@@ -4,7 +4,6 @@ import useSWR from "swr";
 import { useAtom } from "jotai";
 import { initialFavorites } from "@/components/Favorites/initialFavorites";
 
-// this will change when using remote API
 const URL = "/serie.json";
 
 export default function FavoritesPage() {
@@ -22,13 +21,14 @@ export default function FavoritesPage() {
         <main>
           <h2>Favoriten</h2>
           <EpisodeList>
-            {serie.map(({ nummer: number, titel: title }) => {
+            {serie.map(({ nummer: number, titel: title, teile: parts }) => {
               if (favorites.includes(number))
                 return (
                   <EpisodeListItem
                     key={number}
                     episodeNumber={number}
                     title={title}
+                    parts={parts}
                     href={`/episodes/${number}`}
                   />
                 );

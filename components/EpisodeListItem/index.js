@@ -31,7 +31,7 @@ const FavButton = styled.button`
   color: darkgreen;
 `;
 
-export default function EpisodeListItem({ episodeNumber, title, href }) {
+export default function EpisodeListItem({ episodeNumber, title, href, parts }) {
   const [favorites, setFavorites] = useAtom(initialFavorites);
   const isFaved = checkFavorites(favorites, episodeNumber);
 
@@ -47,7 +47,7 @@ export default function EpisodeListItem({ episodeNumber, title, href }) {
     <StyledListItem>
       <StyledEpisodeLink href={href}>
         <p>
-          #{episodeNumber} ...{title}
+          #{episodeNumber} ...{title} {parts ? "(Spezialfolge)" : ""}
         </p>
       </StyledEpisodeLink>
       <FavButton type="button" onClick={handleFavorites}>

@@ -66,7 +66,9 @@ export default function EpisodeDetails({ episode }) {
       {author ? (
         <EpisodeFacts>Autor: {author}</EpisodeFacts>
       ) : (
-        <NoContentMessage>kein Autor angegeben</NoContentMessage>
+        <NoContentMessage>
+          {parts ? "" : "kein Autor angegeben"}
+        </NoContentMessage>
       )}
       {scriptauthor ? (
         <EpisodeFacts>Hörspielskript-Autor: {scriptauthor}</EpisodeFacts>
@@ -91,11 +93,13 @@ export default function EpisodeDetails({ episode }) {
       {chapters ? (
         ChaptersBlock({ chapters })
       ) : (
-        <NoContentMessage>keine Kapitelliste vorhanden</NoContentMessage>
+        <NoContentMessage>
+          {parts ? "" : "keine Kapitelliste vorhanden"}
+        </NoContentMessage>
       )}
       {parts
         ? parts.map((part) => {
-            return <PartDetails key={part} part={part} />;
+            return <PartDetails key={part.buchstabe} part={part} />;
           })
         : ""}
     </EpisodeDetailsArticle>

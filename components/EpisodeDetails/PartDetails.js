@@ -1,8 +1,6 @@
-import EpisodeDetailsHeader from "./EpisodeDetailsHeader";
-import ChaptersBlock from "./ChaptersBlock";
 import DescriptionBlock from "./DescriptionBlock";
+import ChaptersBlock from "./ChaptersBlock";
 import {
-  EpisodeDetailsArticle,
   EpisodeFacts,
   NoContentMessage,
   Special,
@@ -10,7 +8,6 @@ import {
 
 export default function PartDetails({ part }) {
   const {
-    teilNummer: number,
     buchstabe: title,
     autor: author,
     beschreibung: description,
