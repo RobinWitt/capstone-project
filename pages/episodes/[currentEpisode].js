@@ -1,4 +1,5 @@
 import EpisodeDetails from "@/components/EpisodeDetails";
+import PartDetails from "@/components/EpisodeDetails/PartDetails";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 

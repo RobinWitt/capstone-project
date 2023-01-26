@@ -18,6 +18,10 @@ export const EpisodeImage = styled(Image)`
   margin: 1rem;
 `;
 
+export const Special = styled.h3`
+  align-self: center;
+`;
+
 export const EpisodeFacts = styled.p`
   margin-top: 0.5rem;
 `;

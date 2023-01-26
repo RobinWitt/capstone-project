@@ -6,7 +6,9 @@ import {
   EpisodeImage,
   EpisodeFacts,
   NoContentMessage,
+  Special,
 } from "./EpisodeDetails.styled";
+import PartDetails from "./PartDetails";
 
 export default function EpisodeDetails({ episode }) {
   const {
@@ -18,6 +20,7 @@ export default function EpisodeDetails({ episode }) {
     veröffentlichungsdatum: releasedate,
     kapitel: chapters,
     links,
+    teile: parts,
   } = episode;
 
   function getCoverURL() {
@@ -60,7 +63,6 @@ export default function EpisodeDetails({ episode }) {
       ) : (
         <NoContentMessage>kein Artwork vorhanden</NoContentMessage>
       )}
-
       {author ? (
         <EpisodeFacts>Autor: {author}</EpisodeFacts>
       ) : (
@@ -91,6 +93,11 @@ export default function EpisodeDetails({ episode }) {
       ) : (
         <NoContentMessage>keine Kapitelliste vorhanden</NoContentMessage>
       )}
+      {parts
+        ? parts.map((part) => {
+            return <PartDetails key={part} part={part} />;
+          })
+        : ""}
     </EpisodeDetailsArticle>
   );
 }
