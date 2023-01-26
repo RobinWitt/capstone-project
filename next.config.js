@@ -25,6 +25,11 @@ const nextConfig = {
         hostname: "s3.eu-central-1.amazonaws.com",
         pathname: "/kosmos.de/media/image/**",
       },
+      {
+        protocol: "http",
+        hostname: "a1.mzstatic.com",
+        pathname: "/**",
+      },
     ],
   },
 };

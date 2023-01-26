@@ -24,5 +24,5 @@ export const EpisodeFacts = styled.p`
 
 export const NoContentMessage = styled.p`
   margin-top: 0.8rem;
-  color: lightgrey;
+  color: grey;
 `;
