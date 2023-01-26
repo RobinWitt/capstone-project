@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
+import { useRouter } from "next/router";
 
 const StyledNav = styled.nav`
   position: fixed;
@@ -8,17 +9,33 @@ const StyledNav = styled.nav`
   width: 100%;
   padding: 0.5rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background-color: lightgrey;
   border: 2px solid;
 `;
 
 export default function Navigation() {
+  const router = useRouter();
+  const currentPage = router.pathname;
+
   return (
     <StyledNav>
       <Link href="/">
-        <SVGIcon variant="homeEmpty" width="50px" color="darkgreen" />
+        <SVGIcon
+          variant={currentPage === "/" ? "homeFilled" : "homeEmpty"}
+          width="50px"
+          color="darkgreen"
+        />
+      </Link>
+      <Link href="/favorites">
+        <SVGIcon
+          variant={
+            currentPage === "/favorites" ? "favoriteFilled" : "favoriteEmpty"
+          }
+          width="50px"
+          color="darkgreen"
+        />
       </Link>
     </StyledNav>
   );

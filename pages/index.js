@@ -16,6 +16,7 @@ export default function HomePage() {
     return (
       <>
         <main>
+          <h2>Alle Folgen</h2>
           <EpisodeList>
             {serie.map(({ nummer: number, titel: title }) => {
               return (
