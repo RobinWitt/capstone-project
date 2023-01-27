@@ -2,7 +2,6 @@ import EpisodeList from "@/components/EpisodeList";
 import EpisodeListItem from "@/components/EpisodeListItem";
 import useSWR from "swr";
 
-// this will change when using remote API
 const URL = "/serie.json";
 
 export default function HomePage() {
@@ -16,13 +15,15 @@ export default function HomePage() {
     return (
       <>
         <main>
+          <h2>Alle Folgen</h2>
           <EpisodeList>
-            {serie.map(({ nummer: number, titel: title }) => {
+            {serie.map(({ nummer: number, titel: title, teile: parts }) => {
               return (
                 <EpisodeListItem
                   key={number}
                   episodeNumber={number}
                   title={title}
+                  parts={parts}
                   href={`/episodes/${number}`}
                 />
               );
