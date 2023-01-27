@@ -6,7 +6,6 @@ import {
   EpisodeImage,
   EpisodeFacts,
   NoContentMessage,
-  Special,
 } from "./EpisodeDetails.styled";
 import PartDetails from "./PartDetails";
 
