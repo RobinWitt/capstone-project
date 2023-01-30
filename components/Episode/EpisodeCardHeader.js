@@ -2,7 +2,7 @@ import SVGIcon from "../Icons";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { initialFavorites } from "@/components/Favoring/initialFavorites";
-import checkFavorites from "@/components/Favoring/favoriteCheck";
+import { checkFavorites } from "@/components/Favoring/favoriteCheck";
 import { EpisodeHeader, EpisodeNavButton } from "./Episode.styled";
 
 export default function EpisodeCardHeader({ episodeNumber }) {

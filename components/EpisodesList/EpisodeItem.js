@@ -17,7 +17,8 @@ export default function EpisodeListItem({
     <StyledListItem>
       <StyledEpisodeLink href={href}>
         <p>
-          #{episodeNumber} ...{title} {parts ? "(Spezialfolge)" : ""}
+          #{episodeNumber} ...{title}{" "}
+          {parts?.length > 0 ? "(Spezialfolge)" : ""}
         </p>
       </StyledEpisodeLink>
       <FavButton type="button" onClick={onHandleFavorites}>

@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const EpisodeSchema = new Schema({
-  nummer: { Number, required: true },
-  titel: { String, required: true },
+const episodeSchema = new Schema({
+  _id: { type: String, required: true },
+  nummer: { type: Number, required: true },
+  titel: { type: String, required: true },
   autor: String,
   hörspielskriptautor: String,
   beschreibung: String,
@@ -30,6 +31,6 @@ const EpisodeSchema = new Schema({
 });
 
 const Episode =
-  mongoose.models.Episode || mongoose.model("Episode", EpisodeSchema);
+  mongoose.models.Episode || mongoose.model("Episode", episodeSchema);
 
 export default Episode;
