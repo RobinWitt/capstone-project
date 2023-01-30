@@ -1,12 +1,8 @@
-import DescriptionBlock from "./DescriptionBlock";
-import ChaptersBlock from "./ChaptersBlock";
-import {
-  EpisodeFacts,
-  NoContentMessage,
-  Special,
-} from "./EpisodeDetails.styled";
+import EpisodeDescription from "./EpisodeDescription";
+import Chapters from "./Chapters";
+import { EpisodeFacts, NoContentMessage, PartsHeader } from "./Episode.styled";
 
-export default function PartDetails({ part }) {
+export default function Parts({ part }) {
   const {
     buchstabe: title,
     autor: author,
@@ -16,15 +12,15 @@ export default function PartDetails({ part }) {
 
   return (
     <>
-      <Special>Part: {title}</Special>
+      <PartsHeader>Part: {title}</PartsHeader>
       {author ? <EpisodeFacts>Autor: {author}</EpisodeFacts> : ""}
       {description ? (
-        DescriptionBlock({ description })
+        <EpisodeDescription description={description} />
       ) : (
         <NoContentMessage>keine Beschreibung vorhanden</NoContentMessage>
       )}
       {chapters ? (
-        ChaptersBlock({ chapters })
+        <Chapters chapters={chapters} />
       ) : (
         <NoContentMessage>keine Kapitelliste vorhanden</NoContentMessage>
       )}

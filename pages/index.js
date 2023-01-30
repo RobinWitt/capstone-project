@@ -1,11 +1,27 @@
-import EpisodeList from "@/components/EpisodeList";
-import EpisodeListItem from "@/components/EpisodeListItem";
+import EpisodesList from "@/components/EpisodesList/EpisodesList";
+import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
 import useSWR from "swr";
+import { useAtom } from "jotai";
+import {
+  initialFavorites,
+  useFavorites,
+} from "@/components/Favoring/initialFavorites";
+import checkFavorites from "@/components/Favoring/favoriteCheck";
 
 const URL = "/serie.json";
 
 export default function HomePage() {
   const { data, error, isLoading } = useSWR(URL);
+  const [favorites, setFavorites] = useAtom(initialFavorites);
+
+  function handleFavorites(number) {
+    const isFaved = checkFavorites(favorites, number);
+    if (isFaved) {
+      setFavorites(favorites.filter((favorite) => favorite != number));
+    } else {
+      setFavorites([...favorites, number]);
+    }
+  }
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
@@ -16,7 +32,7 @@ export default function HomePage() {
       <>
         <main>
           <h2>Alle Folgen</h2>
-          <EpisodeList>
+          <EpisodesList>
             {serie.map(({ nummer: number, titel: title, teile: parts }) => {
               return (
                 <EpisodeListItem
@@ -25,10 +41,14 @@ export default function HomePage() {
                   title={title}
                   parts={parts}
                   href={`/episodes/${number}`}
+                  onHandleFavorites={() => {
+                    handleFavorites(number);
+                  }}
+                  isFaved={checkFavorites(favorites, number)}
                 />
               );
             })}
-          </EpisodeList>
+          </EpisodesList>
         </main>
       </>
     );

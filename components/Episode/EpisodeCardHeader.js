@@ -1,23 +1,11 @@
 import SVGIcon from "../Icons";
-import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
-import { initialFavorites } from "@/components/Favorites/initialFavorites";
-import checkFavorites from "@/components/Favorites/favoriteCheck";
+import { initialFavorites } from "@/components/Favoring/initialFavorites";
+import checkFavorites from "@/components/Favoring/favoriteCheck";
+import { EpisodeHeader, EpisodeNavButton } from "./Episode.styled";
 
-const DetailsHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.5rem;
-`;
-
-const EpisodeNavButton = styled.button`
-  border: none;
-  background: none;
-`;
-
-export default function EpisodeDetailsHeader({ episodeNumber }) {
+export default function EpisodeCardHeader({ episodeNumber }) {
   const router = useRouter();
   const [favorites, setFavorites] = useAtom(initialFavorites);
   const isFaved = checkFavorites(favorites, episodeNumber);
@@ -31,7 +19,7 @@ export default function EpisodeDetailsHeader({ episodeNumber }) {
   }
 
   return (
-    <DetailsHeader>
+    <EpisodeHeader>
       <EpisodeNavButton type="button" onClick={router.back}>
         <SVGIcon variant="returnIcon" width="50px" color="darkgreen" />
       </EpisodeNavButton>
@@ -43,6 +31,6 @@ export default function EpisodeDetailsHeader({ episodeNumber }) {
           color="darkgreen"
         />
       </EpisodeNavButton>
-    </DetailsHeader>
+    </EpisodeHeader>
   );
 }

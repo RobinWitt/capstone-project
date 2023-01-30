@@ -1,17 +1,7 @@
 import { useState } from "react";
-import styled from "styled-components";
+import { DescriptionText, StyledFoldButton } from "./Episode.styled";
 
-const StyledFoldButton = styled.button`
-  font-size: 1.2rem;
-  margin-top: 0.8rem;
-  color: darkgreen;
-`;
-
-const StyledDescriptionText = styled.p`
-  margin: 0.5rem;
-`;
-
-export default function DescriptionBlock({ description }) {
+export default function EpisodeDescription({ description }) {
   const [showDescription, setShowDescription] = useState(false);
 
   return showDescription === true ? (
@@ -22,7 +12,7 @@ export default function DescriptionBlock({ description }) {
       >
         Beschreibung schließen
       </StyledFoldButton>
-      <StyledDescriptionText>{description}</StyledDescriptionText>
+      <DescriptionText>{description}</DescriptionText>
     </>
   ) : (
     <StyledFoldButton
