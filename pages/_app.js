@@ -37,20 +37,19 @@ export default function App({ Component, pageProps }) {
       <Head>
         <title>Projekt Justus.Peter.Bob.</title>
       </Head>
-      <SWRConfig value={{ fetcher }}>
-        <Header />
-        {error ? (
-          <div>
-            Hoppla, scheinbar ist der Server gerade nicht erreichbar. Versuche
-            es doch später nochmal.
-          </div>
-        ) : isLoading ? (
-          <div>Folgen werden geladen...</div>
-        ) : (
-          <Component {...pageProps} />
-        )}
-        <Navigation />
-      </SWRConfig>
+      {/* <SWRConfig value={{ fetcher }}></SWRConfig> this will be needed later */}
+      <Header />
+      {error ? (
+        <div>
+          Hoppla, scheinbar ist der Server gerade nicht erreichbar. Versuche es
+          doch später nochmal.
+        </div>
+      ) : isLoading ? (
+        <div>Folgen werden geladen...</div>
+      ) : (
+        <Component {...pageProps} />
+      )}
+      <Navigation />
     </>
   );
 }
