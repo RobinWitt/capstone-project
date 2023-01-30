@@ -2,10 +2,7 @@ import EpisodesList from "@/components/EpisodesList/EpisodesList";
 import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
 import useSWR from "swr";
 import { useAtom } from "jotai";
-import {
-  initialFavorites,
-  useFavorites,
-} from "@/components/Favoring/initialFavorites";
+import { initialFavorites } from "@/components/Favoring/initialFavorites";
 import checkFavorites from "@/components/Favoring/favoriteCheck";
 
 const URL = "/serie.json";
