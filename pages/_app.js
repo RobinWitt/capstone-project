@@ -3,6 +3,8 @@ import Navigation from "@/components/Navigation";
 import GlobalStyle from "@/styles";
 import Head from "next/head";
 import { SWRConfig } from "swr";
+import useSWR from "swr";
+import { useAtom, atom } from "jotai";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -20,7 +22,15 @@ const fetcher = async (url) => {
   return res.json();
 };
 
+const URL_ = "/api/episodes";
+export const episodes = atom([]);
+
 export default function App({ Component, pageProps }) {
+  const { data, isLoading, error } = useSWR(URL_, fetcher);
+  const [, setAllEpisodes] = useAtom(episodes);
+
+  if (data) setAllEpisodes(data);
+
   return (
     <>
       <GlobalStyle />
@@ -29,7 +39,16 @@ export default function App({ Component, pageProps }) {
       </Head>
       <SWRConfig value={{ fetcher }}>
         <Header />
-        <Component {...pageProps} />
+        {error ? (
+          <div>
+            Hoppla, scheinbar ist der Server gerade nicht erreichbar. Versuche
+            es doch später nochmal.
+          </div>
+        ) : isLoading ? (
+          <div>Folgen werden geladen...</div>
+        ) : (
+          <Component {...pageProps} />
+        )}
         <Navigation />
       </SWRConfig>
     </>

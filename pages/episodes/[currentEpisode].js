@@ -13,103 +13,95 @@ import {
 } from "@/components/Episode/EpisodeFunctions";
 import Parts from "@/components/Episode/Parts";
 import { useRouter } from "next/router";
-import useSWR from "swr";
-
-const URL = "/serie.json";
+import { useAtom } from "jotai";
+import { episodes } from "../_app";
 
 export default function EpisodePage() {
-  const { data, error, isLoading } = useSWR(URL);
+  const [allEpisodes] = useAtom(episodes);
 
   const router = useRouter();
   const { currentEpisode } = router.query;
 
-  if (error) return <div>failed to load</div>;
-  if (!currentEpisode || isLoading) return <div>loading...</div>;
+  const [filteredEpisode] = allEpisodes.filter(
+    (episode) => episode.nummer === parseInt(currentEpisode)
+  );
 
-  if (data) {
-    const { serie } = data;
-
-    const [filteredEpisode] = serie.filter(
-      (episode) => episode.nummer === parseInt(currentEpisode)
-    );
-
-    if (!filteredEpisode) {
-      return (
-        <main>
-          <h2>Hoppla, diese Folge scheint es nicht zu geben.</h2>
-        </main>
-      );
-    }
-
-    const {
-      nummer: number,
-      titel: title,
-      autor: author,
-      hörspielskriptautor: scriptauthor,
-      beschreibung: description,
-      veröffentlichungsdatum: releasedate,
-      kapitel: chapters,
-      links,
-      teile: parts,
-    } = filteredEpisode;
-
+  if (!filteredEpisode) {
     return (
       <main>
-        <EpisodeCard>
-          <EpisodeCardHeader episodeNumber={number} />
-          {getCoverURL(links) ? (
-            <EpisodeImage
-              src={getCoverURL(links)}
-              alt={`Folge ${number}, Die Drei Fragezeichen ${title}`}
-              width={500}
-              height={500}
-              priority
-            />
-          ) : (
-            <NoContentMessage>kein Artwork vorhanden</NoContentMessage>
-          )}
-          {author ? (
-            <EpisodeFacts>Autor: {author}</EpisodeFacts>
-          ) : (
-            <NoContentMessage>
-              {parts ? "" : "kein Autor angegeben"}
-            </NoContentMessage>
-          )}
-          {scriptauthor ? (
-            <EpisodeFacts>Hörspielskript-Autor: {scriptauthor}</EpisodeFacts>
-          ) : (
-            <NoContentMessage>
-              kein Hörspielskript-Autor angegeben
-            </NoContentMessage>
-          )}
-          {releasedate ? (
-            <EpisodeFacts>
-              Veröffentlichungsdatum: {getFormattedDate(releasedate)}
-            </EpisodeFacts>
-          ) : (
-            <NoContentMessage>
-              kein Veröffentlichungsdatum angegeben
-            </NoContentMessage>
-          )}
-          {description ? (
-            <EpisodeDescription description={description} />
-          ) : (
-            <NoContentMessage>keine Beschreibung vorhanden</NoContentMessage>
-          )}
-          {chapters ? (
-            <Chapters chapters={chapters} />
-          ) : (
-            <NoContentMessage>
-              {parts ? "" : "keine Kapitelliste vorhanden"}
-            </NoContentMessage>
-          )}
-          {parts
-            ? parts.map((part) => {
-                return <Parts key={part.buchstabe} part={part} />;
-              })
-            : ""}
-        </EpisodeCard>
+        <h2>Diese Folge scheint es nicht zu geben.</h2>
       </main>
     );
   }
+
+  const {
+    nummer: number,
+    titel: title,
+    autor: author,
+    hörspielskriptautor: scriptauthor,
+    beschreibung: description,
+    veröffentlichungsdatum: releasedate,
+    kapitel: chapters,
+    links,
+    teile: parts,
+  } = filteredEpisode;
+
+  return (
+    <main>
+      <EpisodeCard>
+        <EpisodeCardHeader episodeNumber={number} />
+        {getCoverURL(links) ? (
+          <EpisodeImage
+            src={getCoverURL(links)}
+            alt={`Folge ${number}, Die Drei Fragezeichen ${title}`}
+            width={500}
+            height={500}
+            priority
+          />
+        ) : (
+          <NoContentMessage>kein Artwork vorhanden</NoContentMessage>
+        )}
+        {author ? (
+          <EpisodeFacts>Autor: {author}</EpisodeFacts>
+        ) : (
+          <NoContentMessage>
+            {parts ? "" : "kein Autor angegeben"}
+          </NoContentMessage>
+        )}
+        {scriptauthor ? (
+          <EpisodeFacts>Hörspielskript-Autor: {scriptauthor}</EpisodeFacts>
+        ) : (
+          <NoContentMessage>
+            kein Hörspielskript-Autor angegeben
+          </NoContentMessage>
+        )}
+        {releasedate ? (
+          <EpisodeFacts>
+            Veröffentlichungsdatum: {getFormattedDate(releasedate)}
+          </EpisodeFacts>
+        ) : (
+          <NoContentMessage>
+            kein Veröffentlichungsdatum angegeben
+          </NoContentMessage>
+        )}
+        {description ? (
+          <EpisodeDescription description={description} />
+        ) : (
+          <NoContentMessage>keine Beschreibung vorhanden</NoContentMessage>
+        )}
+        {chapters ? (
+          <Chapters chapters={chapters} />
+        ) : (
+          <NoContentMessage>
+            {parts ? "" : "keine Kapitelliste vorhanden"}
+          </NoContentMessage>
+        )}
+        {parts
+          ? parts.map((part) => {
+              return <Parts key={part.buchstabe} part={part} />;
+            })
+          : ""}
+      </EpisodeCard>
+    </main>
+  );
 }
