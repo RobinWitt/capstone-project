@@ -30,6 +30,6 @@ const EpisodeSchema = new Schema({
 });
 
 const Episode =
-  mongoose.models.Location || mongoose.model("Episode", EpisodeSchema);
+  mongoose.models.Episode || mongoose.model("Episode", EpisodeSchema);
 
 export default Episode;

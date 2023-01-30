@@ -6,6 +6,7 @@ import { initialFavorites } from "@/components/Favoring/initialFavorites";
 import checkFavorites from "@/components/Favoring/favoriteCheck";
 
 const URL = "/serie.json";
+const URL_ = "/api/episodes";
 
 export default function HomePage() {
   const { data, error, isLoading } = useSWR(URL);
