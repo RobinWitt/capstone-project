@@ -89,14 +89,14 @@ export default function EpisodePage() {
         ) : (
           <NoContentMessage>keine Beschreibung vorhanden</NoContentMessage>
         )}
-        {chapters ? (
+        {chapters?.length > 0 ? (
           <Chapters chapters={chapters} />
         ) : (
           <NoContentMessage>
             {parts ? "" : "keine Kapitelliste vorhanden"}
           </NoContentMessage>
         )}
-        {parts
+        {parts?.length > 0
           ? parts.map((part) => {
               return <Parts key={part.buchstabe} part={part} />;
             })
