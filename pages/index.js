@@ -6,7 +6,7 @@ import { initialFavorites } from "@/components/Favoring/initialFavorites";
 import {
   checkFavorites,
   handleFavorites,
-} from "@/components/Favoring/favoriteCheck";
+} from "@/components/Favoring/FavoringFunctions";
 
 const URL = "/serie.json";
 const URL_ = "/api/episodes";
@@ -14,15 +14,6 @@ const URL_ = "/api/episodes";
 export default function HomePage() {
   const { data, isLoading, error } = useSWR(URL_);
   const [favorites, setFavorites] = useAtom(initialFavorites);
-
-  // function handleFavorites(number) {
-  //   const isFaved = checkFavorites(favorites, number);
-  //   if (isFaved) {
-  //     setFavorites(favorites.filter((favorite) => favorite != number));
-  //   } else {
-  //     setFavorites([...favorites, number]);
-  //   }
-  // }
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;

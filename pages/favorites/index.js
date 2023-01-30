@@ -3,22 +3,16 @@ import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
 import useSWR from "swr";
 import { useAtom } from "jotai";
 import { initialFavorites } from "@/components/Favoring/initialFavorites";
-import { checkFavorites } from "@/components/Favoring/favoriteCheck";
+import {
+  checkFavorites,
+  handleFavorites,
+} from "@/components/Favoring/FavoringFunctions";
 
 const URL = "/serie.json";
 
 export default function FavoritesPage() {
   const { data, error, isLoading } = useSWR(URL);
   const [favorites, setFavorites] = useAtom(initialFavorites);
-
-  function handleFavorites(number) {
-    const isFaved = checkFavorites(favorites, number);
-    if (isFaved) {
-      setFavorites(favorites.filter((favorite) => favorite != number));
-    } else {
-      setFavorites([...favorites, number]);
-    }
-  }
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
@@ -41,7 +35,7 @@ export default function FavoritesPage() {
                     parts={parts}
                     href={`/episodes/${number}`}
                     onHandleFavorites={() => {
-                      handleFavorites(number);
+                      setFavorites(handleFavorites(favorites, number));
                     }}
                     isFaved={checkFavorites(favorites, number)}
                   />

@@ -3,8 +3,7 @@ export function checkFavorites(favorites, number) {
 }
 
 export function handleFavorites(favorites, number) {
-  const isFaved = checkFavorites(favorites, number);
-  if (isFaved) {
+  if (favorites.includes(number)) {
     return favorites.filter((favorite) => favorite != number);
   } else {
     return [...favorites, number];

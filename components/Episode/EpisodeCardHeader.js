@@ -2,7 +2,10 @@ import SVGIcon from "../Icons";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { initialFavorites } from "@/components/Favoring/initialFavorites";
-import { checkFavorites } from "@/components/Favoring/favoriteCheck";
+import {
+  checkFavorites,
+  handleFavorites,
+} from "@/components/Favoring/FavoringFunctions";
 import { EpisodeHeader, EpisodeNavButton } from "./Episode.styled";
 
 export default function EpisodeCardHeader({ episodeNumber }) {
@@ -10,21 +13,18 @@ export default function EpisodeCardHeader({ episodeNumber }) {
   const [favorites, setFavorites] = useAtom(initialFavorites);
   const isFaved = checkFavorites(favorites, episodeNumber);
 
-  function handleFavorites() {
-    if (isFaved) {
-      setFavorites(favorites.filter((favorite) => favorite != episodeNumber));
-    } else {
-      setFavorites([...favorites, episodeNumber]);
-    }
-  }
-
   return (
     <EpisodeHeader>
       <EpisodeNavButton type="button" onClick={router.back}>
         <SVGIcon variant="returnIcon" width="50px" color="darkgreen" />
       </EpisodeNavButton>
       <h2>Folge {episodeNumber}</h2>
-      <EpisodeNavButton type="button" onClick={handleFavorites}>
+      <EpisodeNavButton
+        type="button"
+        onClick={() => {
+          setFavorites(handleFavorites(favorites, episodeNumber));
+        }}
+      >
         <SVGIcon
           variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}
           width="50px"
