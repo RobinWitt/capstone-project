@@ -34,6 +34,7 @@ export default function EpisodePage() {
     kapitel: chapters,
     links,
     teile: parts,
+    unvollständig: incomplete,
   } = filteredEpisode;
 
   const coverlink = getCoverURL(links);
@@ -51,6 +52,7 @@ export default function EpisodePage() {
         chapters={chapters}
         speakers={speakers}
         parts={parts}
+        incomplete={incomplete}
       >
         <EpisodeCardHeader episodeNumber={number} />
       </EpisodeCard>

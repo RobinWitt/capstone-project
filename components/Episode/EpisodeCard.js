@@ -22,6 +22,7 @@ export default function EpisodeCard({
   speakers,
   chapters,
   parts,
+  incomplete,
 }) {
   return (
     <StyledEpisodeCard>
@@ -38,16 +39,18 @@ export default function EpisodeCard({
         <NoContentMessage>kein Artwork vorhanden</NoContentMessage>
       )}
       {author ? (
-        <EpisodeFacts>Autor: {author}</EpisodeFacts>
+        <EpisodeFacts>Autor*in: {author}</EpisodeFacts>
       ) : (
         <NoContentMessage>
-          {parts ? "" : "kein Autor angegeben"}
+          {parts ? "" : "kein*e Autor*in angegeben"}
         </NoContentMessage>
       )}
       {scriptauthor ? (
-        <EpisodeFacts>Hörspielskript-Autor: {scriptauthor}</EpisodeFacts>
+        <EpisodeFacts>Hörspielskript-Autor*in: {scriptauthor}</EpisodeFacts>
       ) : (
-        <NoContentMessage>kein Hörspielskript-Autor angegeben</NoContentMessage>
+        <NoContentMessage>
+          kein*e Hörspielskript-Autor*in angegeben
+        </NoContentMessage>
       )}
       {releasedate ? (
         <EpisodeFacts>
@@ -75,11 +78,13 @@ export default function EpisodeCard({
           {parts?.length > 0 ? "" : "keine Kapitelliste vorhanden"}
         </NoContentMessage>
       )}
-      {parts?.length > 0
-        ? parts.map((part) => {
-            return <Parts key={part.buchstabe} part={part} />;
-          })
-        : ""}
+      {parts?.length > 0 &&
+        parts.map((part) => {
+          return <Parts key={part.buchstabe} part={part} />;
+        })}
+      {incomplete && (
+        <EpisodeFacts>diese Folge wird noch vervollständigt</EpisodeFacts>
+      )}
     </StyledEpisodeCard>
   );
 }
