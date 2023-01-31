@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  ChaptersList as ChaptersList,
-  StyledFoldButton,
-} from "./Episode.styled";
+import { ChaptersList, StyledFoldButton } from "./Episode.styled";
 
 export default function Chapters({ chapters }) {
   const [showTracklist, setShowTracklist] = useState(false);
