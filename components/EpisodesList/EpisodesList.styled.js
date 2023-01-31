@@ -12,14 +12,14 @@ export const StyledListItem = styled.li`
   background-color: lightgrey;
   margin: 0.5rem;
   border: 2px solid;
-  border-radius: 5px;
+  border-radius: 0.7rem;
 `;
 
 export const StyledEpisodeLink = styled(Link)`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding-left: 0.5rem;
+  padding: 0.5rem;
   text-decoration: none;
   color: darkgreen;
 `;
@@ -30,4 +30,5 @@ export const FavButton = styled.button`
   padding: 0.5rem;
   background: none;
   color: darkgreen;
+  cursor: pointer;
 `;
