@@ -3,6 +3,9 @@ import Navigation from "@/components/Navigation";
 import GlobalStyle from "@/styles";
 import Head from "next/head";
 import { SWRConfig } from "swr";
+import useSWR from "swr";
+import { useAtom, atom } from "jotai";
+import { useEffect } from "react";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -20,18 +23,36 @@ const fetcher = async (url) => {
   return res.json();
 };
 
+const URL_ = "/api/episodes";
+export const episodes = atom([]);
+
 export default function App({ Component, pageProps }) {
+  const { data, isLoading, error } = useSWR(URL_, fetcher);
+  const [allEpisodes, setAllEpisodes] = useAtom(episodes);
+
+  useEffect(() => {
+    setAllEpisodes(data);
+  }, [setAllEpisodes, data]);
+
   return (
     <>
       <GlobalStyle />
       <Head>
         <title>Projekt Justus.Peter.Bob.</title>
       </Head>
-      <SWRConfig value={{ fetcher }}>
-        <Header />
-        <Component {...pageProps} />
-        <Navigation />
-      </SWRConfig>
+      {/* <SWRConfig value={{ fetcher }}></SWRConfig> this will be needed later */}
+      <Header />
+      {error ? (
+        <div>
+          Hoppla, scheinbar ist der Server gerade nicht erreichbar. Versuche es
+          doch später nochmal.
+        </div>
+      ) : (
+        ""
+      )}
+      {isLoading ? <div>Folgen werden geladen...</div> : ""}
+      {allEpisodes ? <Component {...pageProps} /> : ""}
+      <Navigation />
     </>
   );
 }

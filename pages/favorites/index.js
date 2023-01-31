@@ -1,41 +1,40 @@
-import EpisodeList from "@/components/EpisodeList";
-import EpisodeListItem from "@/components/EpisodeListItem";
-import useSWR from "swr";
+import EpisodesList from "@/components/EpisodesList/EpisodesList";
+import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
 import { useAtom } from "jotai";
-import { initialFavorites } from "@/components/Favorites/initialFavorites";
-
-const URL = "/serie.json";
+import { episodes } from "../_app";
+import { initialFavorites } from "@/components/Favoring/initialFavorites";
+import {
+  checkFavorites,
+  toggleFavorites,
+} from "@/components/Favoring/FavoringFunctions";
 
 export default function FavoritesPage() {
-  const { data, error, isLoading } = useSWR(URL);
+  const [allEpisodes] = useAtom(episodes);
   const [favorites, setFavorites] = useAtom(initialFavorites);
 
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
-  if (data) {
-    const { serie } = data;
-
-    return (
-      <>
-        <main>
-          <h2>Favoriten</h2>
-          <EpisodeList>
-            {serie.map(({ nummer: number, titel: title, teile: parts }) => {
-              if (favorites.includes(number))
-                return (
-                  <EpisodeListItem
-                    key={number}
-                    episodeNumber={number}
-                    title={title}
-                    parts={parts}
-                    href={`/episodes/${number}`}
-                  />
-                );
-            })}
-          </EpisodeList>
-        </main>
-      </>
-    );
-  }
+  return (
+    <>
+      <main>
+        <h2>Favoriten</h2>
+        <EpisodesList>
+          {allEpisodes.map(({ nummer: number, titel: title, teile: parts }) => {
+            if (favorites.includes(number))
+              return (
+                <EpisodeListItem
+                  key={number}
+                  episodeNumber={number}
+                  title={title}
+                  parts={parts}
+                  href={`/episodes/${number}`}
+                  onHandleFavorites={() => {
+                    setFavorites(toggleFavorites(favorites, number));
+                  }}
+                  isFaved={checkFavorites(favorites, number)}
+                />
+              );
+          })}
+        </EpisodesList>
+      </main>
+    </>
+  );
 }

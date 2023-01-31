@@ -1,19 +1,7 @@
 import { useState } from "react";
-import styled from "styled-components";
+import { ChaptersList, StyledFoldButton } from "./Episode.styled";
 
-const StyledFoldButton = styled.button`
-  font-size: 1.2rem;
-  margin-top: 0.8rem;
-  color: darkgreen;
-`;
-
-const StyledChaptersList = styled.ol`
-  list-style: decimal;
-  margin: 0.5rem;
-  margin-left: 1.5rem;
-`;
-
-export default function ChaptersBlock({ chapters }) {
+export default function Chapters({ chapters }) {
   const [showTracklist, setShowTracklist] = useState(false);
 
   return showTracklist === true ? (
@@ -24,11 +12,11 @@ export default function ChaptersBlock({ chapters }) {
       >
         Kapitelliste schließen
       </StyledFoldButton>
-      <StyledChaptersList>
+      <ChaptersList>
         {chapters?.map(({ titel: title }) => {
           return <li key={title}>{title}</li>;
         })}
-      </StyledChaptersList>
+      </ChaptersList>
     </>
   ) : (
     <StyledFoldButton

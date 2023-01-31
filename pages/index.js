@@ -1,36 +1,39 @@
-import EpisodeList from "@/components/EpisodeList";
-import EpisodeListItem from "@/components/EpisodeListItem";
-import useSWR from "swr";
-
-const URL = "/serie.json";
+import EpisodesList from "@/components/EpisodesList/EpisodesList";
+import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
+import { useAtom } from "jotai";
+import { episodes } from "./_app";
+import { initialFavorites } from "@/components/Favoring/initialFavorites";
+import {
+  checkFavorites,
+  toggleFavorites,
+} from "@/components/Favoring/FavoringFunctions";
 
 export default function HomePage() {
-  const { data, error, isLoading } = useSWR(URL);
+  const [favorites, setFavorites] = useAtom(initialFavorites);
+  const [allEpisodes] = useAtom(episodes);
 
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
-  if (data) {
-    const { serie } = data;
-    return (
-      <>
-        <main>
-          <h2>Alle Folgen</h2>
-          <EpisodeList>
-            {serie.map(({ nummer: number, titel: title, teile: parts }) => {
-              return (
-                <EpisodeListItem
-                  key={number}
-                  episodeNumber={number}
-                  title={title}
-                  parts={parts}
-                  href={`/episodes/${number}`}
-                />
-              );
-            })}
-          </EpisodeList>
-        </main>
-      </>
-    );
-  }
+  return (
+    <>
+      <main>
+        <h2>Alle Folgen</h2>
+        <EpisodesList>
+          {allEpisodes.map(({ nummer: number, titel: title, teile: parts }) => {
+            return (
+              <EpisodeListItem
+                key={number}
+                episodeNumber={number}
+                title={title}
+                parts={parts}
+                href={`/episodes/${number}`}
+                onHandleFavorites={() => {
+                  setFavorites(toggleFavorites(favorites, number));
+                }}
+                isFaved={checkFavorites(favorites, number)}
+              />
+            );
+          })}
+        </EpisodesList>
+      </main>
+    </>
+  );
 }
