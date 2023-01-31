@@ -1,17 +1,6 @@
 import EpisodeCard from "@/components/Episode/EpisodeCard";
-import Chapters from "@/components/Episode/Chapters";
-import EpisodeDescription from "@/components/Episode/EpisodeDescription";
-import {
-  EpisodeFacts,
-  EpisodeImage,
-  NoContentMessage,
-} from "@/components/Episode/Episode.styled";
 import EpisodeCardHeader from "@/components/Episode/EpisodeCardHeader";
-import {
-  getCoverURL,
-  getFormattedDate,
-} from "@/components/Episode/EpisodeFunctions";
-import Parts from "@/components/Episode/Parts";
+import { getCoverURL } from "@/components/Episode/EpisodeFunctions";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { episodes } from "../_app";
@@ -46,61 +35,22 @@ export default function EpisodePage() {
     teile: parts,
   } = filteredEpisode;
 
+  const coverlink = getCoverURL(links);
+
   return (
     <main>
-      <EpisodeCard>
+      <EpisodeCard
+        number={number}
+        title={title}
+        coverlink={coverlink}
+        author={author}
+        scriptauthor={scriptauthor}
+        releasedate={releasedate}
+        description={description}
+        chapters={chapters}
+        parts={parts}
+      >
         <EpisodeCardHeader episodeNumber={number} />
-        {getCoverURL(links) ? (
-          <EpisodeImage
-            src={getCoverURL(links)}
-            alt={`Folge ${number}, Die Drei Fragezeichen ${title}`}
-            width={500}
-            height={500}
-            priority
-          />
-        ) : (
-          <NoContentMessage>kein Artwork vorhanden</NoContentMessage>
-        )}
-        {author ? (
-          <EpisodeFacts>Autor: {author}</EpisodeFacts>
-        ) : (
-          <NoContentMessage>
-            {parts ? "" : "kein Autor angegeben"}
-          </NoContentMessage>
-        )}
-        {scriptauthor ? (
-          <EpisodeFacts>Hörspielskript-Autor: {scriptauthor}</EpisodeFacts>
-        ) : (
-          <NoContentMessage>
-            kein Hörspielskript-Autor angegeben
-          </NoContentMessage>
-        )}
-        {releasedate ? (
-          <EpisodeFacts>
-            Veröffentlichungsdatum: {getFormattedDate(releasedate)}
-          </EpisodeFacts>
-        ) : (
-          <NoContentMessage>
-            kein Veröffentlichungsdatum angegeben
-          </NoContentMessage>
-        )}
-        {description ? (
-          <EpisodeDescription description={description} />
-        ) : (
-          <NoContentMessage>keine Beschreibung vorhanden</NoContentMessage>
-        )}
-        {chapters?.length > 0 ? (
-          <Chapters chapters={chapters} />
-        ) : (
-          <NoContentMessage>
-            {parts ? "" : "keine Kapitelliste vorhanden"}
-          </NoContentMessage>
-        )}
-        {parts?.length > 0
-          ? parts.map((part) => {
-              return <Parts key={part.buchstabe} part={part} />;
-            })
-          : ""}
       </EpisodeCard>
     </main>
   );
