@@ -34,26 +34,25 @@ export default function App({ Component, pageProps }) {
     setAllEpisodes(data);
   }, [setAllEpisodes, data]);
 
-  if (allEpisodes)
-    return (
-      <>
-        <GlobalStyle />
-        <Head>
-          <title>Projekt Justus.Peter.Bob.</title>
-        </Head>
-        {/* <SWRConfig value={{ fetcher }}></SWRConfig> this will be needed later */}
-        <Header />
-        {error ? (
-          <div>
-            Hoppla, scheinbar ist der Server gerade nicht erreichbar. Versuche
-            es doch später nochmal.
-          </div>
-        ) : isLoading ? (
-          <div>Folgen werden geladen...</div>
-        ) : (
-          <Component {...pageProps} />
-        )}
-        <Navigation />
-      </>
-    );
+  return (
+    <>
+      <GlobalStyle />
+      <Head>
+        <title>Projekt Justus.Peter.Bob.</title>
+      </Head>
+      {/* <SWRConfig value={{ fetcher }}></SWRConfig> this will be needed later */}
+      <Header />
+      {error ? (
+        <div>
+          Hoppla, scheinbar ist der Server gerade nicht erreichbar. Versuche es
+          doch später nochmal.
+        </div>
+      ) : allEpisodes ? (
+        <Component {...pageProps} />
+      ) : (
+        <div>Folgen werden geladen...</div>
+      )}
+      <Navigation />
+    </>
+  );
 }
