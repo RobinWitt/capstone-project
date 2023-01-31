@@ -47,11 +47,11 @@ export default function App({ Component, pageProps }) {
           Hoppla, scheinbar ist der Server gerade nicht erreichbar. Versuche es
           doch später nochmal.
         </div>
-      ) : allEpisodes ? (
-        <Component {...pageProps} />
       ) : (
-        <div>Folgen werden geladen...</div>
+        ""
       )}
+      {isLoading ? <div>Folgen werden geladen...</div> : ""}
+      {allEpisodes ? <Component {...pageProps} /> : ""}
       <Navigation />
     </>
   );
