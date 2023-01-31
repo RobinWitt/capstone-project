@@ -30,6 +30,7 @@ export default function EpisodePage() {
     hörspielskriptautor: scriptauthor,
     beschreibung: description,
     veröffentlichungsdatum: releasedate,
+    sprecher: speakers,
     kapitel: chapters,
     links,
     teile: parts,
@@ -48,6 +49,7 @@ export default function EpisodePage() {
         releasedate={releasedate}
         description={description}
         chapters={chapters}
+        speakers={speakers}
         parts={parts}
       >
         <EpisodeCardHeader episodeNumber={number} />

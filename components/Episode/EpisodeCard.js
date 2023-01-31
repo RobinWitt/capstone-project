@@ -1,4 +1,3 @@
-import Chapters from "./Chapters";
 import {
   EpisodeFacts,
   EpisodeImage,
@@ -7,7 +6,9 @@ import {
 } from "./Episode.styled";
 import EpisodeDescription from "./EpisodeDescription";
 import { getFormattedDate } from "./EpisodeFunctions";
+import Chapters from "./Chapters";
 import Parts from "./Parts";
+import Speakers from "./Speakers";
 
 export default function EpisodeCard({
   children,
@@ -18,6 +19,7 @@ export default function EpisodeCard({
   scriptauthor,
   releasedate,
   description,
+  speakers,
   chapters,
   parts,
 }) {
@@ -61,11 +63,16 @@ export default function EpisodeCard({
       ) : (
         <NoContentMessage>keine Beschreibung vorhanden</NoContentMessage>
       )}
+      {speakers?.length > 0 ? (
+        <Speakers speakers={speakers} />
+      ) : (
+        <NoContentMessage>keine Stimmen angegeben</NoContentMessage>
+      )}
       {chapters?.length > 0 ? (
         <Chapters chapters={chapters} />
       ) : (
         <NoContentMessage>
-          {parts ? "" : "keine Kapitelliste vorhanden"}
+          {parts?.length > 0 ? "" : "keine Kapitelliste vorhanden"}
         </NoContentMessage>
       )}
       {parts?.length > 0
