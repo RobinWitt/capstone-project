@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const episodeSchema = new Schema({
-  _id: { type: String, required: true },
   nummer: { type: Number, required: true },
   titel: { type: String, required: true },
   autor: String,

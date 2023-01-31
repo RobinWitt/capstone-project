@@ -8,7 +8,7 @@ export const StyledEpisodeCard = styled.article`
   margin: 1rem;
   padding: 1rem;
   border: 2px solid;
-  border-radius: 10px;
+  border-radius: 0.8rem;
 `;
 
 export const EpisodeHeader = styled.div`

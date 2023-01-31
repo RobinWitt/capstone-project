@@ -5,7 +5,7 @@ import { episodes } from "./_app";
 import { initialFavorites } from "@/components/Favoring/initialFavorites";
 import {
   checkFavorites,
-  handleFavorites,
+  toggleFavorites,
 } from "@/components/Favoring/FavoringFunctions";
 
 export default function HomePage() {
@@ -26,7 +26,7 @@ export default function HomePage() {
                 parts={parts}
                 href={`/episodes/${number}`}
                 onHandleFavorites={() => {
-                  setFavorites(handleFavorites(favorites, number));
+                  setFavorites(toggleFavorites(favorites, number));
                 }}
                 isFaved={checkFavorites(favorites, number)}
               />

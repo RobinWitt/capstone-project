@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { initialFavorites } from "@/components/Favoring/initialFavorites";
 import {
   checkFavorites,
-  handleFavorites,
+  toggleFavorites,
 } from "@/components/Favoring/FavoringFunctions";
 import { EpisodeHeader, EpisodeNavButton } from "./Episode.styled";
 
@@ -22,7 +22,7 @@ export default function EpisodeCardHeader({ episodeNumber }) {
       <EpisodeNavButton
         type="button"
         onClick={() => {
-          setFavorites(handleFavorites(favorites, episodeNumber));
+          setFavorites(toggleFavorites(favorites, episodeNumber));
         }}
       >
         <SVGIcon

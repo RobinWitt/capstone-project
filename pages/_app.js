@@ -5,6 +5,7 @@ import Head from "next/head";
 import { SWRConfig } from "swr";
 import useSWR from "swr";
 import { useAtom, atom } from "jotai";
+import { useEffect } from "react";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -27,29 +28,32 @@ export const episodes = atom([]);
 
 export default function App({ Component, pageProps }) {
   const { data, isLoading, error } = useSWR(URL_, fetcher);
-  const [, setAllEpisodes] = useAtom(episodes);
+  const [allEpisodes, setAllEpisodes] = useAtom(episodes);
 
-  if (data) setAllEpisodes(data);
+  useEffect(() => {
+    setAllEpisodes(data);
+  }, [setAllEpisodes, data]);
 
-  return (
-    <>
-      <GlobalStyle />
-      <Head>
-        <title>Projekt Justus.Peter.Bob.</title>
-      </Head>
-      {/* <SWRConfig value={{ fetcher }}></SWRConfig> this will be needed later */}
-      <Header />
-      {error ? (
-        <div>
-          Hoppla, scheinbar ist der Server gerade nicht erreichbar. Versuche es
-          doch später nochmal.
-        </div>
-      ) : isLoading ? (
-        <div>Folgen werden geladen...</div>
-      ) : (
-        <Component {...pageProps} />
-      )}
-      <Navigation />
-    </>
-  );
+  if (allEpisodes)
+    return (
+      <>
+        <GlobalStyle />
+        <Head>
+          <title>Projekt Justus.Peter.Bob.</title>
+        </Head>
+        {/* <SWRConfig value={{ fetcher }}></SWRConfig> this will be needed later */}
+        <Header />
+        {error ? (
+          <div>
+            Hoppla, scheinbar ist der Server gerade nicht erreichbar. Versuche
+            es doch später nochmal.
+          </div>
+        ) : isLoading ? (
+          <div>Folgen werden geladen...</div>
+        ) : (
+          <Component {...pageProps} />
+        )}
+        <Navigation />
+      </>
+    );
 }
