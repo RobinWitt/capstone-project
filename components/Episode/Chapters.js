@@ -4,7 +4,7 @@ import { ChaptersList, StyledFoldButton } from "./Episode.styled";
 export default function Chapters({ chapters }) {
   const [showTracklist, setShowTracklist] = useState(false);
 
-  return showTracklist === true ? (
+  return showTracklist ? (
     <>
       <StyledFoldButton
         type="button"

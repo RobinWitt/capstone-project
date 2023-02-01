@@ -4,7 +4,7 @@ import { DescriptionText, StyledFoldButton } from "./Episode.styled";
 export default function EpisodeDescription({ description }) {
   const [showDescription, setShowDescription] = useState(false);
 
-  return showDescription === true ? (
+  return showDescription ? (
     <>
       <StyledFoldButton
         type="button"

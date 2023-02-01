@@ -13,7 +13,7 @@ export default function Parts({ part }) {
   return (
     <>
       <PartsHeader>Part: {title}</PartsHeader>
-      {author ? <EpisodeFacts>Autor: {author}</EpisodeFacts> : ""}
+      {author && <EpisodeFacts>Autor*in: {author}</EpisodeFacts>}
       {description ? (
         <EpisodeDescription description={description} />
       ) : (

@@ -1,4 +1,3 @@
-import Chapters from "./Chapters";
 import {
   EpisodeFacts,
   EpisodeImage,
@@ -7,7 +6,9 @@ import {
 } from "./Episode.styled";
 import EpisodeDescription from "./EpisodeDescription";
 import { getFormattedDate } from "./EpisodeFunctions";
+import Chapters from "./Chapters";
 import Parts from "./Parts";
+import Speakers from "./Speakers";
 
 export default function EpisodeCard({
   children,
@@ -18,8 +19,10 @@ export default function EpisodeCard({
   scriptauthor,
   releasedate,
   description,
+  speakers,
   chapters,
   parts,
+  incomplete,
 }) {
   return (
     <StyledEpisodeCard>
@@ -36,16 +39,18 @@ export default function EpisodeCard({
         <NoContentMessage>kein Artwork vorhanden</NoContentMessage>
       )}
       {author ? (
-        <EpisodeFacts>Autor: {author}</EpisodeFacts>
+        <EpisodeFacts>Autor*in: {author}</EpisodeFacts>
       ) : (
         <NoContentMessage>
-          {parts ? "" : "kein Autor angegeben"}
+          {parts ? "" : "kein*e Autor*in angegeben"}
         </NoContentMessage>
       )}
       {scriptauthor ? (
-        <EpisodeFacts>Hörspielskript-Autor: {scriptauthor}</EpisodeFacts>
+        <EpisodeFacts>Hörspielskript-Autor*in: {scriptauthor}</EpisodeFacts>
       ) : (
-        <NoContentMessage>kein Hörspielskript-Autor angegeben</NoContentMessage>
+        <NoContentMessage>
+          kein*e Hörspielskript-Autor*in angegeben
+        </NoContentMessage>
       )}
       {releasedate ? (
         <EpisodeFacts>
@@ -61,18 +66,25 @@ export default function EpisodeCard({
       ) : (
         <NoContentMessage>keine Beschreibung vorhanden</NoContentMessage>
       )}
-      {chapters?.length > 0 ? (
+      {speakers?.length ? (
+        <Speakers speakers={speakers} />
+      ) : (
+        <NoContentMessage>keine Stimmen angegeben</NoContentMessage>
+      )}
+      {chapters?.length ? (
         <Chapters chapters={chapters} />
       ) : (
         <NoContentMessage>
-          {parts ? "" : "keine Kapitelliste vorhanden"}
+          {parts?.length ? "" : "keine Kapitelliste vorhanden"}
         </NoContentMessage>
       )}
-      {parts?.length > 0
-        ? parts.map((part) => {
-            return <Parts key={part.buchstabe} part={part} />;
-          })
-        : ""}
+      {parts?.length > 0 &&
+        parts.map((part) => {
+          return <Parts key={part.buchstabe} part={part} />;
+        })}
+      {incomplete && (
+        <EpisodeFacts>diese Folge wird noch vervollständigt</EpisodeFacts>
+      )}
     </StyledEpisodeCard>
   );
 }

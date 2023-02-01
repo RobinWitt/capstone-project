@@ -59,3 +59,13 @@ export const ChaptersList = styled.ol`
   margin: 0.5rem;
   margin-left: 1.5rem;
 `;
+
+export const ListOfSpeakers = styled.ol`
+  list-style: square;
+  margin: 0.5rem;
+  margin-left: 1.5rem;
+`;
+
+export const ItemOfSpeaker = styled.li`
+  margin-bottom: 0.5rem;
+`;

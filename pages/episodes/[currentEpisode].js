@@ -30,9 +30,11 @@ export default function EpisodePage() {
     hörspielskriptautor: scriptauthor,
     beschreibung: description,
     veröffentlichungsdatum: releasedate,
+    sprecher: speakers,
     kapitel: chapters,
     links,
     teile: parts,
+    unvollständig: incomplete,
   } = filteredEpisode;
 
   const coverlink = getCoverURL(links);
@@ -48,7 +50,9 @@ export default function EpisodePage() {
         releasedate={releasedate}
         description={description}
         chapters={chapters}
+        speakers={speakers}
         parts={parts}
+        incomplete={incomplete}
       >
         <EpisodeCardHeader episodeNumber={number} />
       </EpisodeCard>
