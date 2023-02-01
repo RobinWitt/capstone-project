@@ -66,16 +66,16 @@ export default function EpisodeCard({
       ) : (
         <NoContentMessage>keine Beschreibung vorhanden</NoContentMessage>
       )}
-      {speakers?.length > 0 ? (
+      {speakers?.length ? (
         <Speakers speakers={speakers} />
       ) : (
         <NoContentMessage>keine Stimmen angegeben</NoContentMessage>
       )}
-      {chapters?.length > 0 ? (
+      {chapters?.length ? (
         <Chapters chapters={chapters} />
       ) : (
         <NoContentMessage>
-          {parts?.length > 0 ? "" : "keine Kapitelliste vorhanden"}
+          {parts?.length ? "" : "keine Kapitelliste vorhanden"}
         </NoContentMessage>
       )}
       {parts?.length > 0 &&

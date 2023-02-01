@@ -8,7 +8,7 @@ import {
 export default function Speakers({ speakers }) {
   const [showListOfSpeakers, setShowListOfSpeakers] = useState(false);
 
-  return showListOfSpeakers === true ? (
+  return showListOfSpeakers ? (
     <>
       <StyledFoldButton
         type="button"
