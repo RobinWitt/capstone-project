@@ -18,7 +18,7 @@ export const RandomEpisodeLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0.2rem 1rem 0.2rem 4rem;
+  padding: 0.6rem 1rem 0.6rem 4rem;
   text-decoration: none;
   color: darkgreen;
 `;

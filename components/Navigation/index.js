@@ -11,8 +11,8 @@ const StyledNav = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: lightgrey;
-  border: 2px solid;
+  background-color: pink;
+  border-top: 2px solid;
 `;
 
 export default function Navigation() {
