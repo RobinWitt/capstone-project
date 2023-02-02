@@ -8,6 +8,7 @@ import {
   toggleFavorites,
 } from "@/components/Favoring/FavoringFunctions";
 import {
+  getCoverURL,
   getMostRecent,
   isEpisodeReleased,
 } from "@/components/Episode/EpisodeFunctions";
@@ -24,7 +25,13 @@ export default function HomePage() {
   if (data) {
     const mostRecentEpisode = getMostRecent(data);
     const isReleased = isEpisodeReleased(mostRecentEpisode);
-    const { nummer: number, titel: title, teile: parts } = mostRecentEpisode;
+    const {
+      nummer: number,
+      titel: title,
+      veröffentlichungsdatum: releasedate,
+      teile: parts,
+      links,
+    } = mostRecentEpisode;
 
     return (
       <>
@@ -43,25 +50,39 @@ export default function HomePage() {
                 setFavorites(toggleFavorites(favorites, number));
               }}
               isFaved={checkFavorites(favorites, number)}
+              cover={getCoverURL(links)}
+              releasedate={releasedate}
             />
           </EpisodesList>
-          <h2>Alle Folgen</h2>
+          <h2>zufällige Folge:</h2>
+
+          <h2>Alle Folgen:</h2>
           <EpisodesList>
-            {data.map(({ nummer: number, titel: title, teile: parts }) => {
-              return (
-                <EpisodeListItem
-                  key={number}
-                  episodeNumber={number}
-                  title={title}
-                  parts={parts}
-                  href={`/episodes/${number}`}
-                  onHandleFavorites={() => {
-                    setFavorites(toggleFavorites(favorites, number));
-                  }}
-                  isFaved={checkFavorites(favorites, number)}
-                />
-              );
-            })}
+            {data.map(
+              ({
+                nummer: number,
+                titel: title,
+                veröffentlichungsdatum: releasedate,
+                teile: parts,
+                links,
+              }) => {
+                return (
+                  <EpisodeListItem
+                    key={number}
+                    episodeNumber={number}
+                    title={title}
+                    parts={parts}
+                    href={`/episodes/${number}`}
+                    onHandleFavorites={() => {
+                      setFavorites(toggleFavorites(favorites, number));
+                    }}
+                    isFaved={checkFavorites(favorites, number)}
+                    cover={getCoverURL(links)}
+                    releasedate={releasedate}
+                  />
+                );
+              }
+            )}
           </EpisodesList>
         </main>
       </>
