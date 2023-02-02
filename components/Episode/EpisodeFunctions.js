@@ -23,3 +23,57 @@ export function getFormattedDate(date) {
     return false;
   }
 }
+
+// https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property/26759127#26759127
+
+export function sortFirstToLast(episodes) {
+  return episodes.slice().sort(function (a, b) {
+    return (
+      new Date(a.veröffentlichungsdatum) - new Date(b.veröffentlichungsdatum)
+    );
+  });
+}
+
+export function sortLastToFirst(episodes) {
+  return episodes.slice().sort(function (a, b) {
+    return (
+      new Date(b.veröffentlichungsdatum) - new Date(a.veröffentlichungsdatum)
+    );
+  });
+}
+
+export function getMostRecent(episodes) {
+  return episodes
+    .slice()
+    .sort(function (a, b) {
+      return (
+        new Date(a.veröffentlichungsdatum) - new Date(b.veröffentlichungsdatum)
+      );
+    })
+    .findLast((element) => {
+      return element;
+    });
+}
+
+// https://www.w3resource.com/javascript-exercises/javascript-basic-exercise-3.php
+export function isEpisodeReleased(episode) {
+  const { veröffentlichungsdatum: releasedate } = episode;
+  const today = new Date();
+  let day = today.getDate();
+  let month = today.getMonth() + 1;
+  const year = today.getFullYear();
+
+  if (day < 10) {
+    day = "0" + day;
+  }
+
+  if (month < 10) {
+    month = "0" + month;
+  }
+  const currentDate = year + "-" + month + "-" + day;
+
+  if (releasedate < today) {
+    return true;
+  }
+  return false;
+}
