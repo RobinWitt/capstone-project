@@ -1,6 +1,5 @@
 import EpisodeCard from "@/components/Episode/EpisodeCard";
 import EpisodeCardHeader from "@/components/Episode/EpisodeCardHeader";
-import { getCoverURL } from "@/components/Episode/EpisodeFunctions";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -11,7 +10,7 @@ export default function EpisodePage() {
   const { data, isLoading, error } = useSWR(`/api/episodes/${currentEpisode}`);
 
   if (error) return <div>Folge nicht gefunden</div>;
-  if (isLoading) return <div>wird geladen...</div>;
+  if (isLoading || !currentEpisode) return <div>wird geladen...</div>;
 
   if (data) {
     const {
@@ -28,14 +27,12 @@ export default function EpisodePage() {
       unvollständig: incomplete,
     } = data;
 
-    const coverlink = getCoverURL(links);
-
     return (
       <main>
         <EpisodeCard
           number={number}
           title={title}
-          coverlink={coverlink}
+          coverlink={links}
           author={author}
           scriptauthor={scriptauthor}
           releasedate={releasedate}

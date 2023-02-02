@@ -5,7 +5,7 @@ import {
   StyledEpisodeCard,
 } from "./Episode.styled";
 import EpisodeDescription from "./EpisodeDescription";
-import { getFormattedDate } from "./EpisodeFunctions";
+import { getCoverURL, getFormattedDate } from "./EpisodeFunctions";
 import Chapters from "./Chapters";
 import Parts from "./Parts";
 import Speakers from "./Speakers";
@@ -29,7 +29,7 @@ export default function EpisodeCard({
       {children}
       {coverlink ? (
         <EpisodeImage
-          src={coverlink}
+          src={getCoverURL(coverlink)}
           alt={`Folge ${number}, Die Drei Fragezeichen ${title}`}
           width={500}
           height={500}

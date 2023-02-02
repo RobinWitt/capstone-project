@@ -8,14 +8,17 @@ import {
 } from "@/components/Favoring/FavoringFunctions";
 import { EpisodeHeader, EpisodeNavButton } from "./Episode.styled";
 
-export default function EpisodeCardHeader({ episodeNumber }) {
+export default function EpisodeCardHeader({ episodeNumber, onHideDetails }) {
   const router = useRouter();
   const [favorites, setFavorites] = useAtom(initialFavorites);
   const isFaved = checkFavorites(favorites, episodeNumber);
 
   return (
     <EpisodeHeader>
-      <EpisodeNavButton type="button" onClick={router.back}>
+      <EpisodeNavButton
+        type="button"
+        onClick={onHideDetails ? onHideDetails : router.back}
+      >
         <SVGIcon variant="returnIcon" width="50px" color="darkgreen" />
       </EpisodeNavButton>
       <h2>Folge {episodeNumber}</h2>

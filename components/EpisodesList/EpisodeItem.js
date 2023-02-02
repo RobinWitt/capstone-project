@@ -1,62 +1,56 @@
-import { useState } from "react";
-import { getFormattedDate } from "../Episode/EpisodeFunctions";
+import { useAtom } from "jotai";
+import { getFormattedDate, getCoverURL } from "../Episode/EpisodeFunctions";
+import { checkFavorites, toggleFavorites } from "../Favoring/FavoringFunctions";
+import { initialFavorites } from "../Favoring/initialFavorites";
 import SVGIcon from "../Icons";
 import {
-  FavButton,
+  ListButton,
   EpisodeLink,
   OverviewListItem,
-  OverviewCard,
-  OverviewImage,
-  Preview,
   PreviewImage,
-  PreviewDate,
+  OverviewText,
 } from "./EpisodesList.styled";
 
-export default function EpisodeListItem({
-  episodeNumber,
-  title,
-  href,
-  parts,
-  onHandleFavorites,
-  isFaved,
-  cover,
-  releasedate,
-}) {
-  const [showPreview, setShowPreview] = useState(false);
+export default function EpisodeListItem({ episode }) {
+  const {
+    nummer: number,
+    titel: title,
+    veröffentlichungsdatum: releasedate,
+    teile: parts,
+    links,
+  } = episode;
+
+  const [favorites, setFavorites] = useAtom(initialFavorites);
+  const isFaved = checkFavorites(favorites, number);
 
   return (
     <OverviewListItem>
-      <OverviewCard>
-        <EpisodeLink href={href}>
+      <EpisodeLink href={`/episodes/${number}`}>
+        <PreviewImage
+          src={getCoverURL(links)}
+          alt="bla"
+          width={400}
+          height={400}
+        />
+        <OverviewText>
           <p>
-            #{episodeNumber} ...{title}{" "}
-            {parts?.length > 0 ? "(Spezialfolge)" : ""}
+            {number} - {title}
           </p>
-        </EpisodeLink>
-        <FavButton
-          type="button"
-          onClick={() => {
-            setShowPreview(!showPreview);
-          }}
-        >
-          <SVGIcon
-            variant={showPreview ? "chevronUp" : "chevronDown"}
-            width="25px"
-          />
-        </FavButton>
-        <FavButton type="button" onClick={onHandleFavorites}>
-          <SVGIcon
-            variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}
-            width="25px"
-          />
-        </FavButton>
-      </OverviewCard>
-      {showPreview && (
-        <Preview>
-          <PreviewImage src={cover} alt="bla" width={400} height={400} />
-          <PreviewDate>{getFormattedDate(releasedate)}</PreviewDate>
-        </Preview>
-      )}
+          <p></p>
+          <p style={{ color: "grey" }}>{getFormattedDate(releasedate)}</p>
+        </OverviewText>
+      </EpisodeLink>
+      <ListButton
+        type="button"
+        onClick={() => {
+          setFavorites(toggleFavorites(favorites, number));
+        }}
+      >
+        <SVGIcon
+          variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}
+          width="35px"
+        />
+      </ListButton>
     </OverviewListItem>
   );
 }
