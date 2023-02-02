@@ -72,7 +72,7 @@ export function isEpisodeReleased(episode) {
   }
   const currentDate = year + "-" + month + "-" + day;
 
-  if (releasedate < today) {
+  if (releasedate <= currentDate) {
     return true;
   }
   return false;

@@ -7,7 +7,10 @@ import {
   checkFavorites,
   toggleFavorites,
 } from "@/components/Favoring/FavoringFunctions";
-import { getMostRecent } from "@/components/Episode/EpisodeFunctions";
+import {
+  getMostRecent,
+  isEpisodeReleased,
+} from "@/components/Episode/EpisodeFunctions";
 
 const URL = "/api/episodes";
 
@@ -20,12 +23,15 @@ export default function HomePage() {
 
   if (data) {
     const mostRecentEpisode = getMostRecent(data);
+    const isReleased = isEpisodeReleased(mostRecentEpisode);
     const { nummer: number, titel: title, teile: parts } = mostRecentEpisode;
 
     return (
       <>
         <main>
-          <h2>kürzlich erschienen</h2>
+          <h2>
+            {isReleased ? "kürzlich erschienen:" : "erscheint demnächst:"}
+          </h2>
           <EpisodesList>
             <EpisodeListItem
               key={number}
