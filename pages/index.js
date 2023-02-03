@@ -1,39 +1,48 @@
 import EpisodesList from "@/components/EpisodesList/EpisodesList";
 import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
-import { useAtom } from "jotai";
-import { episodes } from "./_app";
-import { initialFavorites } from "@/components/Favoring/initialFavorites";
+import useSWR from "swr";
 import {
-  checkFavorites,
-  toggleFavorites,
-} from "@/components/Favoring/FavoringFunctions";
+  getMostRecentEpisode,
+  isEpisodeReleased,
+} from "@/components/Episode/EpisodeFunctions";
+import RandomEpisode from "@/components/RandomEpisode/RandomEpisodeListItem";
+import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
+
+const URL = "/api/episodes";
 
 export default function HomePage() {
-  const [favorites, setFavorites] = useAtom(initialFavorites);
-  const [allEpisodes] = useAtom(episodes);
+  const { data, isLoading, error } = useSWR(URL);
 
-  return (
-    <>
-      <main>
-        <h2>Alle Folgen</h2>
-        <EpisodesList>
-          {allEpisodes.map(({ nummer: number, titel: title, teile: parts }) => {
-            return (
-              <EpisodeListItem
-                key={number}
-                episodeNumber={number}
-                title={title}
-                parts={parts}
-                href={`/episodes/${number}`}
-                onHandleFavorites={() => {
-                  setFavorites(toggleFavorites(favorites, number));
-                }}
-                isFaved={checkFavorites(favorites, number)}
-              />
-            );
-          })}
-        </EpisodesList>
-      </main>
-    </>
-  );
+  if (error) return <div>error</div>;
+  if (isLoading) return <div>loading...</div>;
+
+  if (data) {
+    const mostRecentEpisode = getMostRecentEpisode(data);
+    const isReleased = isEpisodeReleased(mostRecentEpisode);
+
+    return (
+      <>
+        <main>
+          <ListHeader>
+            {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
+          </ListHeader>
+          {mostRecentEpisode && (
+            <>
+              <EpisodesList>
+                <EpisodeListItem episode={mostRecentEpisode} />
+              </EpisodesList>
+            </>
+          )}
+          <ListHeader>Zufällige Folge</ListHeader>
+          <RandomEpisode />
+          <ListHeader>Alle Folgen</ListHeader>
+          <EpisodesList>
+            {data.map((episode) => {
+              return <EpisodeListItem key={episode.nummer} episode={episode} />;
+            })}
+          </EpisodesList>
+        </main>
+      </>
+    );
+  }
 }

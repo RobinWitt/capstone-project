@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const StyledHeader = styled.header`
   padding: 0.5rem;
-  border-bottom: 2px dashed;
   font-size: 0.8rem;
+  background: lightgrey;
 `;
 
 export default function Header() {

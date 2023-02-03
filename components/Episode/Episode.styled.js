@@ -5,10 +5,9 @@ export const StyledEpisodeCard = styled.article`
   display: flex;
   flex-direction: column;
   background-color: whitesmoke;
-  margin: 1rem;
-  padding: 1rem;
+  margin: 0.8rem;
+  padding: 1.2rem;
   border: 2px solid;
-  border-radius: 0.8rem;
 `;
 
 export const EpisodeHeader = styled.div`

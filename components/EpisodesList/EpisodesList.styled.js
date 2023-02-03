@@ -1,33 +1,45 @@
 import styled from "styled-components";
 import Link from "next/link";
+import Image from "next/image";
 
-export const StyledList = styled.ul`
-  list-style: none;
-  margin: 1rem;
+export const ListHeader = styled.h2`
+  text-align: center;
+  margin-top: 1.5rem;
 `;
 
-export const StyledListItem = styled.li`
+export const OverviewList = styled.ul`
+  list-style: none;
+  margin: 0.2rem;
+`;
+
+export const OverviewListItem = styled.li`
   display: flex;
   align-items: center;
   background-color: lightgrey;
   margin: 0.5rem;
-  border: 2px solid;
-  border-radius: 0.7rem;
 `;
 
-export const StyledEpisodeLink = styled(Link)`
-  display: flex;
-  justify-content: space-between;
+export const EpisodeLink = styled(Link)`
   width: 100%;
-  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  margin: 0.2rem;
   text-decoration: none;
   color: darkgreen;
 `;
 
-export const FavButton = styled.button`
+export const PreviewImage = styled(Image)`
+  width: auto;
+  height: 50px;
+`;
+
+export const OverviewText = styled.section`
+  margin-left: 1rem;
+`;
+
+export const ListButton = styled.button`
   border: none;
-  border-left: 2px solid;
-  padding: 0.5rem;
+  padding: 0 1rem;
   background: none;
   color: darkgreen;
   cursor: pointer;
