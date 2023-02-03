@@ -6,14 +6,20 @@ import {
   isEpisodeReleased,
 } from "@/components/Episode/EpisodeFunctions";
 import RandomEpisode from "@/components/RandomEpisode/RandomEpisodeListItem";
-import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
+import {
+  ListHeadContainer,
+  ListHeader,
+} from "@/components/EpisodesList/EpisodesList.styled";
 import { useEffect } from "react";
 import { useAtom, atom } from "jotai";
+import ListNavigation from "@/components/EpisodesList/ListNavigation";
+import Searchbar, { initialSearch } from "@/components/EpisodesList/Searchbar";
 
 const URL = "/api/episodes";
 export const initialScroll = atom(0);
 
 export default function HomePage() {
+  const [search] = useAtom(initialSearch);
   // scroll restoration adapted from => https://codesandbox.io/s/cocky-drake-1xe0g
   const [scrollY, setScrollY] = useAtom(initialScroll);
 
@@ -30,13 +36,13 @@ export default function HomePage() {
   });
   // end of scroll restoration
 
-  const { data, isLoading, error } = useSWR(URL);
+  const { data: allEpisodes, isLoading, error } = useSWR(URL);
 
   if (error) return <div>error</div>;
   if (isLoading) return <div>loading...</div>;
 
-  if (data) {
-    const mostRecentEpisode = getMostRecentEpisode(data);
+  if (allEpisodes) {
+    const mostRecentEpisode = getMostRecentEpisode(allEpisodes);
     const isReleased = isEpisodeReleased(mostRecentEpisode);
 
     return (
@@ -54,11 +60,19 @@ export default function HomePage() {
           )}
           <ListHeader>Zufällige Folge</ListHeader>
           <RandomEpisode />
-          <ListHeader>Alle Folgen</ListHeader>
+          <ListHeadContainer>
+            <ListHeader>Alle Folgen</ListHeader>
+            <Searchbar />
+          </ListHeadContainer>
+          <ListNavigation />
           <EpisodesList>
-            {data.map((episode) => {
-              return <EpisodeListItem key={episode.nummer} episode={episode} />;
-            })}
+            {allEpisodes
+              .filter(({ titel }) => titel.toLowerCase().includes(search))
+              .map((episode) => {
+                return (
+                  <EpisodeListItem key={episode.nummer} episode={episode} />
+                );
+              })}
           </EpisodesList>
         </main>
       </>
