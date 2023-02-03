@@ -7,10 +7,29 @@ import {
 } from "@/components/Episode/EpisodeFunctions";
 import RandomEpisode from "@/components/RandomEpisode/RandomEpisodeListItem";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
+import { useEffect } from "react";
+import { useAtom, atom } from "jotai";
 
 const URL = "/api/episodes";
+export const initialScroll = atom(0);
 
 export default function HomePage() {
+  // scroll restoration adapted from => https://codesandbox.io/s/cocky-drake-1xe0g
+  const [scrollY, setScrollY] = useAtom(initialScroll);
+
+  useEffect(() => {
+    window.scrollTo(0, scrollY);
+    function handleScroll() {
+      setScrollY(window.scrollY);
+    }
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
+  // end of scroll restoration
+
   const { data, isLoading, error } = useSWR(URL);
 
   if (error) return <div>error</div>;
