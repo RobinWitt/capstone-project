@@ -6,6 +6,7 @@ import {
   isEpisodeReleased,
 } from "@/components/Episode/EpisodeFunctions";
 import RandomEpisode from "@/components/RandomEpisode/RandomEpisodeListItem";
+import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 
 const URL = "/api/episodes";
 
@@ -22,7 +23,9 @@ export default function HomePage() {
     return (
       <>
         <main>
-          <h2>{isReleased ? "zuletzt erschienen" : "erscheint demnächst"}</h2>
+          <ListHeader>
+            {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
+          </ListHeader>
           {mostRecentEpisode && (
             <>
               <EpisodesList>
@@ -30,9 +33,9 @@ export default function HomePage() {
               </EpisodesList>
             </>
           )}
-          <h2>zufällige Folge</h2>
+          <ListHeader>Zufällige Folge</ListHeader>
           <RandomEpisode />
-          <h2>Alle Folgen:</h2>
+          <ListHeader>Alle Folgen</ListHeader>
           <EpisodesList>
             {data.map((episode) => {
               return <EpisodeListItem key={episode.nummer} episode={episode} />;

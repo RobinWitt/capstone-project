@@ -4,9 +4,10 @@ import { useAtom } from "jotai";
 import useSWR from "swr";
 import { initialFavorites } from "@/components/Favoring/initialFavorites";
 
+const URL = "/api/episodes";
+
 export default function FavoritesPage() {
-  const URL_ = "/api/episodes";
-  const { data, isLoading, error } = useSWR(URL_);
+  const { data, isLoading, error } = useSWR(URL);
   const [favorites] = useAtom(initialFavorites);
 
   if (error) return <div>error</div>;

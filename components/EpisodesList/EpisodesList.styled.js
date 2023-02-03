@@ -2,6 +2,11 @@ import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
 
+export const ListHeader = styled.h2`
+  text-align: center;
+  margin-top: 1.5rem;
+`;
+
 export const OverviewList = styled.ul`
   list-style: none;
   margin: 0.2rem;
