@@ -36,7 +36,6 @@ export default function EpisodeListItem({ episode }) {
           <p>
             {number} - {title}
           </p>
-          <p></p>
           <p style={{ color: "grey" }}>{getFormattedDate(releasedate)}</p>
         </OverviewText>
       </EpisodeLink>

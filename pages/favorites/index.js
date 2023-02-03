@@ -18,12 +18,13 @@ export default function FavoritesPage() {
         <main>
           <h2>Favoriten</h2>
           <EpisodesList>
-            {data.map((episode) => {
-              if (favorites.includes(episode.nummer))
+            {data
+              .filter((episode) => favorites.includes(episode.nummer))
+              .map((episode) => {
                 return (
                   <EpisodeListItem key={episode.nummer} episode={episode} />
                 );
-            })}
+              })}
           </EpisodesList>
         </main>
       </>

@@ -57,9 +57,7 @@ export function getMostRecentEpisode(episodes) {
         new Date(a.veröffentlichungsdatum) - new Date(b.veröffentlichungsdatum)
       );
     })
-    .findLast((element) => {
-      return element;
-    });
+    .at(-1);
 }
 
 // https://www.w3resource.com/javascript-exercises/javascript-basic-exercise-3.php

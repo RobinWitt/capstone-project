@@ -15,10 +15,7 @@ export default function EpisodeCardHeader({ episodeNumber, onHideDetails }) {
 
   return (
     <EpisodeHeader>
-      <EpisodeNavButton
-        type="button"
-        onClick={onHideDetails ? onHideDetails : router.back}
-      >
+      <EpisodeNavButton type="button" onClick={onHideDetails || router.back}>
         <SVGIcon variant="returnIcon" width="50px" color="darkgreen" />
       </EpisodeNavButton>
       <h2>Folge {episodeNumber}</h2>
