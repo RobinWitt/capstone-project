@@ -28,7 +28,7 @@ export default function EpisodeListItem({ episode }) {
       <EpisodeLink href={`/episodes/${number}`}>
         <PreviewImage
           src={getCoverURL(links)}
-          alt="bla"
+          alt={`Cover Folge Nummer ${number}`}
           width={400}
           height={400}
         />

@@ -7,7 +7,7 @@ export default function RandomCard({ coverlink, children }) {
       {children}
       <EpisodeImage
         src={getCoverURL(coverlink)}
-        alt="bla"
+        alt="Cover der zufälligen Folge"
         width={400}
         height={400}
         priority

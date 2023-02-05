@@ -1,6 +1,8 @@
+import useSWR from "swr";
+import { useEffect } from "react";
+import { useAtom, atom } from "jotai";
 import EpisodesList from "@/components/EpisodesList/EpisodesList";
 import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
-import useSWR from "swr";
 import {
   getMostRecentEpisode,
   filterEpisodes,
@@ -12,8 +14,6 @@ import {
   ListHeadContainer,
   ListHeader,
 } from "@/components/EpisodesList/EpisodesList.styled";
-import { useEffect } from "react";
-import { useAtom, atom } from "jotai";
 import ListNavigation from "@/components/EpisodesList/ListNavigation";
 import Searchbar, { initialSearch } from "@/components/EpisodesList/Searchbar";
 import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
