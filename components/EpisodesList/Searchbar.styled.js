@@ -6,8 +6,8 @@ export const SearchbarForm = styled.form`
   align-items: center;
   gap: 3px;
   background-color: grey;
-  padding: 0.3rem 0.4rem 0.3rem 0.4rem;
-  border-radius: 10rem;
+  padding: 0.4rem;
+  border-radius: 999px;
   width: 60%;
   max-width: 300px;
   transition: width 0.5s;
@@ -15,7 +15,7 @@ export const SearchbarForm = styled.form`
   ${({ showSearchbar }) => {
     if (showSearchbar === false) {
       return css`
-        width: 2rem;
+        width: 2.4rem;
       `;
     }
   }}
@@ -25,7 +25,7 @@ export const SearchbarInput = styled.input`
   background-color: lightgrey;
   border: none;
   width: 100%;
-  line-height: 1;
+  line-height: 1.5;
 
   ${({ showSearchbar }) => {
     if (showSearchbar === false) {
@@ -34,16 +34,11 @@ export const SearchbarInput = styled.input`
       `;
     }
   }}
-
-  &:focus {
-    outline: 2px solid var(--color-background);
-  }
 `;
 
 export const SearchbarButton = styled.button`
   border-radius: 999px;
   border: none;
-  line-height: 1;
   background-color: transparent;
   display: flex;
 

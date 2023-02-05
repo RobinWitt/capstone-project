@@ -3,7 +3,9 @@ import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
 import useSWR from "swr";
 import {
   getMostRecentEpisode,
+  filterEpisodes,
   isEpisodeReleased,
+  sortEpisodesByDate,
 } from "@/components/Episode/EpisodeFunctions";
 import RandomEpisode from "@/components/RandomEpisode/RandomEpisodeListItem";
 import {
@@ -17,6 +19,8 @@ import Searchbar, { initialSearch } from "@/components/EpisodesList/Searchbar";
 
 const URL = "/api/episodes";
 export const initialScroll = atom(0);
+export const initialSort = atom(true);
+export const initialFilter = atom(false);
 
 export default function HomePage() {
   const [search] = useAtom(initialSearch);
@@ -37,6 +41,8 @@ export default function HomePage() {
   // end of scroll restoration
 
   const { data: allEpisodes, isLoading, error } = useSWR(URL);
+  const [ascending] = useAtom(initialSort);
+  const [filter, setFilter] = useAtom(initialFilter);
 
   if (error) return <div>error</div>;
   if (isLoading) return <div>loading...</div>;
@@ -44,6 +50,8 @@ export default function HomePage() {
   if (allEpisodes) {
     const mostRecentEpisode = getMostRecentEpisode(allEpisodes);
     const isReleased = isEpisodeReleased(mostRecentEpisode);
+    const sortedEpisodes = sortEpisodesByDate(allEpisodes, ascending);
+    const filteredEpisodes = filterEpisodes(sortedEpisodes, filter);
 
     return (
       <>
@@ -60,14 +68,19 @@ export default function HomePage() {
           )}
           <ListHeader>Zufällige Folge</ListHeader>
           <RandomEpisode />
+          <ListHeader>Alle Folgen</ListHeader>
           <ListHeadContainer>
-            <ListHeader>Alle Folgen</ListHeader>
             <Searchbar />
+            <ListNavigation />
           </ListHeadContainer>
-          <ListNavigation />
           <EpisodesList>
-            {allEpisodes
-              .filter(({ titel }) => titel.toLowerCase().includes(search))
+            {filteredEpisodes
+              .filter(
+                ({ nummer, titel, beschreibung }) =>
+                  nummer.toString().includes(search) ||
+                  titel.toLowerCase().includes(search) ||
+                  beschreibung?.toLowerCase().includes(search)
+              )
               .map((episode) => {
                 return (
                   <EpisodeListItem key={episode.nummer} episode={episode} />

@@ -42,6 +42,21 @@ export function sortLastToFirst(episodes) {
   });
 }
 
+export function sortEpisodesByDate(episodes, ascending) {
+  if (ascending) {
+    return episodes.slice().sort(function (a, b) {
+      return (
+        new Date(a.veröffentlichungsdatum) - new Date(b.veröffentlichungsdatum)
+      );
+    });
+  }
+  return episodes.slice().sort(function (a, b) {
+    return (
+      new Date(b.veröffentlichungsdatum) - new Date(a.veröffentlichungsdatum)
+    );
+  });
+}
+
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 export function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -81,4 +96,11 @@ export function isEpisodeReleased(episode) {
     return true;
   }
   return false;
+}
+
+export function filterEpisodes(episodes, filter) {
+  if (filter) {
+    return episodes.filter(({ teile }) => teile.length > 0);
+  }
+  return episodes;
 }

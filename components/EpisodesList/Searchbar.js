@@ -16,11 +16,13 @@ export default function Searchbar() {
   return (
     <SearchbarForm showSearchbar={showSearchbar}>
       <SearchbarButton type="button" onClick={() => setShowSearchbar(true)}>
-        <SVGIcon variant="magnify" width="20px" />
+        <SVGIcon variant="magnify" width="25px" />
       </SearchbarButton>
       <SearchbarInput
         showSearchbar={showSearchbar}
         onChange={(e) => setSearch(e.target.value.toLowerCase())}
+        type="text"
+        maxLength="15"
       />
       <SearchbarButton
         type="button"
@@ -28,7 +30,7 @@ export default function Searchbar() {
         showSearchbar={showSearchbar}
         variant="close"
       >
-        <SVGIcon variant="close" width="20px" />
+        <SVGIcon variant="close" width="25px" />
       </SearchbarButton>
     </SearchbarForm>
   );

@@ -4,10 +4,8 @@ import Image from "next/image";
 
 export const ListHeadContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  justify-content: space-between;
+  margin: 0.7rem;
 `;
 
 export const ListHeader = styled.h2`
