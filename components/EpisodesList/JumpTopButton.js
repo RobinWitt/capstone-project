@@ -17,7 +17,7 @@ const JumpToTopButton = styled.button`
 export default function JumpTopButton({ onJumpTop }) {
   return (
     <JumpToTopButton onClick={onJumpTop}>
-      <SVGIcon variant="arrowUpThin" width="35px" />
+      <SVGIcon variant="arrowUp" width="35px" />
     </JumpToTopButton>
   );
 }

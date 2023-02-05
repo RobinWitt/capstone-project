@@ -43,7 +43,7 @@ export default function HomePage() {
 
   const { data: allEpisodes, isLoading, error } = useSWR(URL);
   const [ascending] = useAtom(initialSort);
-  const [filter, setFilter] = useAtom(initialFilter);
+  const [filter] = useAtom(initialFilter);
 
   if (error) return <div>error</div>;
   if (isLoading) return <div>loading...</div>;
@@ -88,7 +88,7 @@ export default function HomePage() {
                 );
               })}
           </EpisodesList>
-          {scrollY > 100 && <JumpTopButton onJumpTop={() => setScrollY(0)} />}
+          {scrollY > 120 && <JumpTopButton onJumpTop={() => setScrollY(0)} />}
         </main>
       </>
     );
