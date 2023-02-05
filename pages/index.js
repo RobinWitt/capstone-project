@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { useAtom, atom } from "jotai";
 import ListNavigation from "@/components/EpisodesList/ListNavigation";
 import Searchbar, { initialSearch } from "@/components/EpisodesList/Searchbar";
+import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
 
 const URL = "/api/episodes";
 export const initialScroll = atom(0);
@@ -87,6 +88,7 @@ export default function HomePage() {
                 );
               })}
           </EpisodesList>
+          {scrollY > 100 && <JumpTopButton onJumpTop={() => setScrollY(0)} />}
         </main>
       </>
     );
