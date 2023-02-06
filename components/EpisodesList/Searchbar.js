@@ -10,8 +10,13 @@ import {
 export const initialSearch = atom("");
 
 export default function Searchbar() {
-  const [, setSearch] = useAtom(initialSearch);
+  const [search, setSearch] = useAtom(initialSearch);
   const [showSearchbar, setShowSearchbar] = useState(false);
+
+  function handleCloseSearchbar() {
+    setShowSearchbar(false);
+    setSearch("");
+  }
 
   return (
     <SearchbarForm showSearchbar={showSearchbar}>
@@ -20,13 +25,15 @@ export default function Searchbar() {
       </SearchbarButton>
       <SearchbarInput
         showSearchbar={showSearchbar}
-        onChange={(e) => setSearch(e.target.value.toLowerCase())}
+        onChange={(e) => setSearch(e.target.value)}
+        value={search}
         type="text"
         maxLength="15"
+        pattern="[A-Za-zÄäÖÖÜüß0-9]{15}"
       />
       <SearchbarButton
         type="button"
-        onClick={() => setShowSearchbar(false)}
+        onClick={handleCloseSearchbar}
         showSearchbar={showSearchbar}
         variant="close"
       >

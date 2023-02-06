@@ -38,8 +38,15 @@ export default function HomePage() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // end of scroll restoration
+
+  function handleJumpTop() {
+    window.scrollTo(0, 0, {
+      behavior: "smooth",
+    });
+  }
 
   const { data: allEpisodes, isLoading, error } = useSWR(URL);
   const [ascending] = useAtom(initialSort);
@@ -78,9 +85,9 @@ export default function HomePage() {
             {filteredEpisodes
               .filter(
                 ({ nummer, titel, beschreibung }) =>
-                  nummer.toString().includes(search) ||
-                  titel.toLowerCase().includes(search) ||
-                  beschreibung?.toLowerCase().includes(search)
+                  nummer.toString().includes(search.toLowerCase()) ||
+                  titel.toLowerCase().includes(search.toLowerCase()) ||
+                  beschreibung?.toLowerCase().includes(search.toLowerCase())
               )
               .map((episode) => {
                 return (
@@ -88,7 +95,7 @@ export default function HomePage() {
                 );
               })}
           </EpisodesList>
-          {scrollY > 120 && <JumpTopButton onJumpTop={() => setScrollY(0)} />}
+          {scrollY > 120 && <JumpTopButton onJumpTop={handleJumpTop} />}
         </main>
       </>
     );

@@ -25,7 +25,8 @@ export const SearchbarInput = styled.input`
   background-color: lightgrey;
   border: none;
   width: 100%;
-  line-height: 1.5;
+  line-height: 1;
+  padding: 0.2rem;
 
   ${({ showSearchbar }) => {
     if (showSearchbar === false) {
