@@ -23,14 +23,14 @@ export default function Navigation() {
 
   return (
     <StyledNav>
-      <Link href="/">
+      <Link href="/" aria-label="go to homepage">
         <SVGIcon
           variant={currentPage === "/" ? "homeFilled" : "homeEmpty"}
           width="50px"
           color="#A3CCAB"
         />
       </Link>
-      <Link href="/favorites">
+      <Link href="/favorites" aria-label="go to favorites page">
         <SVGIcon
           variant={
             currentPage === "/favorites" ? "favoriteFilled" : "favoriteEmpty"

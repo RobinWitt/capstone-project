@@ -20,7 +20,11 @@ export default function Searchbar() {
 
   return (
     <SearchbarForm showSearchbar={showSearchbar}>
-      <SearchbarButton type="button" onClick={() => setShowSearchbar(true)}>
+      <SearchbarButton
+        type="button"
+        onClick={() => setShowSearchbar(true)}
+        aria-label="open searchbar"
+      >
         <SVGIcon variant="magnify" width="25px" />
       </SearchbarButton>
       <SearchbarInput
@@ -30,12 +34,14 @@ export default function Searchbar() {
         type="text"
         maxLength="15"
         pattern="[A-Za-zÄäÖÖÜüß0-9]{15}"
+        aria-label="type text or number to search"
       />
       <SearchbarButton
         type="button"
         onClick={handleCloseSearchbar}
         showSearchbar={showSearchbar}
         variant="close"
+        aria-label="close searchbar"
       >
         <SVGIcon variant="close" width="25px" />
       </SearchbarButton>

@@ -14,10 +14,15 @@ export default function ListNavigation() {
         variant="text"
         active={filter}
         onClick={() => setFilter(!filter)}
+        aria-label="filter special episodes"
       >
         Spezialfolgen
       </ListOptionsButton>
-      <ListOptionsButton type="button" onClick={() => setAscending(!ascending)}>
+      <ListOptionsButton
+        type="button"
+        onClick={() => setAscending(!ascending)}
+        aria-label="sort episodes by date"
+      >
         <SVGIcon
           variant={ascending ? "arrowDownThin" : "arrowUpThin"}
           width="25px"
