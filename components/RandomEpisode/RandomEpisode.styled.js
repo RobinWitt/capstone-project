@@ -22,3 +22,15 @@ export const RandomEpisodeLink = styled(Link)`
   text-decoration: none;
   color: darkgreen;
 `;
+
+export const RandomEpisodeHeader = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 30px;
+`;
+
+export const RandomEpisodeNavigation = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;

@@ -1,10 +1,27 @@
-import { EpisodeImage, StyledEpisodeCard } from "../Episode/Episode.styled";
+import { useRouter } from "next/router";
+import {
+  EpisodeImage,
+  EpisodeNavButton,
+  StyledEpisodeCard,
+} from "../Episode/Episode.styled";
 import { getCoverURL } from "../Episode/EpisodeFunctions";
+import SVGIcon from "../Icons";
+import {
+  RandomEpisodeHeader,
+  RandomEpisodeNavigation,
+} from "./RandomEpisode.styled";
 
-export default function RandomCard({ coverlink, children }) {
+export default function RandomCard({ coverlink, onSetRandom, onShowDetails }) {
+  const router = useRouter();
+
   return (
     <StyledEpisodeCard>
-      {children}
+      <RandomEpisodeHeader>
+        <EpisodeNavButton type="button" onClick={router.back}>
+          <SVGIcon variant="returnIcon" width="50px" color="darkgreen" />
+        </EpisodeNavButton>
+        <h2>zufällige Folge</h2>
+      </RandomEpisodeHeader>
       <EpisodeImage
         src={getCoverURL(coverlink)}
         alt="Cover der zufälligen Folge"
@@ -12,6 +29,16 @@ export default function RandomCard({ coverlink, children }) {
         height={400}
         priority
       />
+      <RandomEpisodeNavigation>
+        <EpisodeNavButton onClick={onSetRandom}>
+          <SVGIcon variant="refresh" width="50px" color="darkred" />
+          <p>andere Folge</p>
+        </EpisodeNavButton>
+        <EpisodeNavButton type="button" onClick={onShowDetails}>
+          <SVGIcon variant="check" width="50px" color="darkgreen" />
+          <p>Details anzeigen</p>
+        </EpisodeNavButton>
+      </RandomEpisodeNavigation>
     </StyledEpisodeCard>
   );
 }
