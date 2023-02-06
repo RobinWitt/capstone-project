@@ -1,12 +1,9 @@
-import { EpisodeNavButton } from "@/components/Episode/Episode.styled";
 import EpisodeCard from "@/components/Episode/EpisodeCard";
 import EpisodeCardHeader from "@/components/Episode/EpisodeCardHeader";
 import { getRandomIntInclusive } from "@/components/Episode/EpisodeFunctions";
-import SVGIcon from "@/components/Icons";
 import RandomCard from "@/components/RandomEpisode/RandomCard";
 import { useState } from "react";
 import useSWR from "swr";
-import { useRouter } from "next/router";
 
 export default function RandomPage() {
   const [random, setRandom] = useState(getRandomIntInclusive(0, 200));

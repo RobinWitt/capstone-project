@@ -6,13 +6,15 @@ import { useRouter } from "next/router";
 const StyledNav = styled.nav`
   position: fixed;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
+  max-width: 700px;
   padding: 0.5rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: pink;
-  border-top: 2px solid;
+  background-color: #053d38;
 `;
 
 export default function Navigation() {
@@ -25,7 +27,7 @@ export default function Navigation() {
         <SVGIcon
           variant={currentPage === "/" ? "homeFilled" : "homeEmpty"}
           width="50px"
-          color="darkgreen"
+          color="#A3CCAB"
         />
       </Link>
       <Link href="/favorites">
@@ -34,7 +36,7 @@ export default function Navigation() {
             currentPage === "/favorites" ? "favoriteFilled" : "favoriteEmpty"
           }
           width="50px"
-          color="darkgreen"
+          color="#A3CCAB"
         />
       </Link>
     </StyledNav>
