@@ -17,6 +17,9 @@ export default createGlobalStyle`
     margin: auto;
     margin-bottom: 5rem;
     max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
 

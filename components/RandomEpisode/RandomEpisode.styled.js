@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
 
-export const RandomEpisodeList = styled.ul`
-  list-style: none;
-  margin: 0.2rem;
-`;
-
 export const RandomEpisodeListItem = styled.li`
   display: flex;
   align-items: center;
