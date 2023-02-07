@@ -9,8 +9,18 @@ export default function EpisodePage() {
 
   const { data, isLoading, error } = useSWR(`/api/episodes/${currentEpisode}`);
 
-  if (error) return <div>Folge nicht gefunden</div>;
-  if (isLoading || !currentEpisode) return <div>wird geladen...</div>;
+  if (error)
+    return (
+      <main>
+        <h2>Fehler beim Laden</h2>
+      </main>
+    );
+  if (isLoading)
+    return (
+      <main>
+        <h2>wird geladen...</h2>
+      </main>
+    );
 
   if (data) {
     const {

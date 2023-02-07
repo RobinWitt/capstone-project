@@ -23,7 +23,7 @@ export default function Searchbar() {
       <SearchbarButton
         type="button"
         onClick={() => setShowSearchbar(true)}
-        aria-label="open searchbar"
+        aria-label="Suchleiste öffnen"
       >
         <SVGIcon variant="magnify" width="25px" />
       </SearchbarButton>
@@ -34,14 +34,14 @@ export default function Searchbar() {
         type="text"
         maxLength="15"
         pattern="[A-Za-zÄäÖÖÜüß0-9]{15}"
-        aria-label="type text or number to search"
+        aria-label="Folgennummer oder Titel suchen"
       />
       <SearchbarButton
         type="button"
         onClick={handleCloseSearchbar}
         showSearchbar={showSearchbar}
         variant="close"
-        aria-label="close searchbar"
+        aria-label="Suchleiste schließen und zurücksetzen"
       >
         <SVGIcon variant="close" width="25px" />
       </SearchbarButton>

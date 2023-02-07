@@ -16,7 +16,10 @@ const JumpToTopButton = styled.button`
 
 export default function JumpTopButton({ onJumpTop }) {
   return (
-    <JumpToTopButton onClick={onJumpTop} aria-label="jump to top of list">
+    <JumpToTopButton
+      onClick={onJumpTop}
+      aria-label="zum Start der Liste springen"
+    >
       <SVGIcon variant="arrowUp" width="35px" />
     </JumpToTopButton>
   );

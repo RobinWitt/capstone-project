@@ -22,8 +22,18 @@ export default function RandomPage() {
     setToggleDetails(false);
   }
 
-  if (error) return <div>Folge nicht gefunden</div>;
-  if (isLoading) return <div>wird geladen...</div>;
+  if (error)
+    return (
+      <main>
+        <h2>Fehler beim Laden</h2>
+      </main>
+    );
+  if (isLoading)
+    return (
+      <main>
+        <h2>wird geladen...</h2>
+      </main>
+    );
 
   if (data) {
     const {

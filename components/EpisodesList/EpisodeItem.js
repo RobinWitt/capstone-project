@@ -27,7 +27,7 @@ export default function EpisodeListItem({ episode }) {
     <OverviewListItem>
       <EpisodeLink
         href={`/episodes/${number}`}
-        aria-label="go to episode details page"
+        aria-label="Detailseite der Folge anzeigen"
       >
         <PreviewImage
           src={getCoverURL(links)}
@@ -47,7 +47,9 @@ export default function EpisodeListItem({ episode }) {
         onClick={() => {
           setFavorites(toggleFavorites(favorites, number));
         }}
-        aria-label={`${isFaved ? "remove from favorites" : "add to favorites"}`}
+        aria-label={`${
+          isFaved ? "von Favoriten entfernen" : "zu Favoriten hinzufügen"
+        }`}
       >
         <SVGIcon
           variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}

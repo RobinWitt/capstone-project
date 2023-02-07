@@ -10,8 +10,18 @@ export default function FavoritesPage() {
   const { data, isLoading, error } = useSWR(URL);
   const [favorites] = useAtom(initialFavorites);
 
-  if (error) return <div>error</div>;
-  if (isLoading) return <div>loading...</div>;
+  if (error)
+    return (
+      <main>
+        <h2>Fehler beim Laden</h2>
+      </main>
+    );
+  if (isLoading)
+    return (
+      <main>
+        <h2>wird geladen...</h2>
+      </main>
+    );
 
   if (data) {
     return (
