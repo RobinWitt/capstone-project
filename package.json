@@ -10,10 +10,12 @@
     "test": "jest --watchAll"
   },
   "dependencies": {
+    "@next-auth/mongodb-adapter": "^1.1.1",
     "@next/font": "13.1.2",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.2",
     "jotai": "^1.13.1",
+    "mongodb": "^4.13.0",
     "mongoose": "^6.9.0",
     "next": "13.1.2",
     "next-auth": "^4.19.2",
