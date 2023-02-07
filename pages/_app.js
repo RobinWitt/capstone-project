@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import GlobalStyle from "@/styles";
 import Head from "next/head";
 import { SWRConfig } from "swr";
+import { SessionProvider } from "next-auth/react";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -20,7 +21,10 @@ const fetcher = async (url) => {
   return res.json();
 };
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
     <>
       <GlobalStyle />
@@ -29,7 +33,9 @@ export default function App({ Component, pageProps }) {
       </Head>
       <Header />
       <SWRConfig value={{ fetcher }}>
-        <Component {...pageProps} />
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
       </SWRConfig>
       <Navigation />
     </>
