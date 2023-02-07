@@ -1,4 +1,4 @@
-import { initialFilter, initialSort } from "@/pages";
+import { initialFilter, initialSort } from "@/pages/startseite";
 import { useAtom } from "jotai";
 import SVGIcon from "../Icons";
 import { ListOptions, ListOptionsButton } from "./ListNavigation.styled";

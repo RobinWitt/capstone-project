@@ -26,7 +26,7 @@ export default function EpisodeListItem({ episode }) {
   return (
     <OverviewListItem>
       <EpisodeLink
-        href={`/episodes/${number}`}
+        href={`/episoden/${number}`}
         aria-label="Detailseite der Folge anzeigen"
       >
         <PreviewImage
