@@ -2,7 +2,6 @@ import EpisodeCard from "@/components/Episode/EpisodeCard";
 import EpisodeCardHeader from "@/components/Episode/EpisodeCardHeader";
 import { getRandomIntInclusive } from "@/components/Episode/EpisodeFunctions";
 import RandomCard from "@/components/RandomEpisode/RandomCard";
-import RandomCardHeader from "@/components/RandomEpisode/RandomCardHeader";
 import { useState } from "react";
 import useSWR from "swr";
 
@@ -23,8 +22,18 @@ export default function RandomPage() {
     setToggleDetails(false);
   }
 
-  if (error) return <div>Folge nicht gefunden</div>;
-  if (isLoading) return <div>wird geladen...</div>;
+  if (error)
+    return (
+      <main>
+        <h2>Fehler beim Laden</h2>
+      </main>
+    );
+  if (isLoading)
+    return (
+      <main>
+        <h2>wird geladen...</h2>
+      </main>
+    );
 
   if (data) {
     const {
@@ -64,13 +73,11 @@ export default function RandomPage() {
           </EpisodeCard>
         ) : (
           random && (
-            <RandomCard coverlink={links}>
-              <RandomCardHeader
-                onSetRandom={handleSetRandom}
-                onShowDetails={handleShowDetails}
-                episodeNumber={number}
-              />
-            </RandomCard>
+            <RandomCard
+              coverlink={links}
+              onSetRandom={handleSetRandom}
+              onShowDetails={handleShowDetails}
+            />
           )
         )}
       </main>

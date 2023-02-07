@@ -14,7 +14,10 @@ export default createGlobalStyle`
   }
 
   main {
+    margin: auto;
     margin-bottom: 5rem;
+    max-width: 700px;
   }
+
 
 `;

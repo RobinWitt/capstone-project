@@ -25,10 +25,13 @@ export default function EpisodeListItem({ episode }) {
 
   return (
     <OverviewListItem>
-      <EpisodeLink href={`/episodes/${number}`}>
+      <EpisodeLink
+        href={`/episodes/${number}`}
+        aria-label="Detailseite der Folge anzeigen"
+      >
         <PreviewImage
           src={getCoverURL(links)}
-          alt="bla"
+          alt={`Cover Folge Nummer ${number}`}
           width={400}
           height={400}
         />
@@ -44,6 +47,9 @@ export default function EpisodeListItem({ episode }) {
         onClick={() => {
           setFavorites(toggleFavorites(favorites, number));
         }}
+        aria-label={`${
+          isFaved ? "von Favoriten entfernen" : "zu Favoriten hinzufügen"
+        }`}
       >
         <SVGIcon
           variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}

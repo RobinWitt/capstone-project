@@ -1,24 +1,75 @@
+import useSWR from "swr";
+import { useEffect } from "react";
+import { useAtom, atom } from "jotai";
 import EpisodesList from "@/components/EpisodesList/EpisodesList";
 import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
-import useSWR from "swr";
 import {
   getMostRecentEpisode,
+  filterEpisodes,
   isEpisodeReleased,
+  sortEpisodesByDate,
 } from "@/components/Episode/EpisodeFunctions";
 import RandomEpisode from "@/components/RandomEpisode/RandomEpisodeListItem";
-import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
+import {
+  ListHeadContainer,
+  ListHeader,
+} from "@/components/EpisodesList/EpisodesList.styled";
+import ListNavigation from "@/components/EpisodesList/ListNavigation";
+import Searchbar, { initialSearch } from "@/components/EpisodesList/Searchbar";
+import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
 
 const URL = "/api/episodes";
+export const initialScroll = atom(0);
+export const initialSort = atom(true);
+export const initialFilter = atom(false);
 
 export default function HomePage() {
-  const { data, isLoading, error } = useSWR(URL);
+  const [search] = useAtom(initialSearch);
+  // scroll restoration adapted from => https://codesandbox.io/s/cocky-drake-1xe0g
+  const [scrollY, setScrollY] = useAtom(initialScroll);
 
-  if (error) return <div>error</div>;
-  if (isLoading) return <div>loading...</div>;
+  useEffect(() => {
+    window.scrollTo(0, scrollY);
+    function handleScroll() {
+      setScrollY(window.scrollY);
+    }
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // end of scroll restoration
 
-  if (data) {
-    const mostRecentEpisode = getMostRecentEpisode(data);
+  function handleJumpTop() {
+    window.scrollTo(0, 0, {
+      behavior: "smooth",
+    });
+  }
+
+  const { data: allEpisodes, isLoading, error } = useSWR(URL);
+  const [ascending] = useAtom(initialSort);
+  const [filter] = useAtom(initialFilter);
+
+  if (error)
+    return (
+      <main>
+        <h2>Fehler beim Laden</h2>
+      </main>
+    );
+  if (isLoading)
+    return (
+      <main>
+        <h2>wird geladen...</h2>
+      </main>
+    );
+
+  if (allEpisodes) {
+    const mostRecentEpisode = getMostRecentEpisode(allEpisodes);
     const isReleased = isEpisodeReleased(mostRecentEpisode);
+    const sortedEpisodes = sortEpisodesByDate(allEpisodes, ascending);
+    const filteredEpisodes = filterEpisodes(sortedEpisodes, filter);
 
     return (
       <>
@@ -36,11 +87,24 @@ export default function HomePage() {
           <ListHeader>Zufällige Folge</ListHeader>
           <RandomEpisode />
           <ListHeader>Alle Folgen</ListHeader>
+          <ListHeadContainer>
+            <Searchbar />
+            <ListNavigation />
+          </ListHeadContainer>
           <EpisodesList>
-            {data.map((episode) => {
-              return <EpisodeListItem key={episode.nummer} episode={episode} />;
-            })}
+            {filteredEpisodes
+              .filter(
+                ({ nummer, titel }) =>
+                  nummer.toString().includes(search.toLowerCase()) ||
+                  titel.toLowerCase().includes(search.toLowerCase())
+              )
+              .map((episode) => {
+                return (
+                  <EpisodeListItem key={episode.nummer} episode={episode} />
+                );
+              })}
           </EpisodesList>
+          {scrollY > 120 && <JumpTopButton onJumpTop={handleJumpTop} />}
         </main>
       </>
     );

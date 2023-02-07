@@ -15,7 +15,11 @@ export default function EpisodeCardHeader({ episodeNumber, onHideDetails }) {
 
   return (
     <EpisodeHeader>
-      <EpisodeNavButton type="button" onClick={onHideDetails || router.back}>
+      <EpisodeNavButton
+        type="button"
+        onClick={onHideDetails || router.back}
+        aria-label="vorherige Seite"
+      >
         <SVGIcon variant="returnIcon" width="50px" color="darkgreen" />
       </EpisodeNavButton>
       <h2>Folge {episodeNumber}</h2>
@@ -24,6 +28,9 @@ export default function EpisodeCardHeader({ episodeNumber, onHideDetails }) {
         onClick={() => {
           setFavorites(toggleFavorites(favorites, episodeNumber));
         }}
+        aria-label={`${
+          isFaved ? "von Favoriten entfernen" : "zu Favoriten hinzufügen"
+        }`}
       >
         <SVGIcon
           variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}

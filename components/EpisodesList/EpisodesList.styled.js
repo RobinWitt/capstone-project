@@ -2,9 +2,14 @@ import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
 
+export const ListHeadContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 0.7rem;
+`;
+
 export const ListHeader = styled.h2`
   text-align: center;
-  margin-top: 1.5rem;
 `;
 
 export const OverviewList = styled.ul`
