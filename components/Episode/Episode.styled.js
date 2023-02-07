@@ -2,10 +2,11 @@ import styled from "styled-components";
 import Image from "next/image";
 
 export const StyledEpisodeCard = styled.article`
+  width: 90%;
   display: flex;
   flex-direction: column;
   background-color: whitesmoke;
-  margin: 0.8rem;
+  margin: 0.8rem 0;
   padding: 1.2rem;
   border: 2px solid;
 `;

@@ -48,17 +48,27 @@ export default function HomePage() {
     });
   }
 
-  const { data: allEpisodes, isLoading, error } = useSWR(URL);
+  const {
+    data: allEpisodes,
+    isLoading: episodesAreLoading,
+    error: episodesError,
+  } = useSWR(URL);
+  const {
+    data: userData,
+    isLoading: userIsLoading,
+    error: userError,
+  } = useSWR("/api/users/user");
+
   const [ascending] = useAtom(initialSort);
   const [filter] = useAtom(initialFilter);
 
-  if (error)
+  if (episodesError)
     return (
       <main>
         <h2>Fehler beim Laden</h2>
       </main>
     );
-  if (isLoading)
+  if (episodesAreLoading)
     return (
       <main>
         <h2>wird geladen...</h2>
@@ -74,6 +84,8 @@ export default function HomePage() {
     return (
       <>
         <main>
+          {userError && <div>Nutzerdaten konnten nicht geladen werden</div>}
+          {userIsLoading && <div>Nutzerdaten werden geladen...</div>}
           <ListHeader>
             {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
           </ListHeader>
