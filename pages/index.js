@@ -84,7 +84,7 @@ export default function HomePage() {
           <EpisodesList>
             {filteredEpisodes
               .filter(
-                ({ nummer, titel, beschreibung }) =>
+                ({ nummer, titel }) =>
                   nummer.toString().includes(search.toLowerCase()) ||
                   titel.toLowerCase().includes(search.toLowerCase())
               )
