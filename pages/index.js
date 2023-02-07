@@ -86,8 +86,7 @@ export default function HomePage() {
               .filter(
                 ({ nummer, titel, beschreibung }) =>
                   nummer.toString().includes(search.toLowerCase()) ||
-                  titel.toLowerCase().includes(search.toLowerCase()) ||
-                  beschreibung?.toLowerCase().includes(search.toLowerCase())
+                  titel.toLowerCase().includes(search.toLowerCase())
               )
               .map((episode) => {
                 return (
