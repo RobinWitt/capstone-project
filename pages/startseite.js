@@ -53,11 +53,6 @@ export default function HomePage() {
     isLoading: episodesAreLoading,
     error: episodesError,
   } = useSWR(URL);
-  const {
-    data: userData,
-    isLoading: userIsLoading,
-    error: userError,
-  } = useSWR("/api/users/user");
 
   const [ascending] = useAtom(initialSort);
   const [filter] = useAtom(initialFilter);
@@ -84,8 +79,6 @@ export default function HomePage() {
     return (
       <>
         <main>
-          {userError && <div>Nutzerdaten konnten nicht geladen werden</div>}
-          {userIsLoading && <div>Nutzerdaten werden geladen...</div>}
           <ListHeader>
             {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
           </ListHeader>

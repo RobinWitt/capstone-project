@@ -15,7 +15,7 @@ export const SearchbarForm = styled.form`
   ${({ showSearchbar }) => {
     if (showSearchbar === false) {
       return css`
-        width: 2.4rem;
+        width: 39px;
         background-color: var(--primary);
       `;
     }
