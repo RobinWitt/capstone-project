@@ -28,6 +28,7 @@ export const EpisodeNavButton = styled.button`
 
 export const EpisodeImage = styled(Image)`
   width: 100%;
+  max-width: 400px;
   height: auto;
   align-self: center;
   margin: 1rem;

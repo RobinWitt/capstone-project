@@ -5,6 +5,7 @@ export const LogForm = styled.form`
   flex-direction: column;
   align-items: center;
   width: 80%;
+  max-width: 400px;
   margin: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;
