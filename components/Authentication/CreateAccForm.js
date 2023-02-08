@@ -1,4 +1,5 @@
-import { LogButton, LogForm } from "./Login.styled";
+import { ListHeader } from "../EpisodesList/EpisodesList.styled";
+import { FormHeader, LogButton, LogForm } from "./Login.styled";
 import LoginInput from "./LoginInput";
 
 export default function CreateAccForm() {
@@ -10,7 +11,7 @@ export default function CreateAccForm() {
 
   return (
     <LogForm onSubmit={(e) => handleSubmit(e)}>
-      <h2>Account erstellen</h2>
+      <FormHeader>Account erstellen</FormHeader>
       <LoginInput name="email" title="Email" type="email" />
       <LoginInput name="name" title="Benutzername" type="text" />
       <LoginInput name="password" title="Passwort" type="password" />

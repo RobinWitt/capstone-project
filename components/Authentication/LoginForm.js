@@ -1,4 +1,5 @@
-import { LogButton, LogForm } from "./Login.styled";
+import { ListHeader } from "../EpisodesList/EpisodesList.styled";
+import { FormHeader, LogButton, LogForm } from "./Login.styled";
 import LoginInput from "./LoginInput";
 
 export default function LoginForm() {
@@ -10,7 +11,7 @@ export default function LoginForm() {
 
   return (
     <LogForm onSubmit={(e) => handleSubmit(e)}>
-      <h2>Einloggen</h2>
+      <FormHeader>Einloggen</FormHeader>
       <LoginInput name="email" title="Email" type="email" />
       <LoginInput name="password" title="Passwort" type="password" />
       <LogButton type="submit">Absenden</LogButton>

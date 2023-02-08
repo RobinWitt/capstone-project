@@ -1,5 +1,6 @@
 import CreateAccForm from "@/components/Authentication/CreateAccForm";
 import LoginForm from "@/components/Authentication/LoginForm";
+import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import Link from "next/link";
 import useSWR from "swr";
 
@@ -9,13 +10,13 @@ export default function LandingPage() {
   if (error)
     return (
       <main>
-        <h2>Fehler beim Laden</h2>
+        <ListHeader>Fehler beim Laden</ListHeader>
       </main>
     );
   if (isLoading)
     return (
       <main>
-        <h2>wird geladen...</h2>
+        <ListHeader>wird geladen...</ListHeader>
       </main>
     );
 
