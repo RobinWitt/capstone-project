@@ -5,10 +5,11 @@ export const StyledEpisodeCard = styled.article`
   width: 90%;
   display: flex;
   flex-direction: column;
-  background-color: whitesmoke;
   margin: 0.8rem 0;
   padding: 1.2rem;
-  border: 2px solid;
+  background-color: var(--background-tiles);
+  color: var(--text);
+  border: 3px solid var(--background-secondary);
 `;
 
 export const EpisodeHeader = styled.div`
@@ -16,11 +17,13 @@ export const EpisodeHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 1.5rem;
+  color: var(--secondary);
 `;
 
 export const EpisodeNavButton = styled.button`
   border: none;
-  background: none;
+  background-color: transparent;
+  color: var(--primary);
 `;
 
 export const EpisodeImage = styled(Image)`
@@ -41,13 +44,19 @@ export const EpisodeFacts = styled.p`
 
 export const NoContentMessage = styled.p`
   margin-top: 0.8rem;
-  color: grey;
+  color: var(--secondary);
 `;
 
 export const StyledFoldButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 1.2rem;
   margin-top: 0.8rem;
-  color: darkgreen;
+  padding-left: 1rem;
+  border: none;
+  background-color: var(--primary);
+  color: var(--background-secondary);
 `;
 
 export const DescriptionText = styled.p`

@@ -20,7 +20,7 @@ export default function EpisodeCardHeader({ episodeNumber, onHideDetails }) {
         onClick={onHideDetails || router.back}
         aria-label="vorherige Seite"
       >
-        <SVGIcon variant="returnIcon" width="50px" color="darkgreen" />
+        <SVGIcon variant="returnIcon" width="50px" />
       </EpisodeNavButton>
       <h2>Folge {episodeNumber}</h2>
       <EpisodeNavButton
@@ -35,7 +35,6 @@ export default function EpisodeCardHeader({ episodeNumber, onHideDetails }) {
         <SVGIcon
           variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}
           width="50px"
-          color="darkgreen"
         />
       </EpisodeNavButton>
     </EpisodeHeader>

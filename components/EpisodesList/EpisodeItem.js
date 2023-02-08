@@ -32,14 +32,14 @@ export default function EpisodeListItem({ episode }) {
         <PreviewImage
           src={getCoverURL(links)}
           alt={`Cover Folge Nummer ${number}`}
-          width={400}
-          height={400}
+          width={100}
+          height={100}
         />
         <OverviewText>
           <p>
             {number} - {title}
           </p>
-          <p style={{ color: "grey" }}>{getFormattedDate(releasedate)}</p>
+          <p>{getFormattedDate(releasedate)}</p>
         </OverviewText>
       </EpisodeLink>
       <ListButton

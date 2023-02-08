@@ -10,7 +10,7 @@ const JumpToTopButton = styled.button`
   width: fit-content;
   border: none;
   border-radius: 999px;
-  background: yellow;
+  background: var(--accent);
   padding: 0.5rem;
 `;
 

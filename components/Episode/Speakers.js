@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SVGIcon from "../Icons";
 import {
   ListOfSpeakers,
   ItemOfSpeaker,
@@ -8,31 +9,30 @@ import {
 export default function Speakers({ speakers }) {
   const [showListOfSpeakers, setShowListOfSpeakers] = useState(false);
 
-  return showListOfSpeakers ? (
+  return (
     <>
       <StyledFoldButton
         type="button"
         onClick={() => setShowListOfSpeakers(!showListOfSpeakers)}
       >
-        Stimmenliste schließen
+        Stimmen
+        <SVGIcon
+          variant={showListOfSpeakers ? "chevronUp" : "chevronDown"}
+          width="2rem"
+        />
       </StyledFoldButton>
-      <ListOfSpeakers>
-        {speakers?.map((speaker, index) => {
-          return (
-            <ItemOfSpeaker key={index}>
-              {speaker[0]}:<br />
-              {speaker[1]}
-            </ItemOfSpeaker>
-          );
-        })}
-      </ListOfSpeakers>
+      {showListOfSpeakers && (
+        <ListOfSpeakers>
+          {speakers?.map((speaker, index) => {
+            return (
+              <ItemOfSpeaker key={index}>
+                {speaker[0]}:<br />
+                {speaker[1]}
+              </ItemOfSpeaker>
+            );
+          })}
+        </ListOfSpeakers>
+      )}
     </>
-  ) : (
-    <StyledFoldButton
-      type="button"
-      onClick={() => setShowListOfSpeakers(!showListOfSpeakers)}
-    >
-      Stimmenliste öffnen
-    </StyledFoldButton>
   );
 }

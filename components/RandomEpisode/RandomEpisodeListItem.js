@@ -10,8 +10,7 @@ export default function RandomEpisode() {
     <OverviewList>
       <OverviewListItem>
         <RandomEpisodeLink href={"/random"}>
-          Öffnen
-          <SVGIcon variant="questionMark" width="35px" color="darkgreen" />
+          <SVGIcon variant="questionMark" width="35px" />
         </RandomEpisodeLink>
       </OverviewListItem>
     </OverviewList>

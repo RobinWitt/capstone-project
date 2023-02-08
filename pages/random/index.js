@@ -1,6 +1,7 @@
 import EpisodeCard from "@/components/Episode/EpisodeCard";
 import EpisodeCardHeader from "@/components/Episode/EpisodeCardHeader";
 import { getRandomIntInclusive } from "@/components/Episode/EpisodeFunctions";
+import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import RandomCard from "@/components/RandomEpisode/RandomCard";
 import { useState } from "react";
 import useSWR from "swr";
@@ -25,13 +26,13 @@ export default function RandomPage() {
   if (error)
     return (
       <main>
-        <h2>Fehler beim Laden</h2>
+        <ListHeader>Fehler beim Laden</ListHeader>
       </main>
     );
   if (isLoading)
     return (
       <main>
-        <h2>wird geladen...</h2>
+        <ListHeader>wird geladen...</ListHeader>
       </main>
     );
 

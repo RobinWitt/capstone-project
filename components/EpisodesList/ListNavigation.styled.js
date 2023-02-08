@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const ListOptions = styled.section`
   display: flex;
+  gap: 3px;
 `;
 
 export const ListOptionsButton = styled.button`
@@ -11,15 +12,15 @@ export const ListOptionsButton = styled.button`
   width: fit-content;
   border: none;
   border-radius: 999px;
-  background: grey;
+  background: var(--primary);
+  color: var(--background);
   padding: 0.4rem;
   font-size: 1rem;
 
   ${({ variant, active }) => {
     if (variant === "text")
       return css`
-        background: lightgrey;
-        ${active && `background-color: grey`};
+        ${active && `background-color: var(--secondary)`};
       `;
   }}}
 `;

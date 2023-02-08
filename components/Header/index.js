@@ -5,8 +5,8 @@ const StyledHeader = styled.header`
   padding: 0.5rem;
   margin: auto;
   font-size: 0.8rem;
-  background: #053d38;
-  color: #a3ccab;
+  background: var(--background);
+  color: var(--secondary);
 `;
 
 export default function Header() {

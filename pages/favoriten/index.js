@@ -3,6 +3,7 @@ import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
 import { useAtom } from "jotai";
 import useSWR from "swr";
 import { initialFavorites } from "@/components/Favoring/initialFavorites";
+import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 
 const URL = "/api/episodes";
 
@@ -13,13 +14,13 @@ export default function FavoritesPage() {
   if (error)
     return (
       <main>
-        <h2>Fehler beim Laden</h2>
+        <ListHeader>Fehler beim Laden</ListHeader>
       </main>
     );
   if (isLoading)
     return (
       <main>
-        <h2>wird geladen...</h2>
+        <ListHeader>wird geladen...</ListHeader>
       </main>
     );
 
@@ -27,7 +28,7 @@ export default function FavoritesPage() {
     return (
       <>
         <main>
-          <h2>Favoriten</h2>
+          <ListHeader>Favoriten</ListHeader>
           <EpisodesList>
             {data
               .filter((episode) => favorites.includes(episode.nummer))
