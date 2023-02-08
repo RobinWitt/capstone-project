@@ -31,8 +31,8 @@ export default function EpisodeCard({
         <EpisodeImage
           src={getCoverURL(coverlink)}
           alt={`Folge ${number}, Die Drei Fragezeichen ${title}`}
-          width={500}
-          height={500}
+          width={400}
+          height={400}
           priority
         />
       ) : (

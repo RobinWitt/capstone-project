@@ -5,7 +5,7 @@ export const SearchbarForm = styled.form`
   display: flex;
   align-items: center;
   gap: 3px;
-  background-color: var(--primary);
+  background-color: var(--secondary);
   padding: 0.4rem;
   border-radius: 999px;
   width: 60%;
@@ -16,6 +16,7 @@ export const SearchbarForm = styled.form`
     if (showSearchbar === false) {
       return css`
         width: 2.4rem;
+        background-color: var(--primary);
       `;
     }
   }}
