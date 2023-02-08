@@ -31,9 +31,9 @@ export default function App({
       <Head>
         <title>Projekt Justus.Peter.Bob.</title>
       </Head>
-      <Header />
       <SessionProvider session={session}>
         <SWRConfig value={{ fetcher }}>
+          <Header />
           <Component {...pageProps} />
         </SWRConfig>
       </SessionProvider>

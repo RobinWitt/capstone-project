@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import { useEffect } from "react";
 import { useAtom, atom } from "jotai";
@@ -24,6 +25,7 @@ export const initialSort = atom(true);
 export const initialFilter = atom(false);
 
 export default function HomePage() {
+  const { data: session } = useSession();
   const [search] = useAtom(initialSearch);
   // scroll restoration adapted from => https://codesandbox.io/s/cocky-drake-1xe0g
   const [scrollY, setScrollY] = useAtom(initialScroll);
