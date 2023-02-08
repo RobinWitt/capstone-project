@@ -2,14 +2,14 @@ import EpisodesList from "@/components/EpisodesList/EpisodesList";
 import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
 import { useAtom } from "jotai";
 import useSWR from "swr";
-import { initialFavorites } from "@/components/Favoring/initialFavorites";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
+import { useState } from "react";
 
 const URL = "/api/episodes";
 
 export default function FavoritesPage() {
   const { data, isLoading, error } = useSWR(URL);
-  const [favorites] = useAtom(initialFavorites);
+  const [favorites] = useState([]);
 
   if (error)
     return (

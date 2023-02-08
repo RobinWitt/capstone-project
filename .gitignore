@@ -35,5 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/lib/spotify.js
+/lib/deponie.js
 /lib/colorthemes.js

@@ -1,7 +1,5 @@
-import { useAtom } from "jotai";
 import { getFormattedDate, getCoverURL } from "../Episode/EpisodeFunctions";
 import { checkFavorites, toggleFavorites } from "../Favoring/FavoringFunctions";
-import { initialFavorites } from "../Favoring/initialFavorites";
 import SVGIcon from "../Icons";
 import {
   ListButton,
@@ -20,8 +18,7 @@ export default function EpisodeListItem({ episode }) {
     links,
   } = episode;
 
-  const [favorites, setFavorites] = useAtom(initialFavorites);
-  const isFaved = checkFavorites(favorites, number);
+  const isFaved = false;
 
   return (
     <OverviewListItem>

@@ -12,9 +12,9 @@ export default function CreateAccForm() {
   return (
     <LogForm onSubmit={(e) => handleSubmit(e)}>
       <FormHeader>Account erstellen</FormHeader>
-      <LoginInput name="email" title="Email" type="email" />
-      <LoginInput name="name" title="Benutzername" type="text" />
-      <LoginInput name="password" title="Passwort" type="password" />
+      <LoginInput name="newEmail" title="Email" type="email" />
+      <LoginInput name="newName" title="Benutzername" type="text" />
+      <LoginInput name="newPassword" title="Passwort" type="password" />
       <LogButton type="submit">Absenden</LogButton>
     </LogForm>
   );

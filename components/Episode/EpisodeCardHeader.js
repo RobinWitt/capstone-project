@@ -1,7 +1,5 @@
 import SVGIcon from "../Icons";
 import { useRouter } from "next/router";
-import { useAtom } from "jotai";
-import { initialFavorites } from "@/components/Favoring/initialFavorites";
 import {
   checkFavorites,
   toggleFavorites,
@@ -10,8 +8,7 @@ import { EpisodeHeader, EpisodeNavButton } from "./Episode.styled";
 
 export default function EpisodeCardHeader({ episodeNumber, onHideDetails }) {
   const router = useRouter();
-  const [favorites, setFavorites] = useAtom(initialFavorites);
-  const isFaved = checkFavorites(favorites, episodeNumber);
+  const isFaved = false;
 
   return (
     <EpisodeHeader>
