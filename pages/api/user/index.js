@@ -2,35 +2,15 @@ import dbConnect from "@/db/connect";
 import User from "@/db/models/User";
 import { getToken } from "next-auth/jwt";
 
-const email = "max-muster@web.de";
-
-export default async function handler(request, response) {
+export default async function handler(req, resp) {
   await dbConnect();
-  const currentEmail = email;
-  const token = await getToken({ req: request });
-  console.log(token);
-
-  if (request.method === "GET") {
-    const currentUser = await User.findOne({ email: currentEmail });
+  const token = await getToken({ req });
+  if (token && req.method === "GET") {
+    const currentUser = await User.findOne({ email: token.email });
     if (!currentUser) {
-      return response.status(404).json({ status: "Account not found" });
+      return resp.status(404).json({ status: "Account not found" });
     }
 
-    return response.status(200).json(currentUser);
+    return resp.status(200).json(currentUser);
   }
-
-  // if (request.method === "POST") {
-  //   try {
-  //     const newUserData = request.body;
-
-  //     const newUser = new User(newUserData);
-
-  //     await newUser.save();
-
-  //     return response.status(201).json({ status: "Account created" });
-  //   } catch (error) {
-  //     console.error(error);
-  //     return response.status(400).json({ error: error.message });
-  //   }
-  // }
 }

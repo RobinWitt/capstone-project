@@ -37,3 +37,4 @@ next-env.d.ts
 
 /lib/deponie.js
 /lib/colorthemes.js
+/db/models/Favorite.js

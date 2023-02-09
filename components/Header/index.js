@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Portrait_Placeholder from "@/public/Portrait_Placeholder.png";
 
 const StyledHeader = styled.header`
   max-width: 700px;
@@ -39,7 +40,7 @@ export default function Header() {
     <StyledHeader>
       <h1>Detektivzentrale</h1>
       <HeaderImage
-        src={session ? session.user.image : "/public/Portrait_Placeholder.png"}
+        src={session ? session.user.image : Portrait_Placeholder}
         alt="user image"
         width={100}
         height={100}
