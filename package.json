@@ -10,7 +10,6 @@
     "test": "jest --watchAll"
   },
   "dependencies": {
-    "@next-auth/mongodb-adapter": "^1.1.1",
     "@next/font": "13.1.2",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.2",
@@ -21,7 +20,6 @@
     "next-auth": "^4.19.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "spotify-web-api-node": "^5.0.2",
     "styled-components": "^5.3.6",
     "swr": "^2.0.1"
   },

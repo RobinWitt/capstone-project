@@ -8,6 +8,8 @@ export default function LandingPage({ providers }) {
   const { data: session } = useSession();
   const { data, isLoading, error } = useSWR("/api/user/", { method: "GET" });
 
+  console.log(session);
+
   return (
     <main>
       <ListHeader>
