@@ -1,7 +1,7 @@
+import { useRouter } from "next/router";
 import Link from "next/link";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
-import { useRouter } from "next/router";
 
 const StyledNav = styled.nav`
   position: fixed;

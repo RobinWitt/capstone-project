@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { getFormattedDate, getCoverURL } from "../Episode/EpisodeFunctions";
-import { checkFavorites, toggleFavorites } from "../Favoring/FavoringFunctions";
+import { checkFavorites } from "../Favoring/FavoringFunctions";
 import SVGIcon from "../Icons";
 import {
   ListButton,
@@ -24,7 +24,7 @@ export default function EpisodeListItem({ episode, userData, reload }) {
 
   async function handleAddFavorite() {
     try {
-      await fetch(`api/favorites/${number}`, {
+      await fetch(`/api/favorites/${number}`, {
         method: "PUT",
       });
     } catch (error) {
@@ -35,7 +35,7 @@ export default function EpisodeListItem({ episode, userData, reload }) {
 
   async function handleRemoveFavorite() {
     try {
-      await fetch(`api/favorites/${number}`, {
+      await fetch(`/api/favorites/${number}`, {
         method: "DELETE",
       });
     } catch (error) {

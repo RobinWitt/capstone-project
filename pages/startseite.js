@@ -59,7 +59,7 @@ export default function HomePage() {
     isLoading: userIsLoading,
     error: userError,
     mutate,
-  } = useSWR("api/user");
+  } = useSWR("/api/user");
 
   const [ascending] = useAtom(initialSort);
   const [filter] = useAtom(initialFilter);

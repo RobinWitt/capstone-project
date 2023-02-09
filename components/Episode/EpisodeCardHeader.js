@@ -1,14 +1,38 @@
 import SVGIcon from "../Icons";
 import { useRouter } from "next/router";
-import {
-  checkFavorites,
-  toggleFavorites,
-} from "@/components/Favoring/FavoringFunctions";
+import { checkFavorites } from "@/components/Favoring/FavoringFunctions";
 import { EpisodeHeader, EpisodeNavButton } from "./Episode.styled";
 
-export default function EpisodeCardHeader({ episodeNumber, onHideDetails }) {
+export default function EpisodeCardHeader({
+  episodeNumber,
+  onHideDetails,
+  userData,
+  reload,
+}) {
   const router = useRouter();
-  const isFaved = false;
+  const isFaved = checkFavorites(userData.favorites, episodeNumber);
+
+  async function handleAddFavorite() {
+    try {
+      await fetch(`/api/favorites/${episodeNumber}`, {
+        method: "PUT",
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+    reload();
+  }
+
+  async function handleRemoveFavorite() {
+    try {
+      await fetch(`/api/favorites/${episodeNumber}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+    reload();
+  }
 
   return (
     <EpisodeHeader>
@@ -22,9 +46,7 @@ export default function EpisodeCardHeader({ episodeNumber, onHideDetails }) {
       <h2>Folge {episodeNumber}</h2>
       <EpisodeNavButton
         type="button"
-        onClick={() => {
-          setFavorites(toggleFavorites(favorites, episodeNumber));
-        }}
+        onClick={isFaved ? handleRemoveFavorite : handleAddFavorite}
         aria-label={`${
           isFaved ? "von Favoriten entfernen" : "zu Favoriten hinzufügen"
         }`}

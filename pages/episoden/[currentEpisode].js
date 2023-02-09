@@ -1,21 +1,27 @@
-import EpisodeCard from "@/components/Episode/EpisodeCard";
-import EpisodeCardHeader from "@/components/Episode/EpisodeCardHeader";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import EpisodeCard from "@/components/Episode/EpisodeCard";
+import EpisodeCardHeader from "@/components/Episode/EpisodeCardHeader";
 
 export default function EpisodePage() {
   const router = useRouter();
   const { currentEpisode } = router.query;
 
   const { data, isLoading, error } = useSWR(`/api/episodes/${currentEpisode}`);
+  const {
+    data: userData,
+    isLoading: userIsLoading,
+    error: userError,
+    mutate,
+  } = useSWR("/api/user");
 
-  if (error)
+  if (error || userError)
     return (
       <main>
         <h2>Fehler beim Laden</h2>
       </main>
     );
-  if (isLoading)
+  if (isLoading || userIsLoading)
     return (
       <main>
         <h2>wird geladen...</h2>
@@ -52,7 +58,11 @@ export default function EpisodePage() {
           parts={parts}
           incomplete={incomplete}
         >
-          <EpisodeCardHeader episodeNumber={number} />
+          <EpisodeCardHeader
+            episodeNumber={number}
+            userData={userData}
+            reload={mutate}
+          />
         </EpisodeCard>
       </main>
     );

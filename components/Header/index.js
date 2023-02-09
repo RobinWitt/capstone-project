@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { useSession } from "next-auth/react";
+import styled from "styled-components";
 import Image from "next/image";
 import Portrait_Placeholder from "@/public/Portrait_Placeholder.png";
 

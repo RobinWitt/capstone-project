@@ -1,23 +1,24 @@
+import useSWR from "swr";
 import EpisodesList from "@/components/EpisodesList/EpisodesList";
 import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
-import { useAtom } from "jotai";
-import useSWR from "swr";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
-import { useState } from "react";
-
-const URL = "/api/episodes";
 
 export default function FavoritesPage() {
-  const { data, isLoading, error } = useSWR(URL);
-  const [favorites] = useState([]);
+  const { data, isLoading, error } = useSWR("/api/episodes");
+  const {
+    data: userData,
+    isLoading: userIsLoading,
+    error: userError,
+    mutate,
+  } = useSWR("/api/user");
 
-  if (error)
+  if (error || userError)
     return (
       <main>
         <ListHeader>Fehler beim Laden</ListHeader>
       </main>
     );
-  if (isLoading)
+  if (isLoading || userIsLoading)
     return (
       <main>
         <ListHeader>wird geladen...</ListHeader>
@@ -31,10 +32,15 @@ export default function FavoritesPage() {
           <ListHeader>Favoriten</ListHeader>
           <EpisodesList>
             {data
-              .filter((episode) => favorites.includes(episode.nummer))
+              .filter((episode) => userData.favorites.includes(episode.nummer))
               .map((episode) => {
                 return (
-                  <EpisodeListItem key={episode.nummer} episode={episode} />
+                  <EpisodeListItem
+                    key={episode.nummer}
+                    episode={episode}
+                    userData={userData}
+                    reload={mutate}
+                  />
                 );
               })}
           </EpisodesList>
