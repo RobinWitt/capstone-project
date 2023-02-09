@@ -2,11 +2,9 @@ import { LogButton } from "@/components/Authentication/Login.styled";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import { useSession, signIn, signOut, getProviders } from "next-auth/react";
 import Link from "next/link";
-import useSWR from "swr";
 
 export default function LandingPage({ providers }) {
   const { data: session } = useSession();
-  const { data, isLoading, error } = useSWR("/api/user/", { method: "GET" });
 
   console.log(session);
 
