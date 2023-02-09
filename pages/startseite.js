@@ -76,12 +76,6 @@ export default function HomePage() {
         <ListHeader>Folgen werden geladen...</ListHeader>
       </main>
     );
-  if (userError)
-    return (
-      <main>
-        <ListHeader>Nutzerdaten konnten nicht geladen werden.</ListHeader>
-      </main>
-    );
 
   if (allEpisodes) {
     const mostRecentEpisode = getMostRecentEpisode(allEpisodes);
