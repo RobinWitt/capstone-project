@@ -64,16 +64,22 @@ export default function HomePage() {
   const [ascending] = useAtom(initialSort);
   const [filter] = useAtom(initialFilter);
 
-  if (episodesError || userError)
+  if (episodesError)
     return (
       <main>
-        <h2>Fehler beim Laden</h2>
+        <ListHeader>Folgen konnten nicht geladen werden.</ListHeader>
       </main>
     );
-  if (episodesAreLoading || userIsLoading)
+  if (episodesAreLoading)
     return (
       <main>
-        <h2>wird geladen...</h2>
+        <ListHeader>Folgen werden geladen...</ListHeader>
+      </main>
+    );
+  if (userError)
+    return (
+      <main>
+        <ListHeader>Nutzerdaten konnten nicht geladen werden.</ListHeader>
       </main>
     );
 

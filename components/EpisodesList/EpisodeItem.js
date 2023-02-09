@@ -20,7 +20,7 @@ export default function EpisodeListItem({ episode, userData, reload }) {
     links,
   } = episode;
 
-  const isFaved = checkFavorites(userData.favorites, number);
+  const isFaved = userData ? checkFavorites(userData.favorites, number) : false;
 
   async function handleAddFavorite() {
     try {
@@ -63,18 +63,20 @@ export default function EpisodeListItem({ episode, userData, reload }) {
           <p>{getFormattedDate(releasedate)}</p>
         </OverviewText>
       </EpisodeLink>
-      <ListButton
-        type="button"
-        onClick={isFaved ? handleRemoveFavorite : handleAddFavorite}
-        aria-label={`${
-          isFaved ? "von Favoriten entfernen" : "zu Favoriten hinzufügen"
-        }`}
-      >
-        <SVGIcon
-          variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}
-          width="35px"
-        />
-      </ListButton>
+      {userData && (
+        <ListButton
+          type="button"
+          onClick={isFaved ? handleRemoveFavorite : handleAddFavorite}
+          aria-label={`${
+            isFaved ? "von Favoriten entfernen" : "zu Favoriten hinzufügen"
+          }`}
+        >
+          <SVGIcon
+            variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}
+            width="35px"
+          />
+        </ListButton>
+      )}
     </OverviewListItem>
   );
 }

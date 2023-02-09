@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import EpisodeCard from "@/components/Episode/EpisodeCard";
 import EpisodeCardHeader from "@/components/Episode/EpisodeCardHeader";
+import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 
 export default function EpisodePage() {
   const router = useRouter();
@@ -15,16 +16,16 @@ export default function EpisodePage() {
     mutate,
   } = useSWR("/api/user");
 
-  if (error || userError)
+  if (error)
     return (
       <main>
-        <h2>Fehler beim Laden</h2>
+        <ListHeader>Fehler beim Laden</ListHeader>
       </main>
     );
-  if (isLoading || userIsLoading)
+  if (isLoading)
     return (
       <main>
-        <h2>wird geladen...</h2>
+        <ListHeader>wird geladen...</ListHeader>
       </main>
     );
 

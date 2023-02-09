@@ -10,7 +10,9 @@ export default function EpisodeCardHeader({
   reload,
 }) {
   const router = useRouter();
-  const isFaved = checkFavorites(userData.favorites, episodeNumber);
+  const isFaved = userData
+    ? checkFavorites(userData.favorites, episodeNumber)
+    : false;
 
   async function handleAddFavorite() {
     try {
@@ -44,18 +46,20 @@ export default function EpisodeCardHeader({
         <SVGIcon variant="returnIcon" width="50px" />
       </EpisodeNavButton>
       <h2>Folge {episodeNumber}</h2>
-      <EpisodeNavButton
-        type="button"
-        onClick={isFaved ? handleRemoveFavorite : handleAddFavorite}
-        aria-label={`${
-          isFaved ? "von Favoriten entfernen" : "zu Favoriten hinzufügen"
-        }`}
-      >
-        <SVGIcon
-          variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}
-          width="50px"
-        />
-      </EpisodeNavButton>
+      {userData && (
+        <EpisodeNavButton
+          type="button"
+          onClick={isFaved ? handleRemoveFavorite : handleAddFavorite}
+          aria-label={`${
+            isFaved ? "von Favoriten entfernen" : "zu Favoriten hinzufügen"
+          }`}
+        >
+          <SVGIcon
+            variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}
+            width="50px"
+          />
+        </EpisodeNavButton>
+      )}
     </EpisodeHeader>
   );
 }

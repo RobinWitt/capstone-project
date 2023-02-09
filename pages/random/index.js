@@ -29,13 +29,13 @@ export default function RandomPage() {
     setToggleDetails(false);
   }
 
-  if (error || userError)
+  if (error)
     return (
       <main>
         <ListHeader>Fehler beim Laden</ListHeader>
       </main>
     );
-  if (isLoading || userIsLoading)
+  if (isLoading)
     return (
       <main>
         <ListHeader>wird geladen...</ListHeader>

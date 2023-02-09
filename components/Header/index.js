@@ -39,12 +39,15 @@ export default function Header() {
   return (
     <StyledHeader>
       <h1>Detektivzentrale</h1>
-      <HeaderImage
-        src={session ? session.user.image : Portrait_Placeholder}
-        alt="user image"
-        width={100}
-        height={100}
-      />
+      <HeaderUserContainer>
+        <HeaderImage
+          src={session ? session.user.image : Portrait_Placeholder}
+          alt="user image"
+          width={100}
+          height={100}
+        />
+        {!session && <p>nicht eingeloggt</p>}
+      </HeaderUserContainer>
     </StyledHeader>
   );
 }

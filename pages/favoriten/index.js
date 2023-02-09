@@ -12,16 +12,22 @@ export default function FavoritesPage() {
     mutate,
   } = useSWR("/api/user");
 
-  if (error || userError)
+  if (error)
     return (
       <main>
         <ListHeader>Fehler beim Laden</ListHeader>
       </main>
     );
-  if (isLoading || userIsLoading)
+  if (isLoading)
     return (
       <main>
         <ListHeader>wird geladen...</ListHeader>
+      </main>
+    );
+  if (userError)
+    return (
+      <main>
+        <ListHeader>Nutzerdaten konnten nicht geladen werden.</ListHeader>
       </main>
     );
 
@@ -32,7 +38,10 @@ export default function FavoritesPage() {
           <ListHeader>Favoriten</ListHeader>
           <EpisodesList>
             {data
-              .filter((episode) => userData.favorites.includes(episode.nummer))
+              .filter(
+                (episode) =>
+                  userData && userData.favorites.includes(episode.nummer)
+              )
               .map((episode) => {
                 return (
                   <EpisodeListItem
