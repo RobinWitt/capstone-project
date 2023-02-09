@@ -11,7 +11,7 @@ import {
   OverviewText,
 } from "./EpisodesList.styled";
 
-export default function EpisodeListItem({ episode }) {
+export default function EpisodeListItem({ episode, userData, reload }) {
   const {
     nummer: number,
     titel: title,
@@ -19,36 +19,29 @@ export default function EpisodeListItem({ episode }) {
     teile: parts,
     links,
   } = episode;
-  const { data: favoritesData, mutate } = useSWR(`/api/favorites/${number}`);
-  const [isFaved, setIsFaved] = useState();
-  useEffect(() => {
-    if (favoritesData) {
-      setIsFaved(checkFavorites(favoritesData, number));
-    }
-  }, [favoritesData, number]);
+
+  const isFaved = checkFavorites(userData.favorites, number);
 
   async function handleAddFavorite() {
     try {
       await fetch(`api/favorites/${number}`, {
         method: "PUT",
-        body: number,
       });
     } catch (error) {
       console.error(error.message);
     }
-    mutate();
+    reload();
   }
 
   async function handleRemoveFavorite() {
     try {
       await fetch(`api/favorites/${number}`, {
         method: "DELETE",
-        body: number,
       });
     } catch (error) {
       console.error(error.message);
     }
-    mutate();
+    reload();
   }
 
   return (

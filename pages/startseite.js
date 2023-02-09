@@ -19,7 +19,6 @@ import ListNavigation from "@/components/EpisodesList/ListNavigation";
 import Searchbar, { initialSearch } from "@/components/EpisodesList/Searchbar";
 import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
 
-const URL = "/api/episodes";
 export const initialScroll = atom(0);
 export const initialSort = atom(true);
 export const initialFilter = atom(false);
@@ -54,18 +53,24 @@ export default function HomePage() {
     data: allEpisodes,
     isLoading: episodesAreLoading,
     error: episodesError,
-  } = useSWR(URL);
+  } = useSWR("/api/episodes");
+  const {
+    data: userData,
+    isLoading: userIsLoading,
+    error: userError,
+    mutate,
+  } = useSWR("api/user");
 
   const [ascending] = useAtom(initialSort);
   const [filter] = useAtom(initialFilter);
 
-  if (episodesError)
+  if (episodesError || userError)
     return (
       <main>
         <h2>Fehler beim Laden</h2>
       </main>
     );
-  if (episodesAreLoading)
+  if (episodesAreLoading || userIsLoading)
     return (
       <main>
         <h2>wird geladen...</h2>
@@ -87,7 +92,11 @@ export default function HomePage() {
           {mostRecentEpisode && (
             <>
               <EpisodesList>
-                <EpisodeListItem episode={mostRecentEpisode} />
+                <EpisodeListItem
+                  episode={mostRecentEpisode}
+                  userData={userData}
+                  reload={mutate}
+                />
               </EpisodesList>
             </>
           )}
@@ -107,7 +116,12 @@ export default function HomePage() {
               )
               .map((episode) => {
                 return (
-                  <EpisodeListItem key={episode.nummer} episode={episode} />
+                  <EpisodeListItem
+                    key={episode.nummer}
+                    episode={episode}
+                    userData={userData}
+                    reload={mutate}
+                  />
                 );
               })}
           </EpisodesList>
