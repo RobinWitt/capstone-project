@@ -25,8 +25,8 @@ const HeaderUserContainer = styled.section`
 `;
 
 const HeaderImage = styled(Image)`
-  height: 3rem;
-  width: 3rem;
+  height: 48px;
+  width: 48px;
   object-fit: cover;
   align-self: center;
   border-radius: 50%;
