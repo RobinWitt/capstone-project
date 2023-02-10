@@ -1,3 +1,4 @@
+import { refreshAccessToken } from "@/lib/spotify";
 import NextAuth from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 
@@ -6,9 +7,32 @@ export const authOptions = {
     SpotifyProvider({
       clientId: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      authorization: `https://accounts.spotify.com/authorize?scope=user-read-email user-read-private user-read-recently-played user-read-currently-playing`,
     }),
-    // ...add more providers here
   ],
+  callbacks: {
+    async jwt({ token, account, user }) {
+      if (account && user) {
+        return {
+          accessToken: account.access_token,
+          refreshToken: account.refresh_token,
+          accessTokenExpires: account.expires_at * 1000,
+          user,
+        };
+      }
+      if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
+        return token;
+      }
+      const newToken = await refreshAccessToken(token);
+      return newToken;
+    },
+    async session({ session, token }) {
+      session.accessToken = token.accessToken;
+      session.error = token.error;
+      session.user = token.user;
+      return session;
+    },
+  },
 };
 
 export default NextAuth(authOptions);

@@ -12,7 +12,7 @@ export default function LandingPage({ providers }) {
     data: userData,
     userIsLoading,
     userError,
-  } = useSWR(session && "/api/user");
+  } = useSWR(session ? "/api/user" : null);
 
   if (userError)
     return <ListHeader>Nutzerdaten konnten nicht geladen werden.</ListHeader>;

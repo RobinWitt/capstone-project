@@ -10,11 +10,11 @@ export default async function handler(req, resp) {
     const token = await getToken({ req });
 
     if (token && req.method === "GET") {
-      const existingUser = await User.findOne({ sub: token.sub });
+      const existingUser = await User.findOne({ id: token.user.id });
 
       if (!existingUser) {
         const newUser = new User({
-          sub: token.sub,
+          id: token.user.id,
           favorites: [],
         });
 

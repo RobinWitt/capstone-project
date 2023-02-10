@@ -9,7 +9,7 @@ export default async function handler(req, resp) {
 
   if (token && req.method === "PUT") {
     const updatedUser = await User.findOneAndUpdate(
-      { sub: token.sub },
+      { id: token.user.id },
       { $push: { favorites: parseInt(episodeNumber) } }
     );
 
@@ -22,7 +22,7 @@ export default async function handler(req, resp) {
 
   if (token && req.method === "DELETE") {
     const updatedUser = await User.findOneAndUpdate(
-      { sub: token.sub },
+      { id: token.user.id },
       { $pull: { favorites: parseInt(episodeNumber) } }
     );
 
