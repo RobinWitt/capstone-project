@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
-import { useEffect } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { useAtom, atom } from "jotai";
 import EpisodesList from "@/components/EpisodesList/EpisodesList";
 import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
@@ -26,7 +27,10 @@ export const initialFilter = atom(false);
 export default function HomePage() {
   const { data: session } = useSession();
   const [search] = useAtom(initialSearch);
+
+  // _____________________________________________________________________________
   // scroll restoration adapted from => https://codesandbox.io/s/cocky-drake-1xe0g
+
   const [scrollY, setScrollY] = useAtom(initialScroll);
 
   useEffect(() => {
@@ -41,13 +45,38 @@ export default function HomePage() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   // end of scroll restoration
+  // __________________________________________________________________________
 
   function handleJumpTop() {
     window.scrollTo(0, 0, {
       behavior: "smooth",
     });
   }
+
+  // __________________________________________________________________________
+
+  const [spotifyCurrent, setSpotifyCurrent] = useState();
+  async function handleGetCurrentlyPlaying() {
+    const token = session.accessToken;
+
+    axios
+      .get("https://api.spotify.com/v1/me/player/currently-playing", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        console.log(response.data?.item);
+        setSpotifyCurrent(response.data?.item);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  // __________________________________________________________________________
 
   const {
     data: allEpisodes,
@@ -56,8 +85,12 @@ export default function HomePage() {
   } = useSWR("/api/episodes");
   const { data: userData, mutate } = useSWR("/api/user");
 
+  // __________________________________________________________________________
+
   const [ascending] = useAtom(initialSort);
   const [filter] = useAtom(initialFilter);
+
+  // __________________________________________________________________________
 
   if (episodesError)
     return (
@@ -72,6 +105,8 @@ export default function HomePage() {
       </main>
     );
 
+  // __________________________________________________________________________
+
   if (allEpisodes) {
     const mostRecentEpisode = getMostRecentEpisode(allEpisodes);
     const isReleased = isEpisodeReleased(mostRecentEpisode);
@@ -81,6 +116,11 @@ export default function HomePage() {
     return (
       <>
         <main>
+          <ListHeader>Gerade läuft:</ListHeader>
+          <button type="button" onClick={handleGetCurrentlyPlaying}>
+            Abrufen
+          </button>
+          {spotifyCurrent && <p>{spotifyCurrent.name}</p>}
           <ListHeader>
             {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
           </ListHeader>
