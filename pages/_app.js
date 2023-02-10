@@ -29,7 +29,7 @@ export default function App({
     <>
       <GlobalStyle />
       <Head>
-        <title>D1E DR3I ??? - inoffizielle Guide</title>
+        <title>D1E DR3I ??? - inoffizieller Guide</title>
       </Head>
       <SessionProvider session={session}>
         <SWRConfig value={{ fetcher }}>
