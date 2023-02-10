@@ -1,12 +1,14 @@
-# Capstone Project
+# Capstone Project - D1E DR3I ??? - inoffizieller Guide
 started 20.01.23
 
 ### Technologies & packages
-- [nextjs/react](https://nextjs.org/)
+- [Next.js](https://nextjs.org/)
 - [mongoose](https://mongoosejs.com/)
 - [MongoDB Atlas](https://www.mongodb.com/atlas/database)
-- [jotai](https://jotai.org/)
-- [swr](https://swr.vercel.app/)
+- [jotai - Global State Handling](https://jotai.org/)
+- [SWR - React Hooks for Data Fetching](https://swr.vercel.app/)
+- [NextAuth.js](https://next-auth.js.org/)
+- [styled components](https://styled-components.com/)
 
 ### Resources
 - [mdn web docs](https://developer.mozilla.org/en-US/)
