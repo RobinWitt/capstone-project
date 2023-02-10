@@ -15,8 +15,6 @@ export default async function handler(req, resp) {
       if (!existingUser) {
         const newUser = new User({
           sub: token.sub,
-          email: token.email,
-          name: token.name,
           favorites: [],
         });
 

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
+import { useSession } from "next-auth/react";
 
 const StyledNav = styled.nav`
   position: fixed;
@@ -19,26 +20,28 @@ const StyledNav = styled.nav`
 
 export default function Navigation() {
   const router = useRouter();
+  const { data: session } = useSession();
   const currentPage = router.pathname;
 
-  return (
-    <StyledNav>
-      <Link href="/startseite" aria-label="Startseite">
-        <SVGIcon
-          variant={currentPage === "/startseite" ? "homeFilled" : "homeEmpty"}
-          width="50px"
-          color="#A3CCAB"
-        />
-      </Link>
-      <Link href="/favoriten" aria-label="Favoritenseite">
-        <SVGIcon
-          variant={
-            currentPage === "/favoriten" ? "favoriteFilled" : "favoriteEmpty"
-          }
-          width="50px"
-          color="#A3CCAB"
-        />
-      </Link>
-    </StyledNav>
-  );
+  if (session)
+    return (
+      <StyledNav>
+        <Link href="/startseite" aria-label="Startseite">
+          <SVGIcon
+            variant={currentPage === "/startseite" ? "homeFilled" : "homeEmpty"}
+            width="50px"
+            color="#A3CCAB"
+          />
+        </Link>
+        <Link href="/favoriten" aria-label="Favoritenseite">
+          <SVGIcon
+            variant={
+              currentPage === "/favoriten" ? "favoriteFilled" : "favoriteEmpty"
+            }
+            width="50px"
+            color="#A3CCAB"
+          />
+        </Link>
+      </StyledNav>
+    );
 }

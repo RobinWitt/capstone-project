@@ -29,15 +29,15 @@ export default function App({
     <>
       <GlobalStyle />
       <Head>
-        <title>Projekt Justus.Peter.Bob.</title>
+        <title>D1E DR3I ??? - inoffizielle Guide</title>
       </Head>
       <SessionProvider session={session}>
         <SWRConfig value={{ fetcher }}>
           <Header />
           <Component {...pageProps} />
+          <Navigation />
         </SWRConfig>
       </SessionProvider>
-      <Navigation />
     </>
   );
 }

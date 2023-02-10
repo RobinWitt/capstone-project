@@ -3,8 +3,6 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
   sub: { type: String, required: true },
-  email: { type: String, required: true },
-  name: { type: String },
   favorites: [Number],
 });
 

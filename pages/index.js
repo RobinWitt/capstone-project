@@ -1,6 +1,7 @@
 import { LogButton } from "@/components/Authentication/Login.styled";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import { useSession, signIn, signOut, getProviders } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -20,9 +21,6 @@ export default function LandingPage({ providers }) {
 
   return (
     <main>
-      <ListHeader>
-        {session && `Eingeloggt als: ${session.user.name}`}
-      </ListHeader>
       {Object.values(providers).map((provider) => (
         <LogButton
           key={provider.id}
@@ -36,6 +34,13 @@ export default function LandingPage({ providers }) {
             : `Einloggen bei ${provider.name}`}
         </LogButton>
       ))}
+
+      {!session && (
+        <>
+          <ListHeader>oder</ListHeader>
+          <Link href={"/startseite"}>Ohne Account nutzen</Link>
+        </>
+      )}
     </main>
   );
 }

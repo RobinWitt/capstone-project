@@ -54,12 +54,7 @@ export default function HomePage() {
     isLoading: episodesAreLoading,
     error: episodesError,
   } = useSWR("/api/episodes");
-  const {
-    data: userData,
-    isLoading: userIsLoading,
-    error: userError,
-    mutate,
-  } = useSWR("/api/user");
+  const { data: userData, mutate } = useSWR("/api/user");
 
   const [ascending] = useAtom(initialSort);
   const [filter] = useAtom(initialFilter);
