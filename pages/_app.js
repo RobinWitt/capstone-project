@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import GlobalStyle from "@/styles";
 import Head from "next/head";
 import { SWRConfig } from "swr";
+import { SessionProvider } from "next-auth/react";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -20,18 +21,23 @@ const fetcher = async (url) => {
   return res.json();
 };
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
     <>
       <GlobalStyle />
       <Head>
-        <title>Projekt Justus.Peter.Bob.</title>
+        <title>D1E DR3I ??? - inoffizieller Guide</title>
       </Head>
-      <Header />
-      <SWRConfig value={{ fetcher }}>
-        <Component {...pageProps} />
-      </SWRConfig>
-      <Navigation />
+      <SessionProvider session={session}>
+        <SWRConfig value={{ fetcher }}>
+          <Header />
+          <Component {...pageProps} />
+          <Navigation />
+        </SWRConfig>
+      </SessionProvider>
     </>
   );
 }

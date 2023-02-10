@@ -1,25 +1,23 @@
 import { useState } from "react";
+import SVGIcon from "../Icons";
 import { DescriptionText, StyledFoldButton } from "./Episode.styled";
 
 export default function EpisodeDescription({ description }) {
   const [showDescription, setShowDescription] = useState(false);
 
-  return showDescription ? (
+  return (
     <>
       <StyledFoldButton
         type="button"
         onClick={() => setShowDescription(!showDescription)}
       >
-        Beschreibung schließen
+        Beschreibung
+        <SVGIcon
+          variant={showDescription ? "chevronUp" : "chevronDown"}
+          width="2rem"
+        />
       </StyledFoldButton>
-      <DescriptionText>{description}</DescriptionText>
+      {showDescription && <DescriptionText>{description}</DescriptionText>}
     </>
-  ) : (
-    <StyledFoldButton
-      type="button"
-      onClick={() => setShowDescription(!showDescription)}
-    >
-      Beschreibung öffnen
-    </StyledFoldButton>
   );
 }

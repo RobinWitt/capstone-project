@@ -5,7 +5,7 @@ export const SearchbarForm = styled.form`
   display: flex;
   align-items: center;
   gap: 3px;
-  background-color: grey;
+  background-color: var(--secondary);
   padding: 0.4rem;
   border-radius: 999px;
   width: 60%;
@@ -15,14 +15,15 @@ export const SearchbarForm = styled.form`
   ${({ showSearchbar }) => {
     if (showSearchbar === false) {
       return css`
-        width: 2.4rem;
+        width: 39px;
+        background-color: var(--primary);
       `;
     }
   }}
 `;
 
 export const SearchbarInput = styled.input`
-  background-color: lightgrey;
+  background-color: var(--text);
   border: none;
   width: 100%;
   line-height: 1;

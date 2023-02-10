@@ -1,19 +1,18 @@
-import SVGIcon from "../Icons";
 import {
-  RandomEpisodeLink,
-  RandomEpisodeList,
-  RandomEpisodeListItem,
-} from "./RandomEpisode.styled";
+  OverviewList,
+  OverviewListItem,
+} from "../EpisodesList/EpisodesList.styled";
+import SVGIcon from "../Icons";
+import { RandomEpisodeLink } from "./RandomEpisode.styled";
 
 export default function RandomEpisode() {
   return (
-    <RandomEpisodeList>
-      <RandomEpisodeListItem>
+    <OverviewList>
+      <OverviewListItem>
         <RandomEpisodeLink href={"/random"}>
-          Öffnen
-          <SVGIcon variant="questionMark" width="35px" color="darkgreen" />
+          <SVGIcon variant="questionMark" width="35px" />
         </RandomEpisodeLink>
-      </RandomEpisodeListItem>
-    </RandomEpisodeList>
+      </OverviewListItem>
+    </OverviewList>
   );
 }

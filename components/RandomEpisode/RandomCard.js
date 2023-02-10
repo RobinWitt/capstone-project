@@ -22,7 +22,7 @@ export default function RandomCard({ coverlink, onSetRandom, onShowDetails }) {
           onClick={router.back}
           aria-label="zur vorherigen Seite"
         >
-          <SVGIcon variant="returnIcon" width="50px" color="darkgreen" />
+          <SVGIcon variant="returnIcon" width="50px" />
         </EpisodeNavButton>
         <h2>zufällige Folge</h2>
       </RandomEpisodeHeader>
@@ -38,7 +38,7 @@ export default function RandomCard({ coverlink, onSetRandom, onShowDetails }) {
           onClick={onSetRandom}
           aria-label="neue zufällige Folge"
         >
-          <SVGIcon variant="refresh" width="50px" color="darkred" />
+          <SVGIcon variant="refresh" width="50px" color="#8B0A50" />
           <p>andere Folge</p>
         </EpisodeNavButton>
         <EpisodeNavButton
@@ -46,7 +46,7 @@ export default function RandomCard({ coverlink, onSetRandom, onShowDetails }) {
           onClick={onShowDetails}
           aria-label="Detailseite anzeigen"
         >
-          <SVGIcon variant="check" width="50px" color="darkgreen" />
+          <SVGIcon variant="check" width="50px" color="var(--primary)" />
           <p>Details anzeigen</p>
         </EpisodeNavButton>
       </RandomEpisodeNavigation>

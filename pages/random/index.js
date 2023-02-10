@@ -1,14 +1,21 @@
+import { useState } from "react";
+import useSWR from "swr";
 import EpisodeCard from "@/components/Episode/EpisodeCard";
 import EpisodeCardHeader from "@/components/Episode/EpisodeCardHeader";
 import { getRandomIntInclusive } from "@/components/Episode/EpisodeFunctions";
+import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import RandomCard from "@/components/RandomEpisode/RandomCard";
-import { useState } from "react";
-import useSWR from "swr";
 
 export default function RandomPage() {
   const [random, setRandom] = useState(getRandomIntInclusive(0, 200));
   const [toggleDetails, setToggleDetails] = useState(false);
   const { data, isLoading, error } = useSWR(`api/episodes/${random}`);
+  const {
+    data: userData,
+    isLoading: userIsLoading,
+    error: userError,
+    mutate,
+  } = useSWR("/api/user");
 
   function handleSetRandom() {
     setRandom(getRandomIntInclusive(1, 200));
@@ -25,13 +32,13 @@ export default function RandomPage() {
   if (error)
     return (
       <main>
-        <h2>Fehler beim Laden</h2>
+        <ListHeader>Fehler beim Laden</ListHeader>
       </main>
     );
   if (isLoading)
     return (
       <main>
-        <h2>wird geladen...</h2>
+        <ListHeader>wird geladen...</ListHeader>
       </main>
     );
 
@@ -69,6 +76,8 @@ export default function RandomPage() {
             <EpisodeCardHeader
               episodeNumber={number}
               onHideDetails={handleHideDetails}
+              userData={userData}
+              reload={mutate}
             />
           </EpisodeCard>
         ) : (

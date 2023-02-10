@@ -1,7 +1,7 @@
-import { useAtom } from "jotai";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
 import { getFormattedDate, getCoverURL } from "../Episode/EpisodeFunctions";
-import { checkFavorites, toggleFavorites } from "../Favoring/FavoringFunctions";
-import { initialFavorites } from "../Favoring/initialFavorites";
+import { checkFavorites } from "../Favoring/FavoringFunctions";
 import SVGIcon from "../Icons";
 import {
   ListButton,
@@ -11,7 +11,7 @@ import {
   OverviewText,
 } from "./EpisodesList.styled";
 
-export default function EpisodeListItem({ episode }) {
+export default function EpisodeListItem({ episode, userData, reload }) {
   const {
     nummer: number,
     titel: title,
@@ -20,42 +20,63 @@ export default function EpisodeListItem({ episode }) {
     links,
   } = episode;
 
-  const [favorites, setFavorites] = useAtom(initialFavorites);
-  const isFaved = checkFavorites(favorites, number);
+  const isFaved = userData ? checkFavorites(userData.favorites, number) : false;
+
+  async function handleAddFavorite() {
+    try {
+      await fetch(`/api/favorites/${number}`, {
+        method: "PUT",
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+    reload();
+  }
+
+  async function handleRemoveFavorite() {
+    try {
+      await fetch(`/api/favorites/${number}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+    reload();
+  }
 
   return (
     <OverviewListItem>
       <EpisodeLink
-        href={`/episodes/${number}`}
+        href={`/episoden/${number}`}
         aria-label="Detailseite der Folge anzeigen"
       >
         <PreviewImage
           src={getCoverURL(links)}
           alt={`Cover Folge Nummer ${number}`}
-          width={400}
-          height={400}
+          width={100}
+          height={100}
         />
         <OverviewText>
           <p>
             {number} - {title}
           </p>
-          <p style={{ color: "grey" }}>{getFormattedDate(releasedate)}</p>
+          <p>{getFormattedDate(releasedate)}</p>
         </OverviewText>
       </EpisodeLink>
-      <ListButton
-        type="button"
-        onClick={() => {
-          setFavorites(toggleFavorites(favorites, number));
-        }}
-        aria-label={`${
-          isFaved ? "von Favoriten entfernen" : "zu Favoriten hinzufügen"
-        }`}
-      >
-        <SVGIcon
-          variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}
-          width="35px"
-        />
-      </ListButton>
+      {userData && (
+        <ListButton
+          type="button"
+          onClick={isFaved ? handleRemoveFavorite : handleAddFavorite}
+          aria-label={`${
+            isFaved ? "von Favoriten entfernen" : "zu Favoriten hinzufügen"
+          }`}
+        >
+          <SVGIcon
+            variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}
+            width="35px"
+          />
+        </ListButton>
+      )}
     </OverviewListItem>
   );
 }

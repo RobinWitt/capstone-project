@@ -1,112 +1,56 @@
+import { LogButton } from "@/components/Authentication/Login.styled";
+import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
+import { useSession, signIn, signOut, getProviders } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import useSWR from "swr";
-import { useEffect } from "react";
-import { useAtom, atom } from "jotai";
-import EpisodesList from "@/components/EpisodesList/EpisodesList";
-import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
-import {
-  getMostRecentEpisode,
-  filterEpisodes,
-  isEpisodeReleased,
-  sortEpisodesByDate,
-} from "@/components/Episode/EpisodeFunctions";
-import RandomEpisode from "@/components/RandomEpisode/RandomEpisodeListItem";
-import {
-  ListHeadContainer,
-  ListHeader,
-} from "@/components/EpisodesList/EpisodesList.styled";
-import ListNavigation from "@/components/EpisodesList/ListNavigation";
-import Searchbar, { initialSearch } from "@/components/EpisodesList/Searchbar";
-import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
 
-const URL = "/api/episodes";
-export const initialScroll = atom(0);
-export const initialSort = atom(true);
-export const initialFilter = atom(false);
+export default function LandingPage({ providers }) {
+  const router = useRouter();
+  const { data: session } = useSession();
+  const {
+    data: userData,
+    userIsLoading,
+    userError,
+  } = useSWR(session && "/api/user");
 
-export default function HomePage() {
-  const [search] = useAtom(initialSearch);
-  // scroll restoration adapted from => https://codesandbox.io/s/cocky-drake-1xe0g
-  const [scrollY, setScrollY] = useAtom(initialScroll);
+  if (userError)
+    return <ListHeader>Nutzerdaten konnten nicht geladen werden.</ListHeader>;
+  if (userIsLoading)
+    return <ListHeader>Nutzerdaten werden geladen...</ListHeader>;
 
-  useEffect(() => {
-    window.scrollTo(0, scrollY);
-    function handleScroll() {
-      setScrollY(window.scrollY);
-    }
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  // end of scroll restoration
+  return (
+    <main>
+      {Object.values(providers).map((provider) => (
+        <LogButton
+          key={provider.id}
+          type="button"
+          onClick={() => {
+            session ? signOut(provider.id) : signIn(provider.id);
+          }}
+        >
+          {session
+            ? `Ausloggen von ${provider.name}`
+            : `Einloggen bei ${provider.name}`}
+        </LogButton>
+      ))}
 
-  function handleJumpTop() {
-    window.scrollTo(0, 0, {
-      behavior: "smooth",
-    });
-  }
+      {!session && (
+        <>
+          <ListHeader>oder</ListHeader>
+          <Link href={"/startseite"}>Ohne Account nutzen</Link>
+        </>
+      )}
+    </main>
+  );
+}
 
-  const { data: allEpisodes, isLoading, error } = useSWR(URL);
-  const [ascending] = useAtom(initialSort);
-  const [filter] = useAtom(initialFilter);
+export async function getServerSideProps() {
+  const providers = await getProviders();
 
-  if (error)
-    return (
-      <main>
-        <h2>Fehler beim Laden</h2>
-      </main>
-    );
-  if (isLoading)
-    return (
-      <main>
-        <h2>wird geladen...</h2>
-      </main>
-    );
-
-  if (allEpisodes) {
-    const mostRecentEpisode = getMostRecentEpisode(allEpisodes);
-    const isReleased = isEpisodeReleased(mostRecentEpisode);
-    const sortedEpisodes = sortEpisodesByDate(allEpisodes, ascending);
-    const filteredEpisodes = filterEpisodes(sortedEpisodes, filter);
-
-    return (
-      <>
-        <main>
-          <ListHeader>
-            {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
-          </ListHeader>
-          {mostRecentEpisode && (
-            <>
-              <EpisodesList>
-                <EpisodeListItem episode={mostRecentEpisode} />
-              </EpisodesList>
-            </>
-          )}
-          <ListHeader>Zufällige Folge</ListHeader>
-          <RandomEpisode />
-          <ListHeader>Alle Folgen</ListHeader>
-          <ListHeadContainer>
-            <Searchbar />
-            <ListNavigation />
-          </ListHeadContainer>
-          <EpisodesList>
-            {filteredEpisodes
-              .filter(
-                ({ nummer, titel }) =>
-                  nummer.toString().includes(search.toLowerCase()) ||
-                  titel.toLowerCase().includes(search.toLowerCase())
-              )
-              .map((episode) => {
-                return (
-                  <EpisodeListItem key={episode.nummer} episode={episode} />
-                );
-              })}
-          </EpisodesList>
-          {scrollY > 120 && <JumpTopButton onJumpTop={handleJumpTop} />}
-        </main>
-      </>
-    );
-  }
+  return {
+    props: {
+      providers,
+    },
+  };
 }
