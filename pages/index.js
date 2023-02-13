@@ -1,5 +1,6 @@
 import { LogButton } from "@/components/Authentication/Login.styled";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
+import SVGIcon from "@/components/Icons";
 import { useSession, signIn, signOut, getProviders } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -29,9 +30,8 @@ export default function LandingPage({ providers }) {
             session ? signOut(provider.id) : signIn(provider.id);
           }}
         >
-          {session
-            ? `Ausloggen von ${provider.name}`
-            : `Einloggen bei ${provider.name}`}
+          <SVGIcon variant="spotify" width="40px" />
+          {`${provider.name} Login`}
         </LogButton>
       ))}
 

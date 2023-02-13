@@ -23,6 +23,7 @@ export default function Searchbar() {
     setSearch("");
   }
 
+  // https://bobbyhadz.com/blog/react-focus-input-on-element
   useEffect(() => {
     searchInputRef.current.focus();
   }, [showSearchbar]);

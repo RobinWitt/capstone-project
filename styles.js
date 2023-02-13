@@ -10,7 +10,12 @@ export default createGlobalStyle`
   --primary: rgba(163, 204, 171, 1);
   --text: rgba(224, 238, 224, 1);
   --accent: rgba(242, 104, 0, 1);
+  --spotify-black: rgba(25, 20, 20, 1);
+  --spotify-white: rgba(255, 255, 255, 1);
+  --spotify-green: rgba(30, 215, 96, 1);
+  // https://developer.spotify.com/documentation/general/design-and-branding/
 }
+
 
   *,
   *::before,

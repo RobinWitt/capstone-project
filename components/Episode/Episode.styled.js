@@ -81,11 +81,16 @@ export const ItemOfSpeaker = styled.li`
 `;
 
 export const StartPlayerButton = styled.button`
-  font-size: 1.2rem;
-  padding: 0.2rem;
-  border: none;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  width: 60%;
+  gap: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.3rem 1.2rem 0.3rem 0.5rem;
   border-radius: 999px;
-  background: none;
-  background-color: var(--accent);
-  color: var(--background);
+  border: none;
+  background-color: var(--spotify-black);
+  color: var(--spotify-green);
 `;

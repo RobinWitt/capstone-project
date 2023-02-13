@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import SVGIcon from "../Icons";
 import Script from "next/script";
 import { useState, useEffect, useRef } from "react";
@@ -56,9 +56,11 @@ export default function SpotifyPlayer() {
         <SpotifyPlayerModule initialPlayerModuleRef={initialPlayerModuleRef} />
         {showPlayer && playerInstance && (
           <PlayerContainer>
-            <CurrentTrackDisplay>
-              {currentTrack && currentTrack.name}
-            </CurrentTrackDisplay>
+            <TrackContainer>
+              {currentTrack && (
+                <CurrentTrackBanner>{currentTrack.name}</CurrentTrackBanner>
+              )}
+            </TrackContainer>
             <PlayControlContainer>
               <PlayControlButtons
                 id="previousTrack"
@@ -103,9 +105,7 @@ const PlayerContainer = styled.div`
   transform: translateX(-50%);
   width: 80%;
   max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  height: fit-content;
   text-align: center;
   background-color: var(--primary);
   border-radius: 5px;
@@ -118,11 +118,30 @@ const PlayControlContainer = styled.div`
   gap: 5px;
 `;
 
-const CurrentTrackDisplay = styled.span`
-  color: var(--background); opacity 0.5;
-  padding-top: 0.2rem;
+const TrackContainer = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
   border-bottom: 2px solid var(--background-secondary);
 `;
+
+// https://medium.com/@matt.readout/adding-css-animations-with-styled-components-6c191c23b6ba
+
+const trackAnimation = keyframes`
+  0%, 20% {transform: translateX(0%);left: 0%;}
+  80%, 100% {transform: translateX(-100%);left: 100%;}
+`;
+
+const CurrentTrackBanner = styled.span`
+  color: var(--background); opacity 0.7;
+  padding-top: 0.2rem;
+  display: inline-block;
+  position: relative;
+  // animation-name: ${trackAnimation};
+  // animation-duration: 3s;
+  // animation-direction: alternate;
+  // animation-iteration-count: infinite;
+  // animation-timing-function: ease-in-out;`;
 
 const PlayControlButtons = styled.button`
   border: none;

@@ -16,6 +16,7 @@ import Parts from "./Parts";
 import Speakers from "./Speakers";
 import { initialShowPlayer } from "../Spotify/SpotifyPlayer";
 import { initialDeviceID } from "../Spotify/SpotifyPlayerModule";
+import SVGIcon from "../Icons";
 
 export default function EpisodeCard({
   children,
@@ -115,8 +116,9 @@ export default function EpisodeCard({
         <NoContentMessage>kein Artwork vorhanden</NoContentMessage>
       )}
       {session && isReleased && (
-        <StartPlayerButton onClick={handleStartPlayer}>
-          Folge abspielen
+        <StartPlayerButton aria-label="Folge hören" onClick={handleStartPlayer}>
+          <SVGIcon variant="spotify" width="30px" />
+          Folge hören
         </StartPlayerButton>
       )}
       {author ? (
