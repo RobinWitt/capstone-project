@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import SVGIcon from "../Icons";
 
+export default function JumpTopButton({ onJumpTop }) {
+  return (
+    <JumpToTopButton
+      onClick={onJumpTop}
+      aria-label="zum Start der Liste springen"
+    >
+      <SVGIcon variant="arrowUp" width="35px" />
+    </JumpToTopButton>
+  );
+}
+
 const JumpToTopButton = styled.button`
   position: fixed;
   bottom: 8rem;
@@ -13,14 +24,3 @@ const JumpToTopButton = styled.button`
   background: var(--accent);
   padding: 0.5rem;
 `;
-
-export default function JumpTopButton({ onJumpTop }) {
-  return (
-    <JumpToTopButton
-      onClick={onJumpTop}
-      aria-label="zum Start der Liste springen"
-    >
-      <SVGIcon variant="arrowUp" width="35px" />
-    </JumpToTopButton>
-  );
-}

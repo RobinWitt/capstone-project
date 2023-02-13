@@ -32,18 +32,8 @@ export default function RandomPage() {
     setToggleDetails(false);
   }
 
-  if (error)
-    return (
-      <main>
-        <ListHeader>Fehler beim Laden</ListHeader>
-      </main>
-    );
-  if (isLoading)
-    return (
-      <main>
-        <ListHeader>wird geladen...</ListHeader>
-      </main>
-    );
+  if (error) return <ListHeader>Fehler beim Laden</ListHeader>;
+  if (isLoading) return <ListHeader>wird geladen...</ListHeader>;
 
   if (data) {
     const {
@@ -63,7 +53,7 @@ export default function RandomPage() {
     const isReleased = isEpisodeReleased(data);
 
     return (
-      <main>
+      <>
         {toggleDetails ? (
           <EpisodeCard
             number={number}
@@ -95,7 +85,7 @@ export default function RandomPage() {
             />
           )
         )}
-      </main>
+      </>
     );
   }
 }

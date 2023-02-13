@@ -69,17 +69,9 @@ export default function HomePage() {
   // __________________________________________________________________________
 
   if (episodesError)
-    return (
-      <main>
-        <ListHeader>Folgen konnten nicht geladen werden.</ListHeader>
-      </main>
-    );
+    return <ListHeader>Folgen konnten nicht geladen werden.</ListHeader>;
   if (episodesAreLoading)
-    return (
-      <main>
-        <ListHeader>Folgen werden geladen...</ListHeader>
-      </main>
-    );
+    return <ListHeader>Folgen werden geladen...</ListHeader>;
 
   // __________________________________________________________________________
 
@@ -91,48 +83,46 @@ export default function HomePage() {
 
     return (
       <>
-        <main>
-          <ListHeader>
-            {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
-          </ListHeader>
-          {mostRecentEpisode && (
-            <>
-              <EpisodesList>
+        <ListHeader>
+          {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
+        </ListHeader>
+        {mostRecentEpisode && (
+          <>
+            <EpisodesList>
+              <EpisodeListItem
+                episode={mostRecentEpisode}
+                userData={userData}
+                reload={mutate}
+              />
+            </EpisodesList>
+          </>
+        )}
+        <ListHeader>Zufällige Folge</ListHeader>
+        <RandomEpisode />
+        <ListHeader>Alle Folgen</ListHeader>
+        <ListHeadContainer>
+          <Searchbar />
+          <ListNavigation />
+        </ListHeadContainer>
+        <EpisodesList>
+          {filteredEpisodes
+            .filter(
+              ({ nummer, titel }) =>
+                nummer.toString().includes(search.toLowerCase()) ||
+                titel.toLowerCase().includes(search.toLowerCase())
+            )
+            .map((episode) => {
+              return (
                 <EpisodeListItem
-                  episode={mostRecentEpisode}
+                  key={episode.nummer}
+                  episode={episode}
                   userData={userData}
                   reload={mutate}
                 />
-              </EpisodesList>
-            </>
-          )}
-          <ListHeader>Zufällige Folge</ListHeader>
-          <RandomEpisode />
-          <ListHeader>Alle Folgen</ListHeader>
-          <ListHeadContainer>
-            <Searchbar />
-            <ListNavigation />
-          </ListHeadContainer>
-          <EpisodesList>
-            {filteredEpisodes
-              .filter(
-                ({ nummer, titel }) =>
-                  nummer.toString().includes(search.toLowerCase()) ||
-                  titel.toLowerCase().includes(search.toLowerCase())
-              )
-              .map((episode) => {
-                return (
-                  <EpisodeListItem
-                    key={episode.nummer}
-                    episode={episode}
-                    userData={userData}
-                    reload={mutate}
-                  />
-                );
-              })}
-          </EpisodesList>
-          {scrollY > 180 && <JumpTopButton onJumpTop={handleJumpTop} />}
-        </main>
+              );
+            })}
+        </EpisodesList>
+        {scrollY > 250 && <JumpTopButton onJumpTop={handleJumpTop} />}
       </>
     );
   }

@@ -12,29 +12,15 @@ export default function FavoritesPage() {
     mutate,
   } = useSWR("/api/user");
 
-  if (error)
-    return (
-      <main>
-        <ListHeader>Fehler beim Laden</ListHeader>
-      </main>
-    );
-  if (isLoading)
-    return (
-      <main>
-        <ListHeader>wird geladen...</ListHeader>
-      </main>
-    );
+  if (error) return <ListHeader>Fehler beim Laden</ListHeader>;
+  if (isLoading) return <ListHeader>wird geladen...</ListHeader>;
   if (userError)
-    return (
-      <main>
-        <ListHeader>Nutzerdaten konnten nicht geladen werden.</ListHeader>
-      </main>
-    );
+    return <ListHeader>Nutzerdaten konnten nicht geladen werden.</ListHeader>;
 
   if (data) {
     return (
       <>
-        <main>
+        <>
           <ListHeader>Favoriten</ListHeader>
           <EpisodesList>
             {data
@@ -53,7 +39,7 @@ export default function FavoritesPage() {
                 );
               })}
           </EpisodesList>
-        </main>
+        </>
       </>
     );
   }

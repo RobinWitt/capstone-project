@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import useSWR from "swr";
 import { getFormattedDate, getCoverURL } from "../Episode/EpisodeFunctions";
 import { checkFavorites } from "../Favoring/FavoringFunctions";
 import SVGIcon from "../Icons";
@@ -17,7 +15,6 @@ export default function EpisodeListItem({ episode, userData, reload }) {
     nummer: number,
     titel: title,
     veröffentlichungsdatum: releasedate,
-    teile: parts,
     links,
   } = episode;
 

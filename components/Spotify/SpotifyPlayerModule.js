@@ -5,7 +5,7 @@ export const initialDeviceID = atom("");
 
 export default function SpotifyPlayerModule({ initialPlayerModuleRef }) {
   const { data: session } = useSession();
-  const [deviceID, setDeviceID] = useAtom(initialDeviceID);
+  const [, setDeviceID] = useAtom(initialDeviceID);
 
   window.onSpotifyWebPlaybackSDKReady = () => {
     const player = new Spotify.Player({

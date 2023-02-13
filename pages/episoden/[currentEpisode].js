@@ -44,18 +44,8 @@ export default function EpisodePage() {
     mutate,
   } = useSWR("/api/user");
 
-  if (error)
-    return (
-      <main>
-        <ListHeader>Fehler beim Laden</ListHeader>
-      </main>
-    );
-  if (isLoading)
-    return (
-      <main>
-        <ListHeader>wird geladen...</ListHeader>
-      </main>
-    );
+  if (error) return <ListHeader>Fehler beim Laden</ListHeader>;
+  if (isLoading) return <ListHeader>wird geladen...</ListHeader>;
 
   if (data) {
     const {
@@ -75,7 +65,7 @@ export default function EpisodePage() {
     const isReleased = isEpisodeReleased(data);
 
     return (
-      <main>
+      <>
         <EpisodeCard
           number={number}
           title={title}
@@ -97,7 +87,7 @@ export default function EpisodePage() {
           />
         </EpisodeCard>
         {scrollY > 250 && <JumpTopButton onJumpTop={handleJumpTop} />}
-      </main>
+      </>
     );
   }
 }

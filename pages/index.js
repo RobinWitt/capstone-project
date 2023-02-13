@@ -20,7 +20,7 @@ export default function LandingPage({ providers }) {
     return <ListHeader>Nutzerdaten werden geladen...</ListHeader>;
 
   return (
-    <main>
+    <>
       {Object.values(providers).map((provider) => (
         <LogButton
           key={provider.id}
@@ -41,7 +41,7 @@ export default function LandingPage({ providers }) {
           <Link href={"/startseite"}>Ohne Account nutzen</Link>
         </>
       )}
-    </main>
+    </>
   );
 }
 

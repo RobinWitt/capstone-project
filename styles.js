@@ -26,15 +26,6 @@ export default createGlobalStyle`
     color: var(--secondary);
   }
 
-  main {
-    margin: auto;
-    margin-bottom: 8rem;
-    max-width: 700px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
   a {
     color: var(--primary)
   }

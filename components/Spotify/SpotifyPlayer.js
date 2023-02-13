@@ -11,6 +11,7 @@ export const initialIsPaused = atom(true);
 
 export default function SpotifyPlayer() {
   const { data: session } = useSession();
+  // https://beta.reactjs.org/reference/react/useRef
   const initialPlayerModuleRef = useRef(null);
   const playerInstance = initialPlayerModuleRef.current;
   const [showPlayer, setShowPlayer] = useAtom(initialShowPlayer);

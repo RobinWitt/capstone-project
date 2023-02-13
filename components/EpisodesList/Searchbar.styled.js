@@ -23,10 +23,12 @@ export const SearchbarForm = styled.form`
 `;
 
 export const SearchbarInput = styled.input`
-  background-color: var(--text);
+  background: none;
+  color: var(--accent);
+  caret-color: var(--accent);
   border: none;
+  outline: none;
   width: 100%;
-  line-height: 1;
   padding: 0.2rem;
 
   ${({ showSearchbar }) => {
