@@ -4,8 +4,7 @@ import EpisodeCard from "@/components/Episode/EpisodeCard";
 import EpisodeCardHeader from "@/components/Episode/EpisodeCardHeader";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { isEpisodeReleased } from "@/components/Episode/EpisodeFunctions";
 
 export default function EpisodePage() {

@@ -26,6 +26,8 @@ export default function SpotifyPlayer() {
         }
         setIsPaused(state.paused);
         setCurrentTrack(state.track_window.current_track);
+        // console.log(state);
+        // setShowPlayer(!state.paused);
       });
     }
 
@@ -54,9 +56,7 @@ export default function SpotifyPlayer() {
         {showPlayer && playerInstance && (
           <PlayerContainer>
             <CurrentTrackDisplay>
-              {currentTrack && currentTrack.name.length > 38
-                ? currentTrack.name.substring(0, 38)`...`
-                : currentTrack.name}
+              {currentTrack && currentTrack.name}
             </CurrentTrackDisplay>
             <PlayControlContainer>
               <PlayControlButtons
@@ -119,6 +119,7 @@ const PlayControlContainer = styled.div`
 const CurrentTrackDisplay = styled.span`
   color: var(--background); opacity 0.5;
   padding-top: 0.2rem;
+  border-bottom: 2px solid var(--background-secondary);
 `;
 
 const PlayControlButtons = styled.button`

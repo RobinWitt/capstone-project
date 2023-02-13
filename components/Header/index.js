@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Image from "next/image";
 import Portrait_Placeholder from "@/public/Portrait_Placeholder.png";
 import Link from "next/link";
-import SpotifyPlayer from "../Spotify/SpotifyPlayer";
 
 const StyledHeader = styled.header`
   max-width: 700px;

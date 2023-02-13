@@ -37,6 +37,7 @@ export default function App({
         <SWRConfig value={{ fetcher }}>
           <Header />
           <Component {...pageProps} />
+          {/* https://blog.sethcorker.com/question/how-to-solve-referenceerror-next-js-window-is-not-defined/ */}
           {typeof window !== undefined && <SpotifyPlayer />}
           <Navigation />
         </SWRConfig>

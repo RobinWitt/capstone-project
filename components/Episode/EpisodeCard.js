@@ -8,6 +8,7 @@ import {
 import EpisodeDescription from "./EpisodeDescription";
 import { useSession } from "next-auth/react";
 import { useAtom } from "jotai";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { getCoverURL, getFormattedDate } from "./EpisodeFunctions";
 import Chapters from "./Chapters";
@@ -34,6 +35,36 @@ export default function EpisodeCard({
   const { data: session } = useSession();
   const [deviceID] = useAtom(initialDeviceID);
   const [, setShowPlayer] = useAtom(initialShowPlayer);
+  const [spotifyAlbumURI, setSpotifyAlbumURI] = useState([]);
+
+  // __________________________________________________________________________
+
+  async function getSpotifyAlbumURI() {
+    if (session) {
+      const token = session.accessToken;
+      axios
+        .get(
+          `https://api.spotify.com/v1/search?q=Die%20drei%20???%20${title}&type=album&limit=1`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        )
+        .then((response) => {
+          setSpotifyAlbumURI(response.data.albums.items[0].uri);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }
+
+  useEffect(() => {
+    getSpotifyAlbumURI();
+  }, []);
+
+  // __________________________________________________________________________
 
   async function handleStartPlayer() {
     if (session && deviceID) {
@@ -45,7 +76,7 @@ export default function EpisodeCard({
       };
 
       const body = {
-        context_uri: "spotify:album:4N9tvSjWfZXx3eHKblYEWQ",
+        context_uri: spotifyAlbumURI,
       };
 
       const queryParams = {
@@ -67,6 +98,8 @@ export default function EpisodeCard({
     }
   }
 
+  // __________________________________________________________________________
+
   return (
     <StyledEpisodeCard>
       {children}
@@ -81,7 +114,6 @@ export default function EpisodeCard({
       ) : (
         <NoContentMessage>kein Artwork vorhanden</NoContentMessage>
       )}
-      {/* https://blog.sethcorker.com/question/how-to-solve-referenceerror-next-js-window-is-not-defined/ */}
       {session && isReleased && (
         <StartPlayerButton onClick={handleStartPlayer}>
           Folge abspielen
