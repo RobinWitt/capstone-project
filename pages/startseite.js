@@ -1,8 +1,6 @@
-import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useAtom, atom } from "jotai";
 import useSWR from "swr";
-import axios from "axios";
 import EpisodesList from "@/components/EpisodesList/EpisodesList";
 import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
 import {
@@ -10,7 +8,6 @@ import {
   filterEpisodes,
   isEpisodeReleased,
   sortEpisodesByDate,
-  filterEpisodesByNumber,
 } from "@/components/Episode/EpisodeFunctions";
 import RandomEpisode from "@/components/RandomEpisode/RandomEpisodeListItem";
 import {
@@ -26,7 +23,6 @@ export const initialSort = atom(true);
 export const initialFilter = atom(false);
 
 export default function HomePage() {
-  const { data: session } = useSession();
   const [search] = useAtom(initialSearch);
 
   // _____________________________________________________________________________

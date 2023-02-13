@@ -101,6 +101,7 @@ const PlayerContainer = styled.div`
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
