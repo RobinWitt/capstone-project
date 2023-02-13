@@ -2,13 +2,19 @@ import {
   EpisodeFacts,
   EpisodeImage,
   NoContentMessage,
+  StartPlayerButton,
   StyledEpisodeCard,
 } from "./Episode.styled";
 import EpisodeDescription from "./EpisodeDescription";
+import { useSession } from "next-auth/react";
+import { useAtom } from "jotai";
+import axios from "axios";
 import { getCoverURL, getFormattedDate } from "./EpisodeFunctions";
 import Chapters from "./Chapters";
 import Parts from "./Parts";
 import Speakers from "./Speakers";
+import { initialShowPlayer } from "../Spotify/SpotifyPlayer";
+import { initialDeviceID } from "../Spotify/SpotifyPlayerModule";
 
 export default function EpisodeCard({
   children,
@@ -23,7 +29,44 @@ export default function EpisodeCard({
   chapters,
   parts,
   incomplete,
+  isReleased,
 }) {
+  const { data: session } = useSession();
+  const [deviceID] = useAtom(initialDeviceID);
+  const [, setShowPlayer] = useAtom(initialShowPlayer);
+
+  async function handleStartPlayer() {
+    if (session && deviceID) {
+      const token = session.accessToken;
+
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+
+      const body = {
+        context_uri: "spotify:album:4N9tvSjWfZXx3eHKblYEWQ",
+      };
+
+      const queryParams = {
+        device_id: deviceID,
+      };
+
+      axios
+        .put("https://api.spotify.com/v1/me/player/play", body, {
+          headers,
+          params: queryParams,
+        })
+        .then((response) => {
+          console.log("Started playback", response.status, response.statusText);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      setShowPlayer(true);
+    }
+  }
+
   return (
     <StyledEpisodeCard>
       {children}
@@ -37,6 +80,12 @@ export default function EpisodeCard({
         />
       ) : (
         <NoContentMessage>kein Artwork vorhanden</NoContentMessage>
+      )}
+      {/* https://blog.sethcorker.com/question/how-to-solve-referenceerror-next-js-window-is-not-defined/ */}
+      {session && isReleased && (
+        <StartPlayerButton onClick={handleStartPlayer}>
+          Folge abspielen
+        </StartPlayerButton>
       )}
       {author ? (
         <EpisodeFacts>Autor*in: {author}</EpisodeFacts>

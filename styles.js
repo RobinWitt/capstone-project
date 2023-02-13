@@ -28,7 +28,7 @@ export default createGlobalStyle`
 
   main {
     margin: auto;
-    margin-bottom: 5rem;
+    margin-bottom: 8rem;
     max-width: 700px;
     display: flex;
     flex-direction: column;

@@ -31,7 +31,7 @@ export const EpisodeImage = styled(Image)`
   max-width: 400px;
   height: auto;
   align-self: center;
-  margin: 1rem;
+  margin: 0.5rem;
 `;
 
 export const PartsHeader = styled.h3`
@@ -52,7 +52,7 @@ export const StyledFoldButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-top: 0.8rem;
   padding-left: 1rem;
   border: none;
@@ -78,4 +78,14 @@ export const ListOfSpeakers = styled.ol`
 
 export const ItemOfSpeaker = styled.li`
   margin-bottom: 0.5rem;
+`;
+
+export const StartPlayerButton = styled.button`
+  font-size: 1.2rem;
+  padding: 0.2rem;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  background-color: var(--accent);
+  color: var(--background);
 `;

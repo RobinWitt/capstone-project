@@ -65,6 +65,22 @@ const paths = {
     path: "M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z",
     viewbox: "0 0 24 24",
   },
+  play: {
+    path: "M8,5.14V19.14L19,12.14L8,5.14Z",
+    viewbox: "0 0 24 24",
+  },
+  pause: {
+    path: "M14,19H18V5H14M6,19H10V5H6V19Z",
+    viewbox: "0 0 24 24",
+  },
+  skipPrevious: {
+    path: "M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z",
+    viewbox: "0 0 24 24",
+  },
+  skipNext: {
+    path: "M16,18H18V6H16M6,18L14.5,12L6,6V18Z",
+    viewbox: "0 0 24 24",
+  },
 };
 
 export default function SVGIcon({ variant, width, color = "currentColor" }) {

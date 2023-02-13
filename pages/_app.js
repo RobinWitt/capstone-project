@@ -4,6 +4,8 @@ import GlobalStyle from "@/styles";
 import Head from "next/head";
 import { SWRConfig } from "swr";
 import { SessionProvider } from "next-auth/react";
+import SpotifyPlayer from "@/components/Spotify/SpotifyPlayer";
+import Script from "next/script";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -35,6 +37,7 @@ export default function App({
         <SWRConfig value={{ fetcher }}>
           <Header />
           <Component {...pageProps} />
+          {typeof window !== undefined && <SpotifyPlayer />}
           <Navigation />
         </SWRConfig>
       </SessionProvider>

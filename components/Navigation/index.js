@@ -11,6 +11,7 @@ const StyledNav = styled.nav`
   transform: translateX(-50%);
   width: 100%;
   max-width: 700px;
+  height: 60px;
   padding: 0.5rem;
   display: flex;
   justify-content: space-around;
@@ -29,7 +30,7 @@ export default function Navigation() {
         <Link href="/startseite" aria-label="Startseite">
           <SVGIcon
             variant={currentPage === "/startseite" ? "homeFilled" : "homeEmpty"}
-            width="50px"
+            width="40px"
             color="#A3CCAB"
           />
         </Link>
@@ -38,7 +39,7 @@ export default function Navigation() {
             variant={
               currentPage === "/favoriten" ? "favoriteFilled" : "favoriteEmpty"
             }
-            width="50px"
+            width="40px"
             color="#A3CCAB"
           />
         </Link>

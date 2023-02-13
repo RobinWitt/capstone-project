@@ -1,16 +1,18 @@
 import dbConnect from "@/db/connect";
 import Episode from "@/db/models/Episode";
 
-export default async function handler(request, response) {
+export default async function handler(req, res) {
   await dbConnect();
-  const { currentEpisode } = request.query;
+  const { currentEpisode } = req.query;
 
-  if (request.method === "GET") {
-    const episode = await Episode.findOne({ nummer: currentEpisode });
-    if (!episode) {
-      return response.status(404).json({ status: "Not Found" });
-    }
+  switch (req.method) {
+    case "GET":
+      const episode = await Episode.findOne({ nummer: currentEpisode });
 
-    return response.status(200).json(episode);
+      if (!episode) {
+        return res.status(404).json({ status: "Not Found" });
+      }
+
+      return res.status(200).json(episode);
   }
 }

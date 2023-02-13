@@ -1,8 +1,8 @@
 import { useSession } from "next-auth/react";
-import useSWR from "swr";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { useAtom, atom } from "jotai";
+import useSWR from "swr";
+import axios from "axios";
 import EpisodesList from "@/components/EpisodesList/EpisodesList";
 import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
 import {
@@ -10,6 +10,7 @@ import {
   filterEpisodes,
   isEpisodeReleased,
   sortEpisodesByDate,
+  filterEpisodesByNumber,
 } from "@/components/Episode/EpisodeFunctions";
 import RandomEpisode from "@/components/RandomEpisode/RandomEpisodeListItem";
 import {
@@ -57,27 +58,6 @@ export default function HomePage() {
 
   // __________________________________________________________________________
 
-  const [spotifyCurrent, setSpotifyCurrent] = useState();
-  async function handleGetCurrentlyPlaying() {
-    const token = session.accessToken;
-
-    axios
-      .get("https://api.spotify.com/v1/me/player/currently-playing", {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((response) => {
-        console.log(response.data?.item);
-        setSpotifyCurrent(response.data?.item);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  // __________________________________________________________________________
-
   const {
     data: allEpisodes,
     isLoading: episodesAreLoading,
@@ -116,11 +96,6 @@ export default function HomePage() {
     return (
       <>
         <main>
-          <ListHeader>Gerade läuft:</ListHeader>
-          <button type="button" onClick={handleGetCurrentlyPlaying}>
-            Abrufen
-          </button>
-          {spotifyCurrent && <p>{spotifyCurrent.name}</p>}
           <ListHeader>
             {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
           </ListHeader>
@@ -160,7 +135,7 @@ export default function HomePage() {
                 );
               })}
           </EpisodesList>
-          {scrollY > 120 && <JumpTopButton onJumpTop={handleJumpTop} />}
+          {scrollY > 180 && <JumpTopButton onJumpTop={handleJumpTop} />}
         </main>
       </>
     );

@@ -3,7 +3,7 @@ import SVGIcon from "../Icons";
 
 const JumpToTopButton = styled.button`
   position: fixed;
-  bottom: 5.5rem;
+  bottom: 8rem;
   left: 2rem;
   display: flex;
   align-items: center;

@@ -2,12 +2,26 @@ import { refreshAccessToken } from "@/lib/spotify";
 import NextAuth from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 
+const SPACE_DELIMITER = "%20";
+const SCOPES = [
+  "user-read-email",
+  "user-read-private",
+  "streaming",
+  "user-read-playback-state",
+  "user-modify-playback-state",
+  "user-read-currently-playing",
+  "user-read-recently-played",
+  "user-library-read",
+];
+
+const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
+
 export const authOptions = {
   providers: [
     SpotifyProvider({
       clientId: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-      authorization: `https://accounts.spotify.com/authorize?scope=user-read-email user-read-private user-read-recently-played user-read-currently-playing`,
+      authorization: `https://accounts.spotify.com/authorize?scope=${SCOPES_URL_PARAM}`,
     }),
   ],
   callbacks: {

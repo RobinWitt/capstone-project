@@ -36,5 +36,5 @@ yarn-error.log*
 next-env.d.ts
 
 /lib/deponie.js
-/lib/colorthemes.js
+/pages/spotify.js
 /db/models/Favorite.js
