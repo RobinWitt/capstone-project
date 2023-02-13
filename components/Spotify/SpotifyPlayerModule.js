@@ -1,12 +1,10 @@
 import { useAtom, atom } from "jotai";
 import { useSession } from "next-auth/react";
-import { initialPlayerModule } from "./SpotifyPlayer";
 
 export const initialDeviceID = atom("");
 
-export default function SpotifyPlayerModule() {
+export default function SpotifyPlayerModule({ initialPlayerModuleRef }) {
   const { data: session } = useSession();
-  const [playerInstance, setPlayerInstance] = useAtom(initialPlayerModule);
   const [deviceID, setDeviceID] = useAtom(initialDeviceID);
 
   window.onSpotifyWebPlaybackSDKReady = () => {
@@ -42,6 +40,8 @@ export default function SpotifyPlayerModule() {
 
     player.connect();
 
-    setPlayerInstance(player);
+    if (initialPlayerModuleRef.current === null) {
+      initialPlayerModuleRef.current = player;
+    }
   };
 }

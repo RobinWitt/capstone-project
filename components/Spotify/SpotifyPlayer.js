@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import SVGIcon from "../Icons";
 import Script from "next/script";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { atom, useAtom } from "jotai";
 import SpotifyPlayerModule from "./SpotifyPlayerModule";
 
-export const initialPlayerModule = atom("");
 export const initialShowPlayer = atom(false);
 export const initialIsPaused = atom(true);
 
 export default function SpotifyPlayer() {
   const { data: session } = useSession();
-  const [playerInstance] = useAtom(initialPlayerModule);
+  const initialPlayerModuleRef = useRef(null);
+  const playerInstance = initialPlayerModuleRef.current;
   const [showPlayer, setShowPlayer] = useAtom(initialShowPlayer);
   const [isPaused, setIsPaused] = useState(true);
   const [currentTrack, setCurrentTrack] = useState("");
@@ -52,7 +52,7 @@ export default function SpotifyPlayer() {
     return (
       <>
         <Script src="https://sdk.scdn.co/spotify-player.js"></Script>
-        <SpotifyPlayerModule />
+        <SpotifyPlayerModule initialPlayerModuleRef={initialPlayerModuleRef} />
         {showPlayer && playerInstance && (
           <PlayerContainer>
             <CurrentTrackDisplay>

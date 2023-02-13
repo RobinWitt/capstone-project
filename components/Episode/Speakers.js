@@ -18,7 +18,7 @@ export default function Speakers({ speakers }) {
         Stimmen
         <SVGIcon
           variant={showListOfSpeakers ? "chevronUp" : "chevronDown"}
-          width="2rem"
+          width="28px"
         />
       </StyledFoldButton>
       {showListOfSpeakers && (
