@@ -96,7 +96,7 @@ export default function SpotifyPlayer() {
             </TrackContainer>
           </PlayerContainer>
         )}
-        {!showPlayer && playerInstance && (
+        {!showPlayer && playerInstance && currentTrack && (
           <ReOpenPlayer
             type="button"
             onClick={handleReOpenPlayer}
