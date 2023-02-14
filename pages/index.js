@@ -1,4 +1,4 @@
-import { LogButton } from "@/components/Authentication/Login.styled";
+import { Greetings, LogButton } from "@/components/Authentication/Login.styled";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import SVGIcon from "@/components/Icons";
 import { useSession, signIn, getProviders } from "next-auth/react";
@@ -28,6 +28,13 @@ export default function LandingPage({ providers }) {
             {`${provider.name} Login`}
           </LogButton>
         ))}
+        <Greetings>
+          Um dich einloggen und alle Funktionen nutzen zu können musst du zur
+          Whitelist hinzugefügt werden
+        </Greetings>
+        <Link href="https://neuefische-students.slack.com/team/U04A4P56L6M">
+          Nachricht in Slack senden
+        </Link>
 
         <ListHeader>oder</ListHeader>
         <Link href={"/startseite"}>Ohne Account nutzen</Link>
