@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   await dbConnect();
 
   switch (req.method) {
-    case "GET":
+    case "GET": {
       const episodes = await Episode.find();
 
       if (!episodes) {
@@ -13,5 +13,9 @@ export default async function handler(req, res) {
       }
 
       return res.status(200).json(episodes);
+    }
+    default: {
+      return res.status(405).json({ status: "Method not allowed" });
+    }
   }
 }

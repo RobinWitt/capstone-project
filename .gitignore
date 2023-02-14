@@ -34,7 +34,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-/lib/deponie.js
-/pages/spotify.js
-/db/models/Favorite.js

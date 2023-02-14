@@ -20,26 +20,24 @@ export default function FavoritesPage() {
   if (data) {
     return (
       <>
-        <>
-          <ListHeader>Favoriten</ListHeader>
-          <EpisodesList>
-            {data
-              .filter(
-                (episode) =>
-                  userData && userData.favorites.includes(episode.nummer)
-              )
-              .map((episode) => {
-                return (
-                  <EpisodeListItem
-                    key={episode.nummer}
-                    episode={episode}
-                    userData={userData}
-                    reload={mutate}
-                  />
-                );
-              })}
-          </EpisodesList>
-        </>
+        <ListHeader>Favoriten</ListHeader>
+        <EpisodesList>
+          {data
+            .filter(
+              (episode) =>
+                userData && userData.favorites.includes(episode.nummer)
+            )
+            .map((episode) => {
+              return (
+                <EpisodeListItem
+                  key={episode.nummer}
+                  episode={episode}
+                  userData={userData}
+                  reload={mutate}
+                />
+              );
+            })}
+        </EpisodesList>
       </>
     );
   }

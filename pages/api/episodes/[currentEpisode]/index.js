@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const { currentEpisode } = req.query;
 
   switch (req.method) {
-    case "GET":
+    case "GET": {
       const episode = await Episode.findOne({ nummer: currentEpisode });
 
       if (!episode) {
@@ -14,5 +14,9 @@ export default async function handler(req, res) {
       }
 
       return res.status(200).json(episode);
+    }
+    default: {
+      return res.status(405).json({ status: "Method not allowed" });
+    }
   }
 }

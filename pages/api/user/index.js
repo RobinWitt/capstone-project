@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     const token = await getToken({ req });
     if (token)
       switch (req.method) {
-        case "GET":
+        case "GET": {
           const existingUser = await User.findOne({ id: token.user.id });
 
           if (!existingUser) {
@@ -26,6 +26,10 @@ export default async function handler(req, res) {
               .json(newUser, { status: "CREATED NEW USER" });
           }
           return res.status(200).json(existingUser);
+        }
+        default: {
+          return res.status(405).json({ status: "Method not allowed" });
+        }
       }
   });
 

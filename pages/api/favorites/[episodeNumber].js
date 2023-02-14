@@ -34,5 +34,8 @@ export default async function handler(req, res) {
 
         return res.status(200).json({ status: "favorite deleted" });
       }
+      default: {
+        return res.status(405).json({ status: "Method not allowed" });
+      }
     }
 }
