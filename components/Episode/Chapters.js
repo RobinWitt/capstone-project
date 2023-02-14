@@ -14,7 +14,7 @@ export default function Chapters({ chapters }) {
         Kapitel
         <SVGIcon
           variant={showTracklist ? "chevronUp" : "chevronDown"}
-          width="2rem"
+          width="28px"
         />
       </StyledFoldButton>
       {showTracklist && (

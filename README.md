@@ -1,22 +1,28 @@
 # Capstone Project - D1E DR3I ??? - inoffizieller Guide
+
 started 20.01.23
 
 ### Technologies & packages
+
 - [Next.js](https://nextjs.org/)
 - [mongoose](https://mongoosejs.com/)
 - [MongoDB Atlas](https://www.mongodb.com/atlas/database)
 - [jotai - Global State Handling](https://jotai.org/)
 - [SWR - React Hooks for Data Fetching](https://swr.vercel.app/)
 - [NextAuth.js](https://next-auth.js.org/)
+- [Spotify Web Playback SDK](https://developer.spotify.com/documentation/web-playback-sdk/)
+- [Spotify Web API](https://developer.spotify.com/documentation/web-api/)
+- [axios](https://axios-http.com/)
 - [styled components](https://styled-components.com/)
 
 ### Resources
+
 - [mdn web docs](https://developer.mozilla.org/en-US/)
 - [dreimetadaten API](http://dreimetadaten.de/) credits to [YourMJK](https://github.com/YourMJK)
 - [material design icons](https://pictogrammers.com/library/mdi/)
 - [Adobe Color](https://color.adobe.com/de/explore)
 
-------------------------------------------------
+---
 
 ### Development
 

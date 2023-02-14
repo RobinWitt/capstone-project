@@ -2,34 +2,40 @@ import dbConnect from "@/db/connect";
 import User from "@/db/models/User";
 import { getToken } from "next-auth/jwt";
 
-export default async function handler(req, resp) {
+export default async function handler(req, res) {
   await dbConnect();
   const token = await getToken({ req });
   const { episodeNumber } = req.query;
 
-  if (token && req.method === "PUT") {
-    const updatedUser = await User.findOneAndUpdate(
-      { sub: token.sub },
-      { $push: { favorites: parseInt(episodeNumber) } }
-    );
+  if (token)
+    switch (req.method) {
+      case "PUT": {
+        const updatedUser = await User.findOneAndUpdate(
+          { id: token.user.id },
+          { $push: { favorites: parseInt(episodeNumber) } }
+        );
 
-    if (!updatedUser) {
-      return resp.status(404).json({ status: "could not add favorite" });
+        if (!updatedUser) {
+          return res.status(404).json({ status: "could not add favorite" });
+        }
+
+        return res.status(200).json({ status: "favorite added" });
+      }
+
+      case "DELETE": {
+        const updatedUser = await User.findOneAndUpdate(
+          { id: token.user.id },
+          { $pull: { favorites: parseInt(episodeNumber) } }
+        );
+
+        if (!updatedUser) {
+          return res.status(404).json({ status: "could not delete favorite" });
+        }
+
+        return res.status(200).json({ status: "favorite deleted" });
+      }
+      default: {
+        return res.status(405).json({ status: "Method not allowed" });
+      }
     }
-
-    return resp.status(200).json({ status: "favorite added" });
-  }
-
-  if (token && req.method === "DELETE") {
-    const updatedUser = await User.findOneAndUpdate(
-      { sub: token.sub },
-      { $pull: { favorites: parseInt(episodeNumber) } }
-    );
-
-    if (!updatedUser) {
-      return resp.status(404).json({ status: "could not delete favorite" });
-    }
-
-    return resp.status(200).json({ status: "favorite deleted" });
-  }
 }

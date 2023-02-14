@@ -1,5 +1,6 @@
 import { LogButton } from "@/components/Authentication/Login.styled";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
+import SVGIcon from "@/components/Icons";
 import { useSession, signIn, signOut, getProviders } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,7 +13,7 @@ export default function LandingPage({ providers }) {
     data: userData,
     userIsLoading,
     userError,
-  } = useSWR(session && "/api/user");
+  } = useSWR(session ? "/api/user" : null);
 
   if (userError)
     return <ListHeader>Nutzerdaten konnten nicht geladen werden.</ListHeader>;
@@ -20,7 +21,7 @@ export default function LandingPage({ providers }) {
     return <ListHeader>Nutzerdaten werden geladen...</ListHeader>;
 
   return (
-    <main>
+    <>
       {Object.values(providers).map((provider) => (
         <LogButton
           key={provider.id}
@@ -29,9 +30,8 @@ export default function LandingPage({ providers }) {
             session ? signOut(provider.id) : signIn(provider.id);
           }}
         >
-          {session
-            ? `Ausloggen von ${provider.name}`
-            : `Einloggen bei ${provider.name}`}
+          <SVGIcon variant="spotify" width="40px" />
+          {`${provider.name} Login`}
         </LogButton>
       ))}
 
@@ -41,7 +41,7 @@ export default function LandingPage({ providers }) {
           <Link href={"/startseite"}>Ohne Account nutzen</Link>
         </>
       )}
-    </main>
+    </>
   );
 }
 

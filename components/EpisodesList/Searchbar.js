@@ -1,5 +1,5 @@
 import { atom, useAtom } from "jotai";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import SVGIcon from "../Icons";
 import {
   SearchbarButton,
@@ -12,17 +12,27 @@ export const initialSearch = atom("");
 export default function Searchbar() {
   const [search, setSearch] = useAtom(initialSearch);
   const [showSearchbar, setShowSearchbar] = useState(false);
+  const searchInputRef = useRef(null);
+
+  function handleOpenSearchbar() {
+    setShowSearchbar(true);
+  }
 
   function handleCloseSearchbar() {
     setShowSearchbar(false);
     setSearch("");
   }
 
+  // https://bobbyhadz.com/blog/react-focus-input-on-element
+  useEffect(() => {
+    searchInputRef.current.focus();
+  }, [showSearchbar]);
+
   return (
     <SearchbarForm showSearchbar={showSearchbar}>
       <SearchbarButton
         type="button"
-        onClick={() => setShowSearchbar(true)}
+        onClick={handleOpenSearchbar}
         aria-label="Suchleiste öffnen"
       >
         <SVGIcon variant="magnify" width="25px" />
@@ -32,9 +42,10 @@ export default function Searchbar() {
         onChange={(e) => setSearch(e.target.value)}
         value={search}
         type="text"
-        maxLength="15"
+        maxLength="20"
         pattern="[A-Za-zÄäÖÖÜüß0-9]{15}"
         aria-label="Folgennummer oder Titel suchen"
+        ref={searchInputRef}
       />
       <SearchbarButton
         type="button"

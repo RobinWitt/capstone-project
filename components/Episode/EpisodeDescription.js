@@ -14,7 +14,7 @@ export default function EpisodeDescription({ description }) {
         Beschreibung
         <SVGIcon
           variant={showDescription ? "chevronUp" : "chevronDown"}
-          width="2rem"
+          width="28px"
         />
       </StyledFoldButton>
       {showDescription && <DescriptionText>{description}</DescriptionText>}

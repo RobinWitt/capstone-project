@@ -53,3 +53,7 @@ export const ListButton = styled.button`
   cursor: pointer;
   color: var(--primary);
 `;
+
+export const ListEpisodeDate = styled.p`
+  color: var(--primary); opacity 0.3;
+`;

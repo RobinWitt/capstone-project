@@ -4,6 +4,11 @@ import GlobalStyle from "@/styles";
 import Head from "next/head";
 import { SWRConfig } from "swr";
 import { SessionProvider } from "next-auth/react";
+import SpotifyPlayer, {
+  initialShowPlayer,
+} from "@/components/Spotify/SpotifyPlayer";
+import { MainLayout } from "@/components/Layout";
+import { useAtom } from "jotai";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -25,6 +30,8 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
+  const [showPlayer] = useAtom(initialShowPlayer);
+
   return (
     <>
       <GlobalStyle />
@@ -34,7 +41,11 @@ export default function App({
       <SessionProvider session={session}>
         <SWRConfig value={{ fetcher }}>
           <Header />
-          <Component {...pageProps} />
+          <MainLayout showPlayer={showPlayer}>
+            <Component {...pageProps} />
+          </MainLayout>
+          {/* https://blog.sethcorker.com/question/how-to-solve-referenceerror-next-js-window-is-not-defined/ */}
+          {typeof window !== undefined && <SpotifyPlayer />}
           <Navigation />
         </SWRConfig>
       </SessionProvider>

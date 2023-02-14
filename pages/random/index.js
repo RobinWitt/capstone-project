@@ -2,7 +2,10 @@ import { useState } from "react";
 import useSWR from "swr";
 import EpisodeCard from "@/components/Episode/EpisodeCard";
 import EpisodeCardHeader from "@/components/Episode/EpisodeCardHeader";
-import { getRandomIntInclusive } from "@/components/Episode/EpisodeFunctions";
+import {
+  getRandomIntInclusive,
+  isEpisodeReleased,
+} from "@/components/Episode/EpisodeFunctions";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import RandomCard from "@/components/RandomEpisode/RandomCard";
 
@@ -29,18 +32,8 @@ export default function RandomPage() {
     setToggleDetails(false);
   }
 
-  if (error)
-    return (
-      <main>
-        <ListHeader>Fehler beim Laden</ListHeader>
-      </main>
-    );
-  if (isLoading)
-    return (
-      <main>
-        <ListHeader>wird geladen...</ListHeader>
-      </main>
-    );
+  if (error) return <ListHeader>Fehler beim Laden</ListHeader>;
+  if (isLoading) return <ListHeader>wird geladen...</ListHeader>;
 
   if (data) {
     const {
@@ -57,8 +50,10 @@ export default function RandomPage() {
       unvollständig: incomplete,
     } = data;
 
+    const isReleased = isEpisodeReleased(data);
+
     return (
-      <main>
+      <>
         {toggleDetails ? (
           <EpisodeCard
             number={number}
@@ -72,6 +67,7 @@ export default function RandomPage() {
             speakers={speakers}
             parts={parts}
             incomplete={incomplete}
+            isReleased={isReleased}
           >
             <EpisodeCardHeader
               episodeNumber={number}
@@ -89,7 +85,7 @@ export default function RandomPage() {
             />
           )
         )}
-      </main>
+      </>
     );
   }
 }

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  sub: { type: String, required: true },
+  id: { type: String, required: true },
   favorites: [Number],
 });
 

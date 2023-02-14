@@ -104,3 +104,12 @@ export function filterEpisodes(episodes, filter) {
   }
   return episodes;
 }
+
+export function filterEpisodesByNumber(episodes, episodeNumber) {
+  if (episodeNumber) {
+    const [filteredEpisodes] = episodes.filter(
+      ({ nummer: number }) => number === parseInt(episodeNumber)
+    );
+    return filteredEpisodes;
+  }
+}

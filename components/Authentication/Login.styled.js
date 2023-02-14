@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
 export const LogButton = styled.button`
-  margin-top: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 1rem;
-  padding: 0.2rem 1rem;
+  margin-top: 4rem;
+  padding: 0.2rem 1.2rem 0.2rem 0.5rem;
   border-radius: 999px;
   border: none;
-  background-color: var(--accent);
-  color: var(--background);
+  background-color: var(--spotify-green);
+  color: var(--spotify-white);
 `;

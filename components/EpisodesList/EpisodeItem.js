@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import useSWR from "swr";
 import { getFormattedDate, getCoverURL } from "../Episode/EpisodeFunctions";
 import { checkFavorites } from "../Favoring/FavoringFunctions";
 import SVGIcon from "../Icons";
@@ -9,6 +7,7 @@ import {
   OverviewListItem,
   PreviewImage,
   OverviewText,
+  ListEpisodeDate,
 } from "./EpisodesList.styled";
 
 export default function EpisodeListItem({ episode, userData, reload }) {
@@ -16,7 +15,6 @@ export default function EpisodeListItem({ episode, userData, reload }) {
     nummer: number,
     titel: title,
     veröffentlichungsdatum: releasedate,
-    teile: parts,
     links,
   } = episode;
 
@@ -60,7 +58,7 @@ export default function EpisodeListItem({ episode, userData, reload }) {
           <p>
             {number} - {title}
           </p>
-          <p>{getFormattedDate(releasedate)}</p>
+          <ListEpisodeDate>{getFormattedDate(releasedate)}</ListEpisodeDate>
         </OverviewText>
       </EpisodeLink>
       {userData && (
@@ -73,7 +71,7 @@ export default function EpisodeListItem({ episode, userData, reload }) {
         >
           <SVGIcon
             variant={isFaved ? "favoriteFilled" : "favoriteEmpty"}
-            width="35px"
+            width="30px"
           />
         </ListButton>
       )}
