@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled from "styled-components";
 import SVGIcon from "../Icons";
 import Script from "next/script";
 import { useState, useEffect, useRef } from "react";
@@ -7,7 +7,6 @@ import { atom, useAtom } from "jotai";
 import SpotifyPlayerModule from "./SpotifyPlayerModule";
 
 export const initialShowPlayer = atom(false);
-export const initialIsPaused = atom(true);
 
 export default function SpotifyPlayer() {
   const { data: session } = useSession();
@@ -49,6 +48,10 @@ export default function SpotifyPlayer() {
     };
   }, [playerInstance]);
 
+  function handleReOpenPlayer() {
+    setShowPlayer(true);
+  }
+
   if (session) {
     return (
       <>
@@ -56,42 +59,51 @@ export default function SpotifyPlayer() {
         <SpotifyPlayerModule initialPlayerModuleRef={initialPlayerModuleRef} />
         {showPlayer && playerInstance && (
           <PlayerContainer>
+            <PlayControlContainer>
+              <PlayControlButtons
+                onClick={() => playerInstance.previousTrack()}
+                aria-label="vorheriger Track"
+              >
+                <SVGIcon variant="skipPrevious" width="30px" />
+              </PlayControlButtons>
+              <PlayControlButtons
+                onClick={() => {
+                  isPaused ? playerInstance.resume() : playerInstance.pause();
+                }}
+                aria-label={isPaused ? "Play" : "Pause"}
+              >
+                <SVGIcon variant={isPaused ? "play" : "pause"} width="30px" />
+              </PlayControlButtons>
+              <PlayControlButtons
+                onClick={() => playerInstance.nextTrack()}
+                aria-label="nächster Track"
+              >
+                <SVGIcon variant="skipNext" width="30px" />
+              </PlayControlButtons>
+              <PlayControlButtons
+                onClick={() => {
+                  setShowPlayer(false);
+                }}
+                aria-label="player minimieren"
+              >
+                <SVGIcon variant="chevronDown" width="30px" />
+              </PlayControlButtons>
+            </PlayControlContainer>
             <TrackContainer>
               {currentTrack && (
                 <CurrentTrackBanner>{currentTrack.name}</CurrentTrackBanner>
               )}
             </TrackContainer>
-            <PlayControlContainer>
-              <PlayControlButtons
-                id="previousTrack"
-                onClick={() => playerInstance.previousTrack()}
-              >
-                <SVGIcon variant="skipPrevious" width="30px" />
-              </PlayControlButtons>
-              <PlayControlButtons
-                id="togglePlay"
-                onClick={() => {
-                  isPaused ? playerInstance.resume() : playerInstance.pause();
-                }}
-              >
-                <SVGIcon variant={isPaused ? "play" : "pause"} width="30px" />
-              </PlayControlButtons>
-              <PlayControlButtons
-                id="nextTrack"
-                onClick={() => playerInstance.nextTrack()}
-              >
-                <SVGIcon variant="skipNext" width="30px" />
-              </PlayControlButtons>
-              <PlayControlButtons
-                id="nextTrack"
-                onClick={() => {
-                  playerInstance.pause(), setShowPlayer(false);
-                }}
-              >
-                <SVGIcon variant="close" width="30px" />
-              </PlayControlButtons>
-            </PlayControlContainer>
           </PlayerContainer>
+        )}
+        {!showPlayer && playerInstance && (
+          <ReOpenPlayer
+            type="button"
+            onClick={handleReOpenPlayer}
+            aria-label="player wieder öffnen"
+          >
+            <SVGIcon variant="chevronUp" width="30px" />
+          </ReOpenPlayer>
         )}
       </>
     );
@@ -100,7 +112,7 @@ export default function SpotifyPlayer() {
 
 const PlayerContainer = styled.div`
   position: fixed;
-  bottom: 70px;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
@@ -108,7 +120,7 @@ const PlayerContainer = styled.div`
   height: fit-content;
   text-align: center;
   background-color: var(--primary);
-  border-radius: 5px;
+  border-radius: 5px 5px 0 0;
 `;
 
 const PlayControlContainer = styled.div`
@@ -116,36 +128,80 @@ const PlayControlContainer = styled.div`
   align-items: center;
   justify-content: space-evenly;
   gap: 5px;
+  padding-top: 5px;
 `;
 
 const TrackContainer = styled.div`
+  width: 100%;
+  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   position: relative;
-  border-bottom: 2px solid var(--background-secondary);
+  border-top: 2px solid var(--background-secondary);
 `;
 
-// https://medium.com/@matt.readout/adding-css-animations-with-styled-components-6c191c23b6ba
-
-const trackAnimation = keyframes`
-  0%, 20% {transform: translateX(0%);left: 0%;}
-  80%, 100% {transform: translateX(-100%);left: 100%;}
-`;
+// https://blog.hubspot.com/website/scrolling-text-css
 
 const CurrentTrackBanner = styled.span`
-  color: var(--background); opacity 0.7;
-  padding-top: 0.2rem;
+  color: var(--background);
+  opacity: 0.7;
+  padding-bottom: 0.2rem;
   display: inline-block;
-  position: relative;
-  // animation-name: ${trackAnimation};
-  // animation-duration: 3s;
-  // animation-direction: alternate;
-  // animation-iteration-count: infinite;
-  // animation-timing-function: ease-in-out;`;
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  -moz-animation: my-animation 15s linear infinite;
+  -webkit-animation: my-animation 15s linear infinite;
+  animation: my-animation 15s linear infinite;
+
+  /* for Firefox */
+  @-moz-keyframes my-animation {
+    from {
+      -moz-transform: translateX(100%);
+    }
+    to {
+      -moz-transform: translateX(-100%);
+    }
+  }
+
+  /* for Chrome */
+  @-webkit-keyframes my-animation {
+    from {
+      -webkit-transform: translateX(100%);
+    }
+    to {
+      -webkit-transform: translateX(-100%);
+    }
+  }
+
+  @keyframes my-animation {
+    from {
+      -moz-transform: translateX(100%);
+      -webkit-transform: translateX(100%);
+      transform: translateX(100%);
+    }
+    to {
+      -moz-transform: translateX(-100%);
+      -webkit-transform: translateX(-100%);
+      transform: translateX(-100%);
+    }
+  }
+`;
 
 const PlayControlButtons = styled.button`
   border: none;
   background: none;
   cursor: pointer;
   color: var(--background-secondary);
+`;
+
+const ReOpenPlayer = styled.button`
+  position: fixed;
+  bottom: 60px;
+  left: 80%;
+  transform: translateX(-50%);
+  height: 25px;
+  background-color: var(--primary);
+  border-radius: 5px 5px 0 0;
+  border: none;
 `;
