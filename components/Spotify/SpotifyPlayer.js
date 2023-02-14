@@ -3,6 +3,7 @@ import SVGIcon from "../Icons";
 import Script from "next/script";
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
+import useSWR from "swr";
 import { atom, useAtom } from "jotai";
 import SpotifyPlayerModule from "./SpotifyPlayerModule";
 
@@ -15,7 +16,25 @@ export default function SpotifyPlayer() {
   const playerInstance = initialPlayerModuleRef.current;
   const [showPlayer, setShowPlayer] = useAtom(initialShowPlayer);
   const [isPaused, setIsPaused] = useState(true);
-  const [currentTrack, setCurrentTrack] = useState("");
+  const [currentTrack, setCurrentTrack] = useState({});
+
+  // __________________________________________________________________________
+
+  async function handleSaveLastPlayedTrack(uri) {
+    try {
+      await fetch(`/api/lastPlayed`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(uri),
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  // __________________________________________________________________________
 
   useEffect(() => {
     function handlePlayerStateChanged() {
@@ -25,9 +44,11 @@ export default function SpotifyPlayer() {
           return;
         }
         setIsPaused(state.paused);
-        setCurrentTrack(state.track_window.current_track);
-        // console.log(state);
-        // setShowPlayer(!state.paused);
+        const newTrack = state.track_window.current_track;
+        if (currentTrack.id !== newTrack.id) {
+          setCurrentTrack(state.track_window.current_track);
+          handleSaveLastPlayedTrack(state.track_window.current_track.uri);
+        }
       });
     }
 
@@ -46,11 +67,15 @@ export default function SpotifyPlayer() {
         );
       }
     };
-  }, [playerInstance]);
+  }, [playerInstance, currentTrack]);
+
+  // __________________________________________________________________________
 
   function handleReOpenPlayer() {
     setShowPlayer(true);
   }
+
+  // __________________________________________________________________________
 
   if (session) {
     return (
@@ -96,7 +121,7 @@ export default function SpotifyPlayer() {
             </TrackContainer>
           </PlayerContainer>
         )}
-        {!showPlayer && playerInstance && currentTrack && (
+        {!showPlayer && playerInstance && currentTrack.name && (
           <ReOpenPlayer
             type="button"
             onClick={handleReOpenPlayer}
