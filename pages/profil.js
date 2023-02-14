@@ -10,8 +10,8 @@ export default function ProfilePage() {
   const { data: session } = useSession();
   const {
     data: userData,
-    userIsLoading,
-    userError,
+    isLoading: userIsLoading,
+    error: userError,
   } = useSWR(session ? "/api/user" : null);
 
   if (userError)
