@@ -2,12 +2,11 @@ import { LogButton } from "@/components/Authentication/Login.styled";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import SVGIcon from "@/components/Icons";
 import { useSession, signOut } from "next-auth/react";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import styled from "styled-components";
 import useSWR from "swr";
+import Image from "next/image";
 
 export default function ProfilePage() {
-  const router = useRouter();
   const { data: session } = useSession();
   const {
     data: userData,
@@ -20,17 +19,52 @@ export default function ProfilePage() {
   if (userIsLoading)
     return <ListHeader>Nutzerdaten werden geladen...</ListHeader>;
 
-  return (
-    <>
-      <LogButton
-        type="button"
-        onClick={() => {
-          signOut();
-        }}
-      >
-        <SVGIcon variant="spotify" width="40px" />
-        Logout
-      </LogButton>
-    </>
-  );
+  if (session && userData) {
+    return (
+      <>
+        <UserContainer>
+          <UserImage
+            src={session.user.image}
+            alt={session.user.name}
+            width={300}
+            height={300}
+          />
+          <span>Nutzername: {session.user.name}</span>
+          <span>favorisierte Episoden: {userData.favorites.length}</span>
+        </UserContainer>
+
+        <LogButton
+          type="button"
+          onClick={() => {
+            signOut({ callbackUrl: "/" });
+          }}
+        >
+          <SVGIcon variant="spotify" width="40px" />
+          Logout
+        </LogButton>
+      </>
+    );
+  }
 }
+
+const UserContainer = styled.section`
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  margin: 0.8rem 0;
+  padding: 1.2rem;
+  text-align: center;
+  background-color: var(--background-tiles);
+  color: var(--text);
+  border: 3px solid var(--background-secondary);
+  border-radius: 10px;
+`;
+
+const UserImage = styled(Image)`
+  width: 80%;
+  max-width: 300px;
+  height: auto;
+  align-self: center;
+  margin: 1rem;
+`;
