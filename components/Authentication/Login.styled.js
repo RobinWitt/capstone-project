@@ -12,3 +12,8 @@ export const LogButton = styled.button`
   background-color: var(--spotify-green);
   color: var(--spotify-white);
 `;
+
+export const Greetings = styled.span`
+  text-align: center;
+  margin: 1rem;
+`;

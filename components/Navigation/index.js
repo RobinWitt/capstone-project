@@ -28,6 +28,17 @@ export default function Navigation() {
             color="#A3CCAB"
           />
         </Link>
+        <Link href="/profil" aria-label="Accountseite">
+          <SVGIcon
+            variant={
+              currentPage === "/profil"
+                ? "accountCogFilled"
+                : "accountCogOutline"
+            }
+            width="40px"
+            color="#A3CCAB"
+          />
+        </Link>
       </StyledNav>
     );
 }

@@ -11,18 +11,15 @@ export default function Header() {
     <StyledHeader>
       <AppHeader>D1E DR3I ???</AppHeader>
       <Link
-        href={session ? "/" : "/"}
-        aria-label={session ? "Einstellungen" : "Login Seite"}
+        href={session ? "/profil" : "/"}
+        aria-label={session ? "Profilseite" : "Login"}
       >
-        <HeaderUserContainer>
-          <HeaderImage
-            src={session ? session.user.image : Portrait_Placeholder}
-            alt="user image"
-            width={100}
-            height={100}
-          />
-          {session ? <p>{session.user.name}</p> : <p>nicht eingeloggt</p>}
-        </HeaderUserContainer>
+        <HeaderImage
+          src={session ? session.user.image : Portrait_Placeholder}
+          alt="user image"
+          width={100}
+          height={100}
+        />
       </Link>
     </StyledHeader>
   );
@@ -30,7 +27,8 @@ export default function Header() {
 
 const StyledHeader = styled.header`
   max-width: 700px;
-  padding: 0.5rem;
+  height: 70px;
+  padding: 0 0.7rem;
   margin: auto;
   font-size: 0.8rem;
   display: flex;
@@ -42,15 +40,6 @@ const StyledHeader = styled.header`
 
 const AppHeader = styled.h1`
   margin-left: 1rem;
-`;
-
-const HeaderUserContainer = styled.section`
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 0.5rem;
 `;
 
 const HeaderImage = styled(Image)`
