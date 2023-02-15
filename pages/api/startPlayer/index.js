@@ -10,13 +10,15 @@ export default async function handler(req, res) {
     Authorization: `Bearer ${accessToken}`,
   };
 
-  const offsetValue = () => {
+  function getOffsetValue() {
     if (trackURI) {
       return { uri: trackURI };
     } else {
       return { position: 0 };
     }
-  };
+  }
+
+  const offsetValue = getOffsetValue();
 
   if (accessToken && deviceID)
     switch (req.method) {
