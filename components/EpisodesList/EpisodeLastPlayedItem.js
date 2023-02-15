@@ -20,24 +20,6 @@ export default function EpisodeLastPlayedItem({ userData, reload }) {
 
   // __________________________________________________________________________
 
-  // async function handleGetSpotifyData() {
-  //   if (session) {
-  //     try {
-  //       await fetch(`/api/getAlbumData`, {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           trackURI: lastPlayed.trackURI,
-  //         }),
-  //       });
-  //     } catch (error) {
-  //       console.error(error.message);
-  //     }
-  //   }
-  // }
-
   const { data } = useSWR(
     !spotifyData ? `/api/getAlbumData/${lastPlayed.trackURI}` : null
   );
