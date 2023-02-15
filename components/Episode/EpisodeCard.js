@@ -40,7 +40,9 @@ export default function EpisodeCard({
 
   // __________________________________________________________________________
 
-  const { data } = useSWR(!spotifyAlbumURI ? `/api/getURI/${title}` : null);
+  const { data } = useSWR(
+    session && !spotifyAlbumURI ? `/api/getURI/${title}` : null
+  );
   if (data) {
     setSpotifyAlbumURI(data.albums.items[0].uri);
   }
