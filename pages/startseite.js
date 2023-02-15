@@ -81,7 +81,7 @@ export default function HomePage() {
 
     return (
       <>
-        {userData && (
+        {userData.lastPlayed.albumURI && userData.lastPlayed.trackURI && (
           <>
             <ListHeader>Zuletzt gehört:</ListHeader>
             <EpisodesList>

@@ -83,7 +83,7 @@ export default function EpisodeCard({
       ) : (
         <NoContentMessage>kein Artwork vorhanden</NoContentMessage>
       )}
-      {session && isReleased && (
+      {session && isReleased && deviceID && spotifyAlbumURI && (
         <StartPlayerButton aria-label="Folge hören" onClick={handleStartPlayer}>
           <SVGIcon variant="spotify" width="30px" />
           Folge hören
