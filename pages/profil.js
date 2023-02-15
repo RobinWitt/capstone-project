@@ -5,6 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import styled from "styled-components";
 import useSWR from "swr";
 import Image from "next/image";
+import Portrait_Placeholder from "@/public/Portrait_Placeholder.png";
 
 export default function ProfilePage() {
   const { data: session } = useSession();
@@ -24,7 +25,7 @@ export default function ProfilePage() {
       <>
         <UserContainer>
           <UserImage
-            src={session.user.image}
+            src={session.user.image ? session.user.image : Portrait_Placeholder}
             alt={session.user.name}
             width={300}
             height={300}

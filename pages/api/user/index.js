@@ -17,7 +17,7 @@ export default async function handler(req, res) {
             const newUser = new User({
               id: token.user.id,
               favorites: [],
-              lastPlayed: {},
+              lastPlayed,
             });
 
             await newUser.save();
