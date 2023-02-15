@@ -2,10 +2,12 @@ import { useAtom, atom } from "jotai";
 import { useSession } from "next-auth/react";
 
 export const initialDeviceID = atom("");
+export const initialAccountError = atom(null);
 
 export default function SpotifyPlayerModule({ initialPlayerModuleRef }) {
   const { data: session } = useSession();
   const [, setDeviceID] = useAtom(initialDeviceID);
+  const [accountError, setAccountError] = useAtom(initialAccountError);
 
   window.onSpotifyWebPlaybackSDKReady = () => {
     const player = new Spotify.Player({
@@ -36,6 +38,9 @@ export default function SpotifyPlayerModule({ initialPlayerModuleRef }) {
 
     player.addListener("account_error", ({ message }) => {
       console.error(message);
+      setAccountError(
+        "Die Player-Funktion ist Spotify-Premium Nutzern vorbehalten"
+      );
     });
 
     player.connect();

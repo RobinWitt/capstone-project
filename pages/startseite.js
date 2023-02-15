@@ -13,11 +13,13 @@ import RandomEpisode from "@/components/RandomEpisode/RandomEpisodeListItem";
 import {
   ListHeadContainer,
   ListHeader,
+  OverviewText,
 } from "@/components/EpisodesList/EpisodesList.styled";
 import ListNavigation from "@/components/EpisodesList/ListNavigation";
 import Searchbar, { initialSearch } from "@/components/EpisodesList/Searchbar";
 import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
 import EpisodeLastPlayedItem from "@/components/EpisodesList/EpisodeLastPlayedItem";
+import { initialAccountError } from "@/components/Spotify/SpotifyPlayerModule";
 
 export const initialScroll = atom(0);
 export const initialSort = atom(true);
@@ -63,6 +65,7 @@ export default function HomePage() {
 
   const [ascending] = useAtom(initialSort);
   const [filter] = useAtom(initialFilter);
+  const [accountError] = useAtom(initialAccountError);
 
   // __________________________________________________________________________
 
@@ -81,6 +84,7 @@ export default function HomePage() {
 
     return (
       <>
+        {accountError && <OverviewText>{accountError}</OverviewText>}
         {userData.lastPlayed?.albumURI && userData.lastPlayed?.trackURI && (
           <>
             <ListHeader>Zuletzt gehört:</ListHeader>

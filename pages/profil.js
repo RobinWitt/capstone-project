@@ -25,7 +25,9 @@ export default function ProfilePage() {
       <>
         <UserContainer>
           <UserImage
-            src={session.user.image ? session.user.image : Portrait_Placeholder}
+            src={
+              session?.user.image ? session.user.image : Portrait_Placeholder
+            }
             alt={session.user.name}
             width={300}
             height={300}
