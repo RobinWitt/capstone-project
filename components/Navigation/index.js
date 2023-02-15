@@ -16,7 +16,6 @@ export default function Navigation() {
           <SVGIcon
             variant={currentPage === "/startseite" ? "homeFilled" : "homeEmpty"}
             width="40px"
-            color="#A3CCAB"
           />
         </Link>
         <Link href="/favoriten" aria-label="Favoritenseite">
@@ -25,7 +24,6 @@ export default function Navigation() {
               currentPage === "/favoriten" ? "favoriteFilled" : "favoriteEmpty"
             }
             width="40px"
-            color="#A3CCAB"
           />
         </Link>
         <Link href="/profil" aria-label="Accountseite">
@@ -36,7 +34,6 @@ export default function Navigation() {
                 : "accountCogOutline"
             }
             width="40px"
-            color="#A3CCAB"
           />
         </Link>
       </StyledNav>
@@ -55,5 +52,6 @@ const StyledNav = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #053d38;
+  background-color: var(--background);
+  color: var(--primary);
 `;

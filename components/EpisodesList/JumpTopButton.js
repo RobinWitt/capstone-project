@@ -1,9 +1,14 @@
-import styled from "styled-components";
+import { useAtom } from "jotai";
+import styled, { css } from "styled-components";
 import SVGIcon from "../Icons";
+import { initialShowPlayer } from "../Spotify/SpotifyPlayer";
 
 export default function JumpTopButton({ onJumpTop }) {
+  const [showPlayer] = useAtom(initialShowPlayer);
+
   return (
     <JumpToTopButton
+      showPlayer={showPlayer}
       onClick={onJumpTop}
       aria-label="zum Start der Liste springen"
     >
@@ -14,7 +19,7 @@ export default function JumpTopButton({ onJumpTop }) {
 
 const JumpToTopButton = styled.button`
   position: fixed;
-  bottom: 8rem;
+  bottom: ${(props) => (props.showPlayer === true ? "8rem" : "5.5rem")};
   left: 2rem;
   display: flex;
   align-items: center;
