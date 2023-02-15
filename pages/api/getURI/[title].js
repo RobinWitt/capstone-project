@@ -1,4 +1,5 @@
 import { getToken } from "next-auth/jwt";
+import { useSession } from "next-auth/react";
 
 export default async function handler(request, response) {
   const token = await getToken({ req: request });
@@ -9,7 +10,7 @@ export default async function handler(request, response) {
     Authorization: `Bearer ${accessToken}`,
   };
 
-  if (accessToken && title)
+  if (token && accessToken && title)
     switch (request.method) {
       case "GET": {
         const uriResponse = await fetch(
