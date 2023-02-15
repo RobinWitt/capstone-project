@@ -5,7 +5,6 @@ export default async function handler(req, res) {
   const { accessToken } = token;
   const { trackURI } = req.query;
   const trackID = trackURI.split(":")[2];
-  console.log(trackID);
 
   const headers = {
     "Content-Type": "application/json",

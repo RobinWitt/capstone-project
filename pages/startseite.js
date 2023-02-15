@@ -85,7 +85,7 @@ export default function HomePage() {
           <>
             <ListHeader>Zuletzt gehört:</ListHeader>
             <EpisodesList>
-              <EpisodeLastPlayedItem userData={userData} />
+              <EpisodeLastPlayedItem userData={userData} reload={mutate} />
             </EpisodesList>
           </>
         )}
