@@ -17,7 +17,7 @@ export default async function handler(request, response) {
             const newUser = new User({
               id: token.user.id,
               favorites: [],
-              lastPlayed: {},
+              lastPlayed: { albumURI: null, trackURI: null },
             });
 
             await newUser.save();
