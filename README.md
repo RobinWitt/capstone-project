@@ -12,7 +12,6 @@ started 20.01.23
 - [NextAuth.js](https://next-auth.js.org/)
 - [Spotify Web Playback SDK](https://developer.spotify.com/documentation/web-playback-sdk/)
 - [Spotify Web API](https://developer.spotify.com/documentation/web-api/)
-- [axios](https://axios-http.com/)
 - [styled components](https://styled-components.com/)
 
 ### Resources
