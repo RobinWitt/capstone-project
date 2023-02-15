@@ -4,16 +4,16 @@ import SVGIcon from "../Icons";
 
 export default function MessageLoading() {
   return (
-    <MessageContainer>
-      <MessageHeadline>wird geladen...</MessageHeadline>
+    <Container>
+      <Headline>wird geladen...</Headline>
       <IconContainer>
         <SVGIcon variant="refresh" width="80px" />
       </IconContainer>
-    </MessageContainer>
+    </Container>
   );
 }
 
-const MessageContainer = styled.section`
+const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +23,7 @@ const MessageContainer = styled.section`
   color: var(--primary);
 `;
 
-const MessageHeadline = styled.h2`
+const Headline = styled.h2`
   margin: 1rem;
 `;
 

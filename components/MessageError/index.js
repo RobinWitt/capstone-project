@@ -6,17 +6,17 @@ export default function MessageError() {
   const router = useRouter();
 
   return (
-    <MessageContainer>
-      <MessageHeadline>Fehler beim Laden</MessageHeadline>
-      <MessageButton onClick={router.reload}>
+    <Container>
+      <Headline>Fehler beim Laden</Headline>
+      <Button type="button" onClick={router.reload}>
         <SVGIcon variant="refresh" width="80px" />
-        <MessageText>Neu laden</MessageText>
-      </MessageButton>
-    </MessageContainer>
+        <Text>Neu laden</Text>
+      </Button>
+    </Container>
   );
 }
 
-const MessageContainer = styled.section`
+const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,15 +26,15 @@ const MessageContainer = styled.section`
   color: var(--primary);
 `;
 
-const MessageHeadline = styled.h2`
+const Headline = styled.h2`
   margin: 1rem;
 `;
 
-const MessageText = styled.span`
+const Text = styled.span`
   color: var(--primary);
 `;
 
-const MessageButton = styled.button`
+const Button = styled.button`
   border: none;
   background-color: transparent;
   color: var(--accent);

@@ -7,5 +7,5 @@ export const MainLayout = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: ${(props) => (props.showPlayer === true ? "8rem" : "5.5rem")};
+  margin-bottom: ${(props) => (props.showPlayer ? "8rem" : "5.5rem")};
 `;
