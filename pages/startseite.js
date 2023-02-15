@@ -20,19 +20,21 @@ import Searchbar, { initialSearch } from "@/components/EpisodesList/Searchbar";
 import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
 import EpisodeLastPlayedItem from "@/components/EpisodesList/EpisodeLastPlayedItem";
 import { initialAccountError } from "@/components/Spotify/SpotifyPlayerModule";
+import { useSession } from "next-auth/react";
 
 export const initialScroll = atom(0);
 export const initialSort = atom(true);
 export const initialFilter = atom(false);
 
 export default function HomePage() {
+  const { data: session } = useSession();
   const [search] = useAtom(initialSearch);
   const {
     data: allEpisodes,
     isLoading: episodesAreLoading,
     error: episodesError,
   } = useSWR("/api/episodes");
-  const { data: userData, mutate } = useSWR("/api/user");
+  const { data: userData, mutate } = useSWR(session ? "/api/user" : null);
 
   // _____________________________________________________________________________
   // scroll restoration adapted from => https://codesandbox.io/s/cocky-drake-1xe0g
