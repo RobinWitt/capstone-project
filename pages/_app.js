@@ -37,6 +37,7 @@ export default function App({
       <GlobalStyle />
       <Head>
         <title>D1E DR3I ??? - inoffizieller Guide</title>
+        <link rel="shortcut icon" href="/questionFavIcon.png" />
       </Head>
       <SessionProvider session={session}>
         <SWRConfig value={{ fetcher }}>

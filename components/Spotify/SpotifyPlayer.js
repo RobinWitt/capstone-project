@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { atom, useAtom } from "jotai";
 import SpotifyPlayerModule from "./SpotifyPlayerModule";
+import { PlayingStateIcon } from "../Icons/animatedIcons";
 
 export const initialShowPlayer = atom(false);
 
@@ -134,7 +135,11 @@ export default function SpotifyPlayer() {
             onClick={handleReOpenPlayer}
             aria-label="player wieder öffnen"
           >
-            <SVGIcon variant="chevronUp" width="30px" />
+            {isPaused ? (
+              <SVGIcon variant="chevronUp" width="30px" />
+            ) : (
+              <PlayingStateIcon width={24} height={24} />
+            )}
           </ReOpenPlayer>
         )}
       </>
@@ -232,8 +237,10 @@ const ReOpenPlayer = styled.button`
   bottom: 60px;
   left: 80%;
   transform: translateX(-50%);
-  height: 25px;
+  height: 28px;
+  padding: 0.2rem;
   background-color: var(--primary);
+  color: var(--background-secondary);
   border-radius: 5px 5px 0 0;
   border: none;
 `;

@@ -3,6 +3,8 @@ import EpisodesList from "@/components/EpisodesList/EpisodesList";
 import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import { useSession } from "next-auth/react";
+import MessageError from "@/components/MessageError";
+import MessageLoading from "@/components/MessageLoading";
 
 export default function FavoritesPage() {
   const { data: session } = useSession();
@@ -14,8 +16,8 @@ export default function FavoritesPage() {
     mutate,
   } = useSWR(session ? "/api/user" : null);
 
-  if (error) return <ListHeader>Fehler beim Laden</ListHeader>;
-  if (isLoading) return <ListHeader>wird geladen...</ListHeader>;
+  if (error) return <MessageError />;
+  if (isLoading) return <MessageLoading />;
   if (userError)
     return <ListHeader>Nutzerdaten konnten nicht geladen werden.</ListHeader>;
 

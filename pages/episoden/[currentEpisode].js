@@ -7,6 +7,8 @@ import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
 import { useEffect, useState } from "react";
 import { isEpisodeReleased } from "@/components/Episode/EpisodeFunctions";
 import { useSession } from "next-auth/react";
+import MessageError from "@/components/MessageError";
+import MessageLoading from "@/components/MessageLoading";
 
 export default function EpisodePage() {
   const { data: session } = useSession();
@@ -41,8 +43,8 @@ export default function EpisodePage() {
   );
   const { data: userData, mutate } = useSWR(session ? "/api/user" : null);
 
-  if (error) return <ListHeader>Fehler beim Laden</ListHeader>;
-  if (isLoading) return <ListHeader>wird geladen...</ListHeader>;
+  if (error) return <MessageError />;
+  if (isLoading) return <MessageLoading />;
 
   if (data) {
     const {

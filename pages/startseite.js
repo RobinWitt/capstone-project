@@ -21,6 +21,8 @@ import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
 import EpisodeLastPlayedItem from "@/components/EpisodesList/EpisodeLastPlayedItem";
 import { initialAccountError } from "@/components/Spotify/SpotifyPlayerModule";
 import { useSession } from "next-auth/react";
+import MessageError from "@/components/MessageError";
+import MessageLoading from "@/components/MessageLoading";
 
 export const initialScroll = atom(0);
 export const initialSort = atom(true);
@@ -71,10 +73,8 @@ export default function HomePage() {
 
   // __________________________________________________________________________
 
-  if (episodesError)
-    return <ListHeader>Folgen konnten nicht geladen werden.</ListHeader>;
-  if (episodesAreLoading)
-    return <ListHeader>Folgen werden geladen...</ListHeader>;
+  if (episodesError) return <MessageError />;
+  if (episodesAreLoading) return <MessageLoading />;
 
   // __________________________________________________________________________
 

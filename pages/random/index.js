@@ -9,6 +9,8 @@ import {
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import RandomCard from "@/components/RandomEpisode/RandomCard";
 import { useSession } from "next-auth/react";
+import MessageError from "@/components/MessageError";
+import MessageLoading from "@/components/MessageLoading";
 
 export default function RandomPage() {
   const { data: session } = useSession();
@@ -29,8 +31,8 @@ export default function RandomPage() {
     setToggleDetails(false);
   }
 
-  if (error) return <ListHeader>Fehler beim Laden</ListHeader>;
-  if (isLoading) return <ListHeader>wird geladen...</ListHeader>;
+  if (error) return <MessageError />;
+  if (isLoading) return <MessageLoading />;
 
   if (data) {
     const {
