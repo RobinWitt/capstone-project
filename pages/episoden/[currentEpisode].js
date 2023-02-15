@@ -6,8 +6,10 @@ import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
 import { useEffect, useState } from "react";
 import { isEpisodeReleased } from "@/components/Episode/EpisodeFunctions";
+import { useSession } from "next-auth/react";
 
 export default function EpisodePage() {
+  const { data: session } = useSession();
   const router = useRouter();
   const { currentEpisode } = router.query;
 
@@ -37,12 +39,7 @@ export default function EpisodePage() {
   const { data, isLoading, error } = useSWR(
     currentEpisode ? `/api/episodes/${currentEpisode}` : null
   );
-  const {
-    data: userData,
-    isLoading: userIsLoading,
-    error: userError,
-    mutate,
-  } = useSWR("/api/user");
+  const { data: userData, mutate } = useSWR(session ? "/api/user" : null);
 
   if (error) return <ListHeader>Fehler beim Laden</ListHeader>;
   if (isLoading) return <ListHeader>wird geladen...</ListHeader>;

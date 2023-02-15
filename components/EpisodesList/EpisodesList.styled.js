@@ -55,5 +55,20 @@ export const ListButton = styled.button`
 `;
 
 export const ListEpisodeDate = styled.p`
-  color: var(--primary); opacity 0.3;
+  color: var(--primary);
+  opacity: 0.3;
+`;
+
+export const LastPlayedButton = styled.button`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin: 0.2rem;
+  text-decoration: none;
+  border-radius: 0;
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 1rem;
 `;

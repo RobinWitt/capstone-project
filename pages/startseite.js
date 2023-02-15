@@ -13,17 +13,28 @@ import RandomEpisode from "@/components/RandomEpisode/RandomEpisodeListItem";
 import {
   ListHeadContainer,
   ListHeader,
+  OverviewText,
 } from "@/components/EpisodesList/EpisodesList.styled";
 import ListNavigation from "@/components/EpisodesList/ListNavigation";
 import Searchbar, { initialSearch } from "@/components/EpisodesList/Searchbar";
 import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
+import EpisodeLastPlayedItem from "@/components/EpisodesList/EpisodeLastPlayedItem";
+import { initialAccountError } from "@/components/Spotify/SpotifyPlayerModule";
+import { useSession } from "next-auth/react";
 
 export const initialScroll = atom(0);
 export const initialSort = atom(true);
 export const initialFilter = atom(false);
 
 export default function HomePage() {
+  const { data: session } = useSession();
   const [search] = useAtom(initialSearch);
+  const {
+    data: allEpisodes,
+    isLoading: episodesAreLoading,
+    error: episodesError,
+  } = useSWR("/api/episodes");
+  const { data: userData, mutate } = useSWR(session ? "/api/user" : null);
 
   // _____________________________________________________________________________
   // scroll restoration adapted from => https://codesandbox.io/s/cocky-drake-1xe0g
@@ -54,17 +65,9 @@ export default function HomePage() {
 
   // __________________________________________________________________________
 
-  const {
-    data: allEpisodes,
-    isLoading: episodesAreLoading,
-    error: episodesError,
-  } = useSWR("/api/episodes");
-  const { data: userData, mutate } = useSWR("/api/user");
-
-  // __________________________________________________________________________
-
   const [ascending] = useAtom(initialSort);
   const [filter] = useAtom(initialFilter);
+  const [accountError] = useAtom(initialAccountError);
 
   // __________________________________________________________________________
 
@@ -83,11 +86,20 @@ export default function HomePage() {
 
     return (
       <>
-        <ListHeader>
-          {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
-        </ListHeader>
+        {accountError && <OverviewText>{accountError}</OverviewText>}
+        {userData?.lastPlayed?.albumURI && userData?.lastPlayed?.trackURI && (
+          <>
+            <ListHeader>Zuletzt gehört:</ListHeader>
+            <EpisodesList>
+              <EpisodeLastPlayedItem userData={userData} reload={mutate} />
+            </EpisodesList>
+          </>
+        )}
         {mostRecentEpisode && (
           <>
+            <ListHeader>
+              {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
+            </ListHeader>
             <EpisodesList>
               <EpisodeListItem
                 episode={mostRecentEpisode}

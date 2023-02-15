@@ -8,17 +8,14 @@ import {
 } from "@/components/Episode/EpisodeFunctions";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
 import RandomCard from "@/components/RandomEpisode/RandomCard";
+import { useSession } from "next-auth/react";
 
 export default function RandomPage() {
+  const { data: session } = useSession();
   const [random, setRandom] = useState(getRandomIntInclusive(0, 200));
   const [toggleDetails, setToggleDetails] = useState(false);
   const { data, isLoading, error } = useSWR(`api/episodes/${random}`);
-  const {
-    data: userData,
-    isLoading: userIsLoading,
-    error: userError,
-    mutate,
-  } = useSWR("/api/user");
+  const { data: userData, mutate } = useSWR(session ? "/api/user" : null);
 
   function handleSetRandom() {
     setRandom(getRandomIntInclusive(1, 200));

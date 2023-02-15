@@ -2,15 +2,17 @@ import useSWR from "swr";
 import EpisodesList from "@/components/EpisodesList/EpisodesList";
 import EpisodeListItem from "@/components/EpisodesList/EpisodeItem";
 import { ListHeader } from "@/components/EpisodesList/EpisodesList.styled";
+import { useSession } from "next-auth/react";
 
 export default function FavoritesPage() {
+  const { data: session } = useSession();
   const { data, isLoading, error } = useSWR("/api/episodes");
   const {
     data: userData,
     isLoading: userIsLoading,
     error: userError,
     mutate,
-  } = useSWR("/api/user");
+  } = useSWR(session ? "/api/user" : null);
 
   if (error) return <ListHeader>Fehler beim Laden</ListHeader>;
   if (isLoading) return <ListHeader>wird geladen...</ListHeader>;

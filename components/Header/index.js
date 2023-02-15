@@ -15,7 +15,7 @@ export default function Header() {
         aria-label={session ? "Profilseite" : "Login"}
       >
         <HeaderImage
-          src={session ? session.user.image : Portrait_Placeholder}
+          src={session?.user.image ? session.user.image : Portrait_Placeholder}
           alt="user image"
           width={100}
           height={100}
