@@ -62,6 +62,10 @@ export const ListEpisodeDate = styled.p`
 export const LastPlayedButton = styled.button`
   width: 100%;
   height: 50px;
+  display: flex;
+  align-items: center;
+  margin: 0.2rem;
+  text-decoration: none;
   border-radius: 0;
   background: none;
   border: none;

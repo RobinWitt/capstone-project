@@ -6,13 +6,44 @@ import {
   LastPlayedButton,
   OverviewListItem,
   OverviewText,
+  PreviewImage,
 } from "./EpisodesList.styled";
+import { useState } from "react";
+import useSWR from "swr";
 
-export default function EpisodeLastPlayedItem({ userData }) {
+export default function EpisodeLastPlayedItem({ userData, reload }) {
   const { data: session } = useSession();
   const { lastPlayed } = userData;
   const [deviceID] = useAtom(initialDeviceID);
   const [, setShowPlayer] = useAtom(initialShowPlayer);
+  const [spotifyData, setSpotifyData] = useState();
+
+  // __________________________________________________________________________
+
+  // async function handleGetSpotifyData() {
+  //   if (session) {
+  //     try {
+  //       await fetch(`/api/getAlbumData`, {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           trackURI: lastPlayed.trackURI,
+  //         }),
+  //       });
+  //     } catch (error) {
+  //       console.error(error.message);
+  //     }
+  //   }
+  // }
+
+  const { data } = useSWR(
+    !spotifyData ? `/api/getAlbumData/${lastPlayed.trackURI}` : null
+  );
+  if (data) {
+    setSpotifyData(data);
+  }
 
   // __________________________________________________________________________
 
@@ -43,9 +74,19 @@ export default function EpisodeLastPlayedItem({ userData }) {
     return (
       <OverviewListItem>
         <LastPlayedButton aria-label="Folge hören" onClick={handleStartPlayer}>
-          <OverviewText>
-            <p>Weiterhören</p>
-          </OverviewText>
+          {spotifyData && (
+            <>
+              <PreviewImage
+                src={spotifyData.album.images[1].url}
+                alt={`Cover Folge ${spotifyData.name}`}
+                width={100}
+                height={100}
+              />
+              <OverviewText>
+                <span>{spotifyData.name}</span>
+              </OverviewText>
+            </>
+          )}
         </LastPlayedButton>
       </OverviewListItem>
     );
