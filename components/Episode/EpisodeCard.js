@@ -63,6 +63,7 @@ export default function EpisodeCard({
 
   useEffect(() => {
     getSpotifyAlbumURI();
+    // eslint-disable-next-line
   }, []);
 
   // __________________________________________________________________________

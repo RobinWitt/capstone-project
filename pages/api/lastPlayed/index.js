@@ -6,7 +6,6 @@ export default async function handler(req, res) {
   await dbConnect();
   const token = await getToken({ req });
   const lastPlayed = await req.body;
-  console.log(lastPlayed);
 
   if (token)
     switch (req.method) {

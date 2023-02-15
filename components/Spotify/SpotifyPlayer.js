@@ -47,7 +47,12 @@ export default function SpotifyPlayer() {
         const newTrack = state.track_window.current_track;
         if (currentTrack.id !== newTrack.id) {
           setCurrentTrack(state.track_window.current_track);
-          handleSaveLastPlayedTrack(state.track_window.current_track.uri);
+          // check if current artist URI === Die Drei Fragezeichen URI
+          if (
+            newTrack.artists[0].uri === "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
+          ) {
+            handleSaveLastPlayedTrack(state.track_window.current_track.uri);
+          }
         }
       });
     }
