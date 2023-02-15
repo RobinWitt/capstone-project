@@ -2,8 +2,11 @@ import { useSession } from "next-auth/react";
 import { useAtom } from "jotai";
 import { initialShowPlayer } from "../Spotify/SpotifyPlayer";
 import { initialDeviceID } from "../Spotify/SpotifyPlayerModule";
-import { OverviewListItem, OverviewText } from "./EpisodesList.styled";
-import { StartPlayerButton } from "../Episode/Episode.styled";
+import {
+  LastPlayedButton,
+  OverviewListItem,
+  OverviewText,
+} from "./EpisodesList.styled";
 
 export default function EpisodeLastPlayedItem({ userData }) {
   const { data: session } = useSession();
@@ -39,12 +42,11 @@ export default function EpisodeLastPlayedItem({ userData }) {
   if (session && deviceID && userData) {
     return (
       <OverviewListItem>
-        <StartPlayerButton aria-label="Folge hören" onClick={handleStartPlayer}>
-          Weiterhören
+        <LastPlayedButton aria-label="Folge hören" onClick={handleStartPlayer}>
           <OverviewText>
-            <p>Track</p>
+            <p>Weiterhören</p>
           </OverviewText>
-        </StartPlayerButton>
+        </LastPlayedButton>
       </OverviewListItem>
     );
   }
