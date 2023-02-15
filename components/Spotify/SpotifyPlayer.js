@@ -3,7 +3,6 @@ import SVGIcon from "../Icons";
 import Script from "next/script";
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
-import useSWR from "swr";
 import { atom, useAtom } from "jotai";
 import SpotifyPlayerModule from "./SpotifyPlayerModule";
 
@@ -20,14 +19,14 @@ export default function SpotifyPlayer() {
 
   // __________________________________________________________________________
 
-  async function handleSaveLastPlayedTrack(uri) {
+  async function handleSaveLastPlayedTrack(uris) {
     try {
       await fetch(`/api/lastPlayed`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(uri),
+        body: JSON.stringify(uris),
       });
     } catch (error) {
       console.error(error.message);
@@ -51,7 +50,10 @@ export default function SpotifyPlayer() {
           if (
             newTrack.artists[0].uri === "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
           ) {
-            handleSaveLastPlayedTrack(state.track_window.current_track.uri);
+            handleSaveLastPlayedTrack({
+              albumURI: state.track_window.current_track.album.uri,
+              trackURI: state.track_window.current_track.uri,
+            });
           }
         }
       });

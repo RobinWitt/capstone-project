@@ -17,6 +17,7 @@ import {
 import ListNavigation from "@/components/EpisodesList/ListNavigation";
 import Searchbar, { initialSearch } from "@/components/EpisodesList/Searchbar";
 import JumpTopButton from "@/components/EpisodesList/JumpTopButton";
+import EpisodeLastPlayedItem from "@/components/EpisodesList/EpisodeLastPlayedItem";
 
 export const initialScroll = atom(0);
 export const initialSort = atom(true);
@@ -24,6 +25,12 @@ export const initialFilter = atom(false);
 
 export default function HomePage() {
   const [search] = useAtom(initialSearch);
+  const {
+    data: allEpisodes,
+    isLoading: episodesAreLoading,
+    error: episodesError,
+  } = useSWR("/api/episodes");
+  const { data: userData, mutate } = useSWR("/api/user");
 
   // _____________________________________________________________________________
   // scroll restoration adapted from => https://codesandbox.io/s/cocky-drake-1xe0g
@@ -54,15 +61,6 @@ export default function HomePage() {
 
   // __________________________________________________________________________
 
-  const {
-    data: allEpisodes,
-    isLoading: episodesAreLoading,
-    error: episodesError,
-  } = useSWR("/api/episodes");
-  const { data: userData, mutate } = useSWR("/api/user");
-
-  // __________________________________________________________________________
-
   const [ascending] = useAtom(initialSort);
   const [filter] = useAtom(initialFilter);
 
@@ -83,11 +81,19 @@ export default function HomePage() {
 
     return (
       <>
-        <ListHeader>
-          {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
-        </ListHeader>
+        {userData && (
+          <>
+            <ListHeader>Zuletzt gehört:</ListHeader>
+            <EpisodesList>
+              <EpisodeLastPlayedItem userData={userData} />
+            </EpisodesList>
+          </>
+        )}
         {mostRecentEpisode && (
           <>
+            <ListHeader>
+              {isReleased ? "Zuletzt erschienen" : "Erscheint demnächst"}
+            </ListHeader>
             <EpisodesList>
               <EpisodeListItem
                 episode={mostRecentEpisode}

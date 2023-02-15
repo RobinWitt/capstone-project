@@ -1,3 +1,10 @@
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { useAtom } from "jotai";
+import { initialShowPlayer } from "../Spotify/SpotifyPlayer";
+import { initialDeviceID } from "../Spotify/SpotifyPlayerModule";
+import useSWR from "swr";
+import { getCoverURL, getFormattedDate } from "./EpisodeFunctions";
 import {
   EpisodeFacts,
   EpisodeImage,
@@ -6,16 +13,9 @@ import {
   StyledEpisodeCard,
 } from "./Episode.styled";
 import EpisodeDescription from "./EpisodeDescription";
-import { useSession } from "next-auth/react";
-import { useAtom } from "jotai";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { getCoverURL, getFormattedDate } from "./EpisodeFunctions";
 import Chapters from "./Chapters";
 import Parts from "./Parts";
 import Speakers from "./Speakers";
-import { initialShowPlayer } from "../Spotify/SpotifyPlayer";
-import { initialDeviceID } from "../Spotify/SpotifyPlayerModule";
 import SVGIcon from "../Icons";
 
 export default function EpisodeCard({
@@ -36,66 +36,33 @@ export default function EpisodeCard({
   const { data: session } = useSession();
   const [deviceID] = useAtom(initialDeviceID);
   const [, setShowPlayer] = useAtom(initialShowPlayer);
-  const [spotifyAlbumURI, setSpotifyAlbumURI] = useState([]);
+  const [spotifyAlbumURI, setSpotifyAlbumURI] = useState();
 
   // __________________________________________________________________________
 
-  async function getSpotifyAlbumURI() {
-    if (session) {
-      const token = session.accessToken;
-      axios
-        .get(
-          `https://api.spotify.com/v1/search?q=Die%20drei%20???%20${title}&type=album&limit=1`,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        )
-        .then((response) => {
-          setSpotifyAlbumURI(response.data.albums.items[0].uri);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+  const { data } = useSWR(!spotifyAlbumURI ? `/api/getURI/${title}` : null);
+  if (data) {
+    setSpotifyAlbumURI(data.albums.items[0].uri);
   }
-
-  useEffect(() => {
-    getSpotifyAlbumURI();
-    // eslint-disable-next-line
-  }, []);
 
   // __________________________________________________________________________
 
   async function handleStartPlayer() {
-    if (session && deviceID) {
-      const token = session.accessToken;
-
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-
-      const body = {
-        context_uri: spotifyAlbumURI,
-      };
-
-      const queryParams = {
-        device_id: deviceID,
-      };
-
-      axios
-        .put("https://api.spotify.com/v1/me/player/play", body, {
-          headers,
-          params: queryParams,
-        })
-        .then((response) => {
-          console.log("Started playback", response.status, response.statusText);
-        })
-        .catch((error) => {
-          console.error(error);
+    if (session && deviceID && spotifyAlbumURI) {
+      try {
+        await fetch(`/api/startPlayer`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            albumURI: spotifyAlbumURI,
+            deviceID,
+          }),
         });
+      } catch (error) {
+        console.error(error.message);
+      }
       setShowPlayer(true);
     }
   }
