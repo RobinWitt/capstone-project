@@ -52,7 +52,7 @@ export default function EpisodeLastPlayedItem({ userData, reload }) {
 
   // __________________________________________________________________________
 
-  if (session && deviceID && userData) {
+  if (session && deviceID && lastPlayed.albumURI && lastPlayed.trackURI) {
     return (
       <OverviewListItem>
         <LastPlayedButton aria-label="Folge hören" onClick={handleStartPlayer}>

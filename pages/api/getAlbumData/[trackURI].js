@@ -1,9 +1,9 @@
 import { getToken } from "next-auth/jwt";
 
-export default async function handler(req, res) {
-  const token = await getToken({ req });
+export default async function handler(request, response) {
+  const token = await getToken({ req: request });
   const { accessToken } = token;
-  const { trackURI } = req.query;
+  const { trackURI } = request.query;
   const trackID = trackURI.split(":")[2];
 
   const headers = {
@@ -12,9 +12,9 @@ export default async function handler(req, res) {
   };
 
   if (accessToken && trackURI)
-    switch (req.method) {
+    switch (request.method) {
       case "GET": {
-        const response = await fetch(
+        const spotifyDataResponse = await fetch(
           `https://api.spotify.com/v1/tracks/${trackID}`,
           {
             method: "GET",
@@ -22,16 +22,16 @@ export default async function handler(req, res) {
           }
         );
 
-        if (response.ok) {
-          const data = await response.json();
-          return res.status(200).json(data);
+        if (spotifyDataResponse.ok) {
+          const data = await spotifyDataResponse.json();
+          return response.status(200).json(data);
         }
-        return res
+        return response
           .status(404)
-          .json({ status: "COULD NOT FIND REQUESTED DATA" });
+          .json({ status: "COULD NOT FIND requestUESTED DATA" });
       }
       default: {
-        return res.status(405).json({ status: "METHOD NOT ALLOWED" });
+        return response.status(405).json({ status: "METHOD NOT ALLOWED" });
       }
     }
 }

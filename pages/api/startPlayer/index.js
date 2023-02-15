@@ -1,9 +1,9 @@
 import { getToken } from "next-auth/jwt";
 
-export default async function handler(req, res) {
-  const token = await getToken({ req });
+export default async function handler(request, response) {
+  const token = await getToken({ req: request });
   const { accessToken } = token;
-  const { albumURI, trackURI, deviceID } = await req.body;
+  const { albumURI, trackURI, deviceID } = await request.body;
 
   const headers = {
     "Content-Type": "application/json",
@@ -21,9 +21,9 @@ export default async function handler(req, res) {
   const offsetValue = getOffsetValue();
 
   if (accessToken && deviceID)
-    switch (req.method) {
+    switch (request.method) {
       case "PUT": {
-        const response = await fetch(
+        const playbackResponse = await fetch(
           `https://api.spotify.com/v1/me/player/play?device_id=${deviceID}`,
           {
             method: "PUT",
@@ -35,13 +35,13 @@ export default async function handler(req, res) {
           }
         );
 
-        if (!response.ok) {
-          return res.status(404).json({ status: "COULD NOT OPEN PLAYER" });
+        if (!playbackResponse.ok) {
+          return response.status(404).json({ status: "COULD NOT OPEN PLAYER" });
         }
-        return res.status(200).json({ status: "PLAYER STARTED" });
+        return response.status(200).json({ status: "PLAYER STARTED" });
       }
       default: {
-        return res.status(405).json({ status: "METHOD NOT ALLOWED" });
+        return response.status(405).json({ status: "METHOD NOT ALLOWED" });
       }
     }
 }
