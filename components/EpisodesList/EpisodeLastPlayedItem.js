@@ -21,7 +21,9 @@ export default function EpisodeLastPlayedItem({ userData, reload }) {
   // __________________________________________________________________________
 
   const { data } = useSWR(
-    !spotifyData ? `/api/getAlbumData/${lastPlayed.trackURI}` : null
+    !spotifyData && lastPlayed
+      ? `/api/getAlbumData/${lastPlayed.trackURI}`
+      : null
   );
   if (data) {
     setSpotifyData(data);
