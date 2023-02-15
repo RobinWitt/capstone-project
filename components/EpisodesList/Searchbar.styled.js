@@ -10,7 +10,7 @@ export const SearchbarForm = styled.form`
   border-radius: 999px;
   width: 60%;
   max-width: 300px;
-  transition: width 0.5s;
+  transition: width 0.7s;
 
   ${({ showSearchbar }) => {
     if (showSearchbar === false) {
@@ -23,9 +23,8 @@ export const SearchbarForm = styled.form`
 `;
 
 export const SearchbarInput = styled.input`
-  background: none;
-  color: var(--accent);
-  caret-color: var(--accent);
+  background: var(--primary);
+  color: var(--background);
   border: none;
   outline: none;
   width: 100%;
