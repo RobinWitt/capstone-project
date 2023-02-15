@@ -21,7 +21,7 @@ export default function EpisodeLastPlayedItem({ userData, reload }) {
   // __________________________________________________________________________
 
   const { data } = useSWR(
-    !spotifyData && lastPlayed
+    !spotifyData && lastPlayed.albumURI && lastPlayed.trackURI
       ? `/api/getAlbumData/${lastPlayed.trackURI}`
       : null
   );
@@ -54,7 +54,7 @@ export default function EpisodeLastPlayedItem({ userData, reload }) {
 
   // __________________________________________________________________________
 
-  if (session && deviceID && lastPlayed.albumURI && lastPlayed.trackURI) {
+  if (session && deviceID && lastPlayed?.albumURI && lastPlayed?.trackURI) {
     return (
       <OverviewListItem>
         <LastPlayedButton aria-label="Folge hören" onClick={handleStartPlayer}>
