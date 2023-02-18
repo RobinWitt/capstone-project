@@ -1,8 +1,9 @@
-# Capstone Project - D1E DR3I ??? - inoffizieller Guide
+# Die Drei ??? - inoffizieller Guide
+20.01.23 - 15.02.23<br/>
+Capstone Project for neueFische Web Development Bootcamp
 
-started 20.01.23
 
-<img align="right" src="https://user-images.githubusercontent.com/117563487/219852002-a2abf1c1-5b2b-4e1b-b6e9-720b5bea1281.gif" alt="" width="250" style="margin-right:30px;"/>
+<img align="right" src="https://user-images.githubusercontent.com/117563487/219852099-0c0c0e69-ee8a-4abc-8e38-0d4ab4c8d327.png" alt="" width="250" style="margin-right:30px;"/>
 
 ### Technologies & packages
 
