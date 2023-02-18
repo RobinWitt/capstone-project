@@ -2,6 +2,8 @@
 
 started 20.01.23
 
+<img align="right" src="https://user-images.githubusercontent.com/117563487/219852002-a2abf1c1-5b2b-4e1b-b6e9-720b5bea1281.gif" alt="" width="250" style="margin-right:30px;"/>
+
 ### Technologies & packages
 
 - [Next.js](https://nextjs.org/)
