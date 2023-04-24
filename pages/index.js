@@ -16,18 +16,15 @@ export default function LandingPage({ providers }) {
   if (!session)
     return (
       <>
-        {Object.values(providers).map((provider) => (
-          <LogButton
-            key={provider.id}
-            type="button"
-            onClick={() => {
-              signIn(provider.id, { callbackUrl: "/startseite" });
-            }}
-          >
-            <SVGIcon variant="spotify" width="40px" />
-            {`${provider.name} Login`}
-          </LogButton>
-        ))}
+        <LogButton
+          type="button"
+          onClick={() => {
+            signIn({ callbackUrl: "/startseite" });
+          }}
+        >
+          <SVGIcon variant="spotify" width="40px" />
+          {`Login`}
+        </LogButton>
         <Greetings>
           Um dich einloggen und alle Funktionen nutzen zu können musst du zur
           Whitelist hinzugefügt werden
